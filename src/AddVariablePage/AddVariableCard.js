@@ -14,11 +14,26 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function AddVariableCard() {
+export default function AddVariableCard({ data, setData }) {
   const classes = useStyles();
+  const onClick = () => {
+    const newData = data;
+    newData["X"] = {
+        symbol: "X",
+        data: {
+          time: [1, 2, 3, 4],
+          mean: [0, 0, 0, 0],
+          std: [1, 1, 1, 1]
+        },
+        expression: "0",
+        title: "New Variable",
+        isProb: false
+      }
+    setData(newData);
+  }
   return (
     <Card className={classes.root}>
-      <IconButton aria-label="Do something">
+      <IconButton aria-label="Do something" onClick={onClick}>
         <AddIcon />
       </IconButton>
       <Typography variant="h7">Add New Variable</Typography>
