@@ -38,7 +38,7 @@ function VariableArea({ size: { width }, data, setData }) {
           // className="VariableCard"
           data-grid={{ w: 12, h: 1, x: 0, y: Infinity, i: "New" }}
         >
-          <AddVariableCard />
+          <AddVariableCard data={data} setData={setData}/>
         </div>
       </ResponsiveGridLayout>
     </>
