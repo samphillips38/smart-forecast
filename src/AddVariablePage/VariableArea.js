@@ -6,6 +6,11 @@ import AddVariableCard from "./AddVariableCard";
 import { SecurityUpdateWarningRounded } from "@mui/icons-material";
 
 function VariableArea({ size: { width }, data, setData }) {
+  const onRemoveItem = (symbol) => {
+    const newData = data;
+    delete newData[symbol];
+    setData(newData);
+  }
   return (
     <>
       <ResponsiveGridLayout
@@ -29,6 +34,7 @@ function VariableArea({ size: { width }, data, setData }) {
               value={value}
               data={data}
               setData={setData}
+              onRemoveItem={onRemoveItem}
             />
           </div>
         ))}
