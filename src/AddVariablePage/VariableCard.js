@@ -8,6 +8,10 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { InlineMath, renderMathInElement } from "react-katex";
 import { useEffect, useRef } from "react";
+import EditIcon from '@mui/icons-material/Edit';
+import { useState } from 'react';
+import EditVariableCard from "./EditVariableCard";
+import ShowVariableCard from "./ShowVariableCard";
 
 const useStyles = makeStyles({
   root: {
@@ -42,71 +46,21 @@ const useStyles = makeStyles({
     // display: "flex",
   }
 });
-export default function VariableCard({ symbol, value, data, setData }) {
-  const elementRef = useRef(null);
+export default function VariableCard({ symbol, value, data, setData, onRemoveItem }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedValue, setEditedValue] = useState(value);
+
   const classes = useStyles();
-  const onRemoveItem = (id) => {
-    console.log(id);
-  };
-  const onVarNameChanged = (e) => {
-    const newData = data;
-    const newValue = value;
-    newValue["title"] = e.target.value;
-    newData[symbol] = newValue;
-    setData(newData);
-  };
-  const onSymbolChanged = (e) => {
-    const newData = data;
-    const newValue = value;
-    newValue["symbol"] = e.target.value;
-    newData[symbol] = newValue;
-    setData(newData);
-  };
-  const onExpressionChanged = (e) => {
-    const newData = data;
-    const newValue = value;
-    newValue["expression"] = e.target.value;
-    newData[symbol] = newValue;
-    setData(newData);
-  };
+  const onEditClicked = () => {
+    setIsEditing(!isEditing);
+  }
   return (
     <Card className={classes.root}>
-      <div className={classes.editVariable}>
-        <TextField
-          className={classes.textField}
-          id={symbol}
-          label="Name"
-          defaultValue={value.title}
-          onChange={onVarNameChanged}
-          variant="outlined"
-        />
-        <TextField
-          className={classes.textField}
-          id={symbol}
-          label="Symbol"
-          defaultValue={value.symbol}
-          onChange={onSymbolChanged}
-          variant="outlined"
-        />
-        <DragHandleIcon fontSize="small" />
-        <TextField
-          className={classes.textField}
-          id={symbol}
-          label="Expression"
-          defaultValue={value.expression}
-          onChange={onExpressionChanged}
-          variant="outlined"
-        />
-      </div>
-      <div className={classes.showVariable}>
-        <IconButton
-          aria-label="delete"
-          className={classes.deleteIcon}
-          onClick={() => onRemoveItem(symbol)}
-        >
-          <CloseIcon fontSize="small" />
-        </IconButton>
-      </div>
+        {isEditing ? (
+            <EditVariableCard symbol={symbol} editedValue={editedValue} setEditedValue={setEditedValue}/>
+        ) : (
+            <ShowVariableCard symbol={symbol} value={value} onEditClicked={onEditClicked} />
+        )}
     </Card>
   );
 }
