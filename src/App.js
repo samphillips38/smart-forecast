@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import { CssBaseline, ThemeProvider, createMuiTheme } from "@material-ui/core";
+import { CssBaseline, ThemeProvider, createTheme } from "@material-ui/core";
 import Content from "./Content";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -60,7 +60,7 @@ export default function App() {
     setOpen(false);
   };
 
-  const theme = createMuiTheme({
+  const theme = createTheme({
     palette: {
       type: darkMode ? "dark" : "light"
     }
