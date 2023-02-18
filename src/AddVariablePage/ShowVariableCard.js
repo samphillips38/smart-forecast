@@ -3,18 +3,18 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Button from '@mui/material/Button';
-import { Stack } from "@mui/system";
-import { CardContent, Box } from "@material-ui/core";
+import { Box } from "@material-ui/core";
+import { Stack } from "@mui/material";
 
-export default function ShowVariableCard({ variable, setIsEditing, onRemoveItem }) {
+export default function ShowVariableCard({ variable, isEditing, setIsEditing, onRemoveItem }) {
   const onEditClicked = () => {
-    setIsEditing(true);
+    setIsEditing(!isEditing);
   };
   return (
-    <CardContent>
+    <>
         <Stack spacing={2}>
             <Stack direction="row" justifyContent="space-between">
-                <Typography variant="h4">{variable.title}, {variable.symbol}</Typography>
+                <Typography variant="h6">{variable.title}, {variable.symbol}</Typography>
                 <IconButton
                     aria-label="delete"
                     onClick={() => onRemoveItem(variable)}
@@ -25,13 +25,12 @@ export default function ShowVariableCard({ variable, setIsEditing, onRemoveItem 
             <Typography variant="h6">Graphs will go here</Typography>
             <Box alignSelf="flex-end">
                 <Button
-                    alignSelf="flex-end"
                     aria-label="Edit"
                     color="inherit"
                     onClick={onEditClicked}
-                >Edit Variable</Button>
+                >{isEditing ? "Edit Variable" : "Save Variable"}</Button>
             </Box>
         </Stack>
-    </CardContent>
+    </>
   );
 }

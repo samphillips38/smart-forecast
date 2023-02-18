@@ -1,13 +1,16 @@
 import TextField from "@mui/material/TextField";
-import { CardContent } from "@mui/material";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useState } from "react";
+import RVariableChart from "../charts/RVariableChart";
+import DetVariableChart from "../charts/DetVariableChart";
+import { Box } from "@material-ui/core";
+import EditableGraph from "./EditableGraph";
 
-export default function EditVariableCard({ variable, setIsEditing, onRemoveItem }) {
-    const [editedVariable, setEditedVariable] = useState(variable);
+
+export default function EditVariableCard({ variable, editedVariable, setEditedVariable, onRemoveItem }) {
     const onVarNameChanged = (e) => {
         const newValue = editedVariable;
         newValue.title = e.target.value;
@@ -28,8 +31,41 @@ export default function EditVariableCard({ variable, setIsEditing, onRemoveItem 
         setIsEditing(false);
     };
     return (
-        <CardContent>
+        <>
             <Stack direction="row" justifyContent="space-between" alignItems="center">
+                <TextField
+                    id={variable.symbol}
+                    label="Variable Name"
+                    defaultValue={editedVariable.title}
+                    onChange={onVarNameChanged}
+                />
+                <TextField
+                    id={variable.symbol}
+                    label="Symbol"
+                    defaultValue={editedVariable.symbol}
+                    onChange={onSymbolChanged}
+                />
+                <TextField
+                    id={variable.symbol}
+                    label="Expression"
+                    defaultValue={editedVariable.expression}
+                    onChange={onExpressionChanged}
+                />
+            </Stack>
+            {/* <Stack height={300} direction="row"> */}
+            {variable.isProb ? (
+                <EditableGraph editedVariable={editedVariable} setEditedVariable={setEditedVariable}/>
+                // <RVariableChart variableData={editedVariable.data}/>
+            ) : (
+                <DetVariableChart variableData={editedVariable.data}/>
+            )}
+                {/* {variable.isProb ? (
+                    <RVariableChart variableData={editedVariable.data}/>
+                ) : (
+                    <DetVariableChart variableData={editedVariable.data}/>
+                )}
+            </Stack> */}
+            {/* <Stack direction="row" justifyContent="space-between" alignItems="center">
                 <Stack spacing={2}>
                     <TextField
                         id={variable.symbol}
@@ -63,7 +99,7 @@ export default function EditVariableCard({ variable, setIsEditing, onRemoveItem 
                         onClick={onSaveClicked}
                     >Save Variable</Button>
                 </Stack>
-            </Stack>
-        </CardContent>
+            </Stack> */}
+        </>
     );
 }
