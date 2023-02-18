@@ -5,7 +5,7 @@ import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
 import AddVariableCard from "./AddVariableCard";
 import { SecurityUpdateWarningRounded } from "@mui/icons-material";
 
-function VariableArea({ size: { width }, data, setData }) {
+function VariableArea({ size: { width }, data, setData, layouts }) {
   const onRemoveItem = (symbol) => {
     const newData = data;
     delete newData[symbol];
@@ -15,10 +15,10 @@ function VariableArea({ size: { width }, data, setData }) {
     <>
       <ResponsiveGridLayout
         className="layout"
-        // layouts={layouts}
+        layouts={layouts}
         // breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-        // cols={{ lg: 1, md: 1, sm: 1, xs: 1, xxs: 1 }}
-        rowHeight={100}
+        cols={{ lg: 1, md: 1, sm: 1, xs: 1, xxs: 1 }}
+        rowHeight={200}
         width={width}
         isDraggable={false}
         // onLayoutChange={onLayoutChange}
