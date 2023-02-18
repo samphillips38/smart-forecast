@@ -29,24 +29,36 @@ export default function EditableGraph({ editedVariable, setEditedVariable }) {
 
     function getDistAtTime(t) {
         const probabilityDensityData = [];
+        let minLim = 0;
+        let maxLim = 0;
         let mean = 0;
         let standardDeviation = 0;
-        console.log(editedVariable.data.time);
         editedVariable.data.time.forEach((t_el, i) => {
             if (t_el == t) {
                 mean = editedVariable.data.mean[i];
                 standardDeviation = editedVariable.data.std[i];
             }
+            const lowerVal = editedVariable.data.mean[i] - 5*editedVariable.data.std[i];
+            const upperVal = editedVariable.data.mean[i] + 5*editedVariable.data.std[i];
+            if (lowerVal < minLim) {
+                minLim = lowerVal;
+            }
+            if (upperVal > maxLim) {
+                maxLim = upperVal;
+            }
         });
-        for (let i = -4; i <= 30; i += 0.1) {
+        for (let i = minLim; i <= maxLim; i += (maxLim - minLim) / 100) {
             const probabilityDensity = (1 / (standardDeviation * Math.sqrt(2 * Math.PI))) * Math.exp(0-(i - mean) ** 2 / (2 * standardDeviation ** 2));
-            probabilityDensityData.push({ x: i, y: probabilityDensity });
+            probabilityDensityData.push({ x: i.toFixed(2), y: probabilityDensity });
         }
         return probabilityDensityData;
     };
     const onMouseMove = (e) => {
         const toTime = e.activeTooltipIndex + 1;
         setSelectedTime(toTime);
+    }
+    const onMouseClick = (e) => {
+        const toTime = e.activeTooltipIndex + 1;
         if (toTime != null) {
             setProbabilityDensityData(getDistAtTime(toTime));
         }
@@ -54,7 +66,7 @@ export default function EditableGraph({ editedVariable, setEditedVariable }) {
     return (
             <Stack direction="row" height={300}>
                 <ResponsiveContainer width="99%" height="99%">
-                    <LineChart data={data} onMouseMove={onMouseMove}>
+                    <LineChart data={data} onMouseMove={onMouseMove} onClick={onMouseClick}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
                         <YAxis />
