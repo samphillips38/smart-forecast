@@ -34,19 +34,17 @@ export default function Widget({
 }) {
   const classes = useStyles();
   return (
-    <Card className={classes.root}>
-      <div className={classes.header}>
-        <Typography variant="h6" gutterBottom>
-          {id}
-        </Typography>
-        <div className={classes.spacer} />
-        <IconButton aria-label="delete" onClick={() => onRemoveItem(id)}>
-          <CloseIcon fontSize="small" />
-        </IconButton>
-      </div>
-      <div className={classes.body}>
-        <Item variableData={variable["data"]} />
-      </div>
-    </Card>
+        <Card className={classes.root}>
+            <div className={classes.header}>
+                <Typography variant="h6" gutterBottom>{id}</Typography>
+                    <div className={classes.spacer} />
+                <IconButton aria-label="delete" onClick={() => onRemoveItem(id)}>
+                    <CloseIcon fontSize="small" />
+                </IconButton>
+            </div>
+            <div className={classes.body}>
+                <Item variableData={variable["data"]} />
+            </div>
+        </Card>
   );
 }
