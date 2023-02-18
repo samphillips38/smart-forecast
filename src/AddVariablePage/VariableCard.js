@@ -3,15 +3,14 @@ import { useState } from 'react';
 import EditVariableCard from "./EditVariableCard";
 import ShowVariableCard from "./ShowVariableCard";
 
-export default function VariableCard({ symbol, value, data, setData, onRemoveItem }) {
+export default function VariableCard({ variable, onRemoveItem }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedValue, setEditedValue] = useState(value);
   return (
     <Card>
         {isEditing ? (
-            <EditVariableCard symbol={symbol} editedValue={editedValue} setEditedValue={setEditedValue} setIsEditing={setIsEditing} onRemoveItem={onRemoveItem}/>
+            <EditVariableCard variable={variable} setIsEditing={setIsEditing} onRemoveItem={onRemoveItem}/>
         ) : (
-            <ShowVariableCard symbol={symbol} value={value} setIsEditing={setIsEditing} onRemoveItem={onRemoveItem}/>
+            <ShowVariableCard variable={variable} setIsEditing={setIsEditing} onRemoveItem={onRemoveItem}/>
         )}
     </Card>
   );
