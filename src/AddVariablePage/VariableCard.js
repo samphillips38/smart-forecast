@@ -31,7 +31,7 @@ export default function VariableCard({ variable, onRemoveItem }) {
                     {isEditing ? (
                         <EditVariableCard variable={variable} editedVariable={editedVariable} setEditedVariable={setEditedVariable} setIsEditing={setIsEditing} onRemoveItem={onRemoveItem}/>
                     ) : (
-                        <ShowVariableCard variable={variable} isEditing={isEditing} setIsEditing={setIsEditing} onRemoveItem={onRemoveItem}/>
+                        <ShowVariableCard variable={variable} editedVariable={editedVariable} setEditedVariable={setEditedVariable} onRemoveItem={onRemoveItem}/>
                     )}
                     <Box alignSelf="flex-end">
                         <Button
