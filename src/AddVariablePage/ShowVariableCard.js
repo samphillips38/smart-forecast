@@ -1,18 +1,12 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
-import Button from '@mui/material/Button';
-import { Box } from "@material-ui/core";
-import { Stack } from "@mui/material";
+import EditableGraph from "./EditableGraph";
+import DetVariableChart from "../charts/DetVariableChart";
+import { ResponsiveContainer } from "recharts";
 
-export default function ShowVariableCard({ variable, isEditing, setIsEditing, onRemoveItem }) {
-  const onEditClicked = () => {
-    setIsEditing(!isEditing);
-  };
+export default function ShowVariableCard({ variable, editedVariable, setEditedVariable, onRemoveItem }) {
   return (
     <>
-        <Stack spacing={2}>
+        {/* <Stack spacing={2}>
             <Stack direction="row" justifyContent="space-between">
                 <Typography variant="h6">{variable.title}, {variable.symbol}</Typography>
                 <IconButton
@@ -30,7 +24,15 @@ export default function ShowVariableCard({ variable, isEditing, setIsEditing, on
                     onClick={onEditClicked}
                 >{isEditing ? "Edit Variable" : "Save Variable"}</Button>
             </Box>
-        </Stack>
+        </Stack> */}
+        {variable.isProb ? (
+            <EditableGraph editedVariable={editedVariable} setEditedVariable={setEditedVariable}/>
+            // <RVariableChart variableData={editedVariable.data}/>
+        ) : (
+            <ResponsiveContainer width="99%" height={300}>
+                <DetVariableChart variableData={editedVariable.data}/>
+            </ResponsiveContainer>
+        )}
     </>
   );
 }
