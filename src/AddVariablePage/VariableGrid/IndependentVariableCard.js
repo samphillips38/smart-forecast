@@ -1,7 +1,7 @@
 import Card from "@material-ui/core/Card";
 import { useState } from 'react';
-import EditVariableCard from "./EditVariableCard";
-import ShowVariableCard from "./ShowVariableCard";
+import EditVariableCard from "../EditVariableCard";
+import ShowVariableCard from "../ShowVariableCard";
 import { CardContent, Box } from "@material-ui/core";
 import Button from '@mui/material/Button';
 import Typography from "@material-ui/core/Typography";
@@ -9,7 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { Stack } from "@mui/material";
 
-export default function VariableCard({ variable, onRemoveItem }) {
+export default function IndependentVariableCard({ variable, onRemoveItem }) {
     const [editedVariable, setEditedVariable] = useState(variable);
     const [isEditing, setIsEditing] = useState(false);
     const onEditClicked = () => {
