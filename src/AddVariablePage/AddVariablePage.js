@@ -22,10 +22,10 @@ export default function AddVariablePage({ data, setData }) {
             <ConstantsGrid data={data} setData={setData}></ConstantsGrid>
             <Typography h4>Independent Variables</Typography>
             <Divider/>
-            {/* <VariableGrid data={data} setData={setData} isDependent={false}/> */}
+            <VariableGrid data={data} setData={setData} isDependent={false}/>
             <Typography h4>Dependent Variables</Typography>
             <Divider/>
-            {/* <VariableGrid data={data} setData={setData} isDependent={true}/> */}
+            <VariableGrid data={data} setData={setData} isDependent={true}/>
             {/* {Object.entries(data).map(([key, value]) => (
                 <VariableCard
                     variable={value}
