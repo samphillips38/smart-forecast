@@ -21,9 +21,18 @@ export default function Dashboard({ data }) {
   const onAddItem = (symbol) => {
     setItemSymbolsToDisplay([...itemSymbolsToDisplay, symbol]);
   };
+  const getItemSymbolsToDisplay = () => {
+    let output = [];
+    Object.entries(data).map(([key, value]) => {
+        if (value.type != 'Constant') {
+            output.push(key);
+        }
+    })
+    return output;
+  }
 
   useEffect(() => {
-    setItemSymbolsToDisplay(Object.entries(data).map(([key, value]) => key));
+    setItemSymbolsToDisplay(getItemSymbolsToDisplay());
     setLayouts(getLayoutsFromFormattedData(data));
   }, [data]);
 
