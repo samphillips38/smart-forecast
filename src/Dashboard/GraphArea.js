@@ -13,6 +13,7 @@ function GraphArea({
   layouts,
   onLayoutChange
 }) {
+    console.log(itemSymbolsToDisplay);
   return (
     <>
         <ResponsiveGridLayout
