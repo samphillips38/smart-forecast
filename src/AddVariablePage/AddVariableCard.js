@@ -36,7 +36,7 @@ export default function AddVariableCard({ data, setData }) {
       <IconButton aria-label="Do something" onClick={onClick}>
         <AddIcon />
       </IconButton>
-      <Typography variant="h7">Add New Variable</Typography>
+      <Typography variant="h6">Add New Variable</Typography>
     </Card>
   );
 }
