@@ -13,7 +13,7 @@ export default function VariableGrid({ data, setData, isDependent }) {
 
     }
     return (
-        <Grid spacing={{xs: 3}} rowSpacing={3}>
+        <Grid spacing={3} rowSpacing={3}>
             {Object.entries(data).map(([key, value]) => (
                 value.type == type && value.type == "Dependent" && (
                     <Grid item key={key} xs>
