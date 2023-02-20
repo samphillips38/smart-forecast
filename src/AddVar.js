@@ -47,30 +47,6 @@ export default function AddVar({ data, setData, onClick }) {
         </ListItemIcon>
         <ListItemText primary="Add Variable" />
       </ListItem>
-      {/* <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center"
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center"
-        }}
-      >
-        <div className={classes.popup}>
-          <Grid container spacing={3} columns={1} width="600px">
-            {Object.entries(data).map(([key, value]) => (
-              <Grid item xs={1}>
-                <VariableCard symbol={key} value={value} />
-              </Grid>
-            ))}
-          </Grid>
-        </div>
-      </Popover> */}
     </>
   );
 }
