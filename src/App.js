@@ -6,6 +6,7 @@ import Content from "./Content";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { getData, formatData } from "./Utility";
+import { Box } from "@material-ui/core";
 
 const loadedData = getData();
 const drawerWidth = 240;
@@ -43,16 +44,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
   const [data, setData] = useState({});
   const [content, setContent] = useState("Dashboard");
+  const [contentWidth, setContentWidth] = useState(`calc(100vw - ${open ? drawerWidth : 0}px)`)
+
 
   useEffect(() => {
     setData(formatData(loadedData));
   }, []);
 
   const handleDrawerToggle = () => {
+    setContentWidth(`calc(100vw - ${!open ? drawerWidth : 0}px - 50px)`);
     setOpen(!open);
   };
 
@@ -89,7 +93,9 @@ export default function App() {
           })}
         >
           <div className={classes.drawerHeader} />
-          <Content data={data} setData={setData} content={content} />
+          <Box width={contentWidth}>
+            <Content data={data} setData={setData} content={content} />
+          </Box>
         </main>
       </div>
     </ThemeProvider>
