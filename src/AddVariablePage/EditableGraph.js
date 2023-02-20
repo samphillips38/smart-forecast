@@ -15,6 +15,7 @@ import {
 } from "recharts";
 import Stack from '@mui/material/Stack';
 import { useState } from "react";
+import { Grid, CardContent } from "@material-ui/core";
 
 export default function EditableGraph({ editedVariable, setEditedVariable }) {
     const [probabilityDensityData, setProbabilityDensityData] = useState(getDistAtTime(1))
@@ -90,8 +91,9 @@ export default function EditableGraph({ editedVariable, setEditedVariable }) {
         }
     }
     return (
-            <Stack direction="row" height={300}>
-                <ResponsiveContainer width="99%" height="99%">
+        <Grid container spacing={1}>
+            <Grid item xs={12} md={6}>
+                <ResponsiveContainer width="99%" height={300}>
                     <LineChart data={data} onMouseMove={onMouseMove} onClick={onMouseClick}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
@@ -100,19 +102,21 @@ export default function EditableGraph({ editedVariable, setEditedVariable }) {
                         <Line type="monotone" dataKey="std+" stroke="#ffc658" />
                         <Line type="monotone" dataKey="mean" stroke="#ff7300" />
                         <Line type="monotone" dataKey="std-" stroke="#ffc658" />
-                        {/* <ReferenceLine x={selectedTime} stroke="red" strokeWidth={2} /> */}
                     </LineChart>
-                    </ResponsiveContainer>
-                    <ResponsiveContainer width="99%" height="99%">
-                        <AreaChart data={probabilityDensityData} onMouseDown={onProbMouseDown} onMouseUp={onProbMouseUp} onMouseMove={onProbMouseMove}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="x" />
-                            <YAxis />
-                            <Tooltip />
-                            <Area type="monotone" dataKey="y" stroke="#8884d8" fill="#8884d8" />
-                            <Line type="linear" dataKey="y" stroke="#ff7300" />
-                        </AreaChart>
-                    </ResponsiveContainer>
-            </Stack>
+                </ResponsiveContainer>
+            </Grid>
+            <Grid item xs={12} md={6}>
+                <ResponsiveContainer width="99%" height={300}>
+                    <AreaChart data={probabilityDensityData} onMouseDown={onProbMouseDown} onMouseUp={onProbMouseUp} onMouseMove={onProbMouseMove}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="x" />
+                        <YAxis />
+                        <Tooltip />
+                        <Area type="monotone" dataKey="y" stroke="#8884d8" fill="#8884d8" />
+                        <Line type="linear" dataKey="y" stroke="#ff7300" />
+                    </AreaChart>
+                </ResponsiveContainer>
+            </Grid>
+        </Grid>
       );
 }
