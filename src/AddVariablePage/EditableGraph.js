@@ -91,9 +91,9 @@ export default function EditableGraph({ editedVariable, setEditedVariable }) {
         }
     }
     return (
-        <Grid container spacing={1}>
+        <Grid container>
             <Grid item xs={12} md={6}>
-                <ResponsiveContainer width="99%" height={300}>
+                <ResponsiveContainer width="100%" height={300}>
                     <LineChart data={data} onMouseMove={onMouseMove} onClick={onMouseClick}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
@@ -106,7 +106,7 @@ export default function EditableGraph({ editedVariable, setEditedVariable }) {
                 </ResponsiveContainer>
             </Grid>
             <Grid item xs={12} md={6}>
-                <ResponsiveContainer width="99%" height={300}>
+                <ResponsiveContainer width="100%" height={300}>
                     <AreaChart data={probabilityDensityData} onMouseDown={onProbMouseDown} onMouseUp={onProbMouseUp} onMouseMove={onProbMouseMove}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="x" />
