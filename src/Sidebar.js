@@ -15,6 +15,7 @@ import EventIcon from "@material-ui/icons/Event";
 import ExploreIcon from "@material-ui/icons/Explore";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import SettingsIcon from "@material-ui/icons/Settings";
+import CalculateIcon from "@mui/icons-material/Calculate";
 
 const drawerWidth = 240;
 
