@@ -78,19 +78,19 @@ export default function ({
             <ListItemIcon>
               <MailIcon />
             </ListItemIcon>
-            <ListItemText primary="Mail" />
+            <ListItemText primary="Scenarios" />
           </ListItem>
           <ListItem button>
             <ListItemIcon>
               <EventIcon />
             </ListItemIcon>
-            <ListItemText primary="Events" />
+            <ListItemText primary="Optimisations" />
           </ListItem>
           <ListItem button>
             <ListItemIcon>
               <ExploreIcon />
             </ListItemIcon>
-            <ListItemText primary="Explore" />
+            <ListItemText primary="Sensitivity Analysis" />
           </ListItem>
           <ListItem button>
             <ListItemIcon>
