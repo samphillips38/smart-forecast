@@ -81,8 +81,6 @@ export default function App() {
         <Sidebar
           handleDrawerClose={handleDrawerClose}
           open={open}
-          data={data}
-          setData={setData}
           setContent={setContent}
         />
         <main
