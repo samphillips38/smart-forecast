@@ -46,6 +46,6 @@ function GraphArea({
   );
 }
 
-export default withSize({ refreshMode: "debounce", refreshRate: 60 })(
+export default withSize({ refreshMode: "throttle", refreshRate: 166 })(
   GraphArea
 );
