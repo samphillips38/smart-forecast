@@ -16,7 +16,7 @@ export default function Chart({ variableData }) {
     mean: variableData["mean"][i]
   }));
   return (
-    <ResponsiveContainer width="99%" height="99%">
+    <ResponsiveContainer>
       <LineChart
         data={data}
         margin={{

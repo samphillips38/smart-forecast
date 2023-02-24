@@ -3,13 +3,12 @@ import Dashboard from "./Dashboard/Dashboard";
 import AddVariablePage from "./AddVariablePage/AddVariablePage";
 
 export default function Content({ data, setData, content }) {
-  return (
-    <>
-      {content === "Dashboard" ? (
-        <Dashboard data={data} />
-      ) : (
-        <AddVariablePage data={data} setData={setData} />
-      )}
-    </>
-  );
+    switch (content) {
+        case "Dashboard":
+            return (<Dashboard data={data} />);
+        case "Add Variable":
+            return (<AddVariablePage data={data} setData={setData} />);
+        default:
+            return (<Dashboard data={data} />);
+    };
 }
