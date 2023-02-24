@@ -13,10 +13,10 @@ export default function VariableGrid({ data, setData, isDependent }) {
 
     }
     return (
-        <Grid spacing={3} rowSpacing={3}>
+        <Grid container spacing={2} wrap="wrap">
             {Object.entries(data).map(([key, value]) => (
                 value.type == type && value.type == "Dependent" && (
-                    <Grid item key={key} xs>
+                    <Grid item key={key} xs={12}>
                         <IndependentVariableCard
                         variable={value}
                         onRemoveItem={onRemoveItem}
@@ -25,14 +25,14 @@ export default function VariableGrid({ data, setData, isDependent }) {
             ))}
             {Object.entries(data).map(([key, value]) => (
                 value.type == type && value.type == "Independent" && (
-                    <Grid item key={key} xs>
+                    <Grid item key={key} xs={12}>
                         <IndependentVariableCard
                         variable={value}
                         onRemoveItem={onRemoveItem}
                         />
                     </Grid>)
             ))}
-            <Grid item key="Add Variable">
+            <Grid item key="Add Variable" xs={12}>
                 <Card >
                     <IconButton aria-label="Add Variable" onClick={handleAddVariable}>
                         <AddIcon />
