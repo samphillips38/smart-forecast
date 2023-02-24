@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Stack from '@mui/material/Stack';
-import AddVariableCard from "./AddVariableCard";
+import AddVariableCard from "./VariableGrid/AddVariableCard";
 import Typography from "@material-ui/core/Typography";
 import { Divider } from "@material-ui/core";
 import ConstantsGrid from "./ConstantsGrid/ConstantsGrid";
