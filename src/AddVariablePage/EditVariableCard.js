@@ -21,7 +21,6 @@ function TabPanel(props) {
                 <>
                     {editedVariable.isProb ? (
                         <EditableGraph editedVariable={editedVariable} setEditedVariable={setEditedVariable}/>
-                        // <RVariableChart variableData={editedVariable.data}/>
                     ) : (
                         <DetVariableChart variableData={editedVariable.data}/>
                     )}

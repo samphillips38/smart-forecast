@@ -35,7 +35,6 @@ export default function IndependentVariableCard({ variable, onRemoveItem }) {
                     )}
                     <Box alignSelf="flex-end">
                         <Button
-                            alignSelf="flex-end"
                             aria-label="Edit"
                             color="inherit"
                             onClick={onEditClicked}
