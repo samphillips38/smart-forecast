@@ -6,7 +6,7 @@ import { Divider } from "@material-ui/core";
 import ConstantsGrid from "./ConstantsGrid/ConstantsGrid";
 import VariableGrid from "./VariableGrid/VariableGrid";
 
-export default function AddVariablePage({ data, setData }) {
+export default function VariablePage({ data, setData }) {
     const onRemoveItem = (variable) => {
         console.log('Deleted');
         console.log(variable.symbol);
