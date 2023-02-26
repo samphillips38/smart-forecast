@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { Divider } from "@material-ui/core";
 import ConstantsGrid from "./ConstantsGrid/ConstantsGrid";
 import VariableGrid from "./VariableGrid/VariableGrid";
+import Timeline from "./Timeline/Timeline";
 
 export default function VariablePage({ data, setData }) {
     const onRemoveItem = (variable) => {
@@ -13,6 +14,9 @@ export default function VariablePage({ data, setData }) {
     };
     return (
         <Stack spacing={2} >
+            <Typography variant="h5">Timeline</Typography>
+            <Divider/>
+            <Timeline/>
             <Typography variant="h5">Constants</Typography>
             <Divider/>
             <ConstantsGrid data={data} setData={setData}></ConstantsGrid>
