@@ -10,6 +10,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import ProbSelector from "./ProbSelector";
 import DeterministicSelector from "./DeterministicSelector";
+import Timeline from "../../Timeline/Timeline";
 
 const defaultVariable = {
     'symbol': 'x',
@@ -81,6 +82,8 @@ export default function AddVariablePage({ variable, open, setOpen }) {
                                 />
                         </Grid>
                     </Grid>
+                    <Typography variant="h6">Timeline</Typography>
+                    <Timeline/>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <Tabs value={tabIndex} onChange={onTabIndexChange} aria-label="basic tabs example" color="inherit">
                             <Tab label="Deterministic" {...a11yProps(0)} />
