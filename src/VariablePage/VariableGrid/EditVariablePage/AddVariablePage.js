@@ -5,16 +5,47 @@ import { Button } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import { height } from "@mui/system";
 import TextField from "@mui/material/TextField";
+import Typography from "@material-ui/core/Typography";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import ProbSelector from "./ProbSelector";
+import DeterministicSelector from "./DeterministicSelector";
 
 const defaultVariable = {
     'symbol': 'x',
     'title': 'thing'
 }
 
+function TabPanel(props) {
+    const { value, variable } = props;
+    switch (value) {
+        case 0:
+            return (
+                <DeterministicSelector variable={variable} />
+            );
+        case 1:
+            return (
+                <ProbSelector variable={variable} />
+            );
+        default:
+            break;
+    }
+};
+function a11yProps(index) {
+    return {
+    id: `simple-tab-${index}`,
+    'color': 'inherit',
+    'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
 export default function AddVariablePage({ variable, open, setOpen }) {
     const [editedVariable, setEditedVariable] = useState(
         variable || defaultVariable
     );
+    const [tabIndex, setTabIndex] = useState(0);
+    const onTabIndexChange = (event, newValue) => {
+        setTabIndex(newValue);
+    }
     const onClose = () => {
         console.log('Closed');
         setOpen(false);
@@ -50,6 +81,13 @@ export default function AddVariablePage({ variable, open, setOpen }) {
                                 />
                         </Grid>
                     </Grid>
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                        <Tabs value={tabIndex} onChange={onTabIndexChange} aria-label="basic tabs example" color="inherit">
+                            <Tab label="Deterministic" {...a11yProps(0)} />
+                            <Tab label="Probabilistic" {...a11yProps(1)} />
+                        </Tabs>
+                    </Box>
+                    <TabPanel value={tabIndex}/>
                     <Grid container justifyContent="space-between">
                         <Grid item xs={1}>
                             <Button onClick={onClose}>Cancel</Button>
