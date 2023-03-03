@@ -12,17 +12,12 @@ import ProbSelector from "./ProbSelector";
 import DeterministicSelector from "./DeterministicSelector";
 import Timeline from "../../Timeline/Timeline";
 
-const defaultVariable = {
-    'symbol': 'x',
-    'title': 'thing'
-}
-
 function TabPanel(props) {
-    const { value, variable } = props;
+    const { value, variable, timelineData } = props;
     switch (value) {
         case 0:
             return (
-                <DeterministicSelector variable={variable} />
+                <DeterministicSelector variable={variable} timelineData={timelineData}/>
             );
         case 1:
             return (
@@ -39,7 +34,15 @@ function a11yProps(index) {
     'aria-controls': `simple-tabpanel-${index}`,
     };
 }
-export default function AddVariablePage({ variable, open, setOpen }) {
+export default function AddVariablePage({ variable, open, setOpen, timelineData }) {
+    const defaultVariable = {
+        symbol: 'x',
+        title: 'New Variable',
+        data: {
+            time: timelineData,
+            mean: [0.5, 0.5, 0.5, 0.5, 0.5]
+        }
+    }
     const [editedVariable, setEditedVariable] = useState(
         variable || defaultVariable
     );
@@ -60,7 +63,7 @@ export default function AddVariablePage({ variable, open, setOpen }) {
     return (
         <Dialog onClose={onClose} open={open} maxWidth={false}>
             <DialogTitle>Edit Variable</DialogTitle>
-            <DialogContent style={{width: '60vw', height: '90vh'}}>
+            <DialogContent style={{width: '75vw', height: '90vh'}}>
                 <Stack spacing={2}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
@@ -90,7 +93,7 @@ export default function AddVariablePage({ variable, open, setOpen }) {
                             <Tab label="Probabilistic" {...a11yProps(1)} />
                         </Tabs>
                     </Box>
-                    <TabPanel value={tabIndex}/>
+                    <TabPanel value={tabIndex} variable={editedVariable} timelineData={timelineData}/>
                     <Grid container justifyContent="space-between">
                         <Grid item xs={1}>
                             <Button onClick={onClose}>Cancel</Button>
