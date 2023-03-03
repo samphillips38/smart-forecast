@@ -6,7 +6,7 @@ import IndependentVariableCard from "./IndependentVariableCard";
 import AddVariablePage from "./EditVariablePage/AddVariablePage";
 import { useState } from "react";
 
-export default function VariableGrid({ data, setData, isDependent }) {
+export default function VariableGrid({ data, setData, isDependent, timelineData }) {
     const [open, setOpen] = useState(false);
     const type = isDependent ? "Dependent" : "Independent";
     const onRemoveItem = () => {
@@ -40,7 +40,12 @@ export default function VariableGrid({ data, setData, isDependent }) {
                     <IconButton aria-label="Add Variable" onClick={handleAddVariable}>
                         <AddIcon />
                     </IconButton>
-                    <AddVariablePage variable={null} open={open} setOpen={setOpen}/>
+                    <AddVariablePage 
+                    variable={null} 
+                    open={open} 
+                    setOpen={setOpen}
+                    timelineData={timelineData}
+                    />
                 </Card>
             </Grid>
         </Grid>
