@@ -50,6 +50,18 @@ export function getData() {
   return testData;
 }
 
+export function getTimelineData() {
+    const currentDate = new Date();
+    const timelineData = [
+        currentDate,
+        new Date(currentDate.getFullYear(), currentDate.getMonth() + 3, currentDate.getDate()),
+        new Date(currentDate.getFullYear(), currentDate.getMonth() + 6, currentDate.getDate()),
+        new Date(currentDate.getFullYear(), currentDate.getMonth() + 9, currentDate.getDate()),
+        new Date(currentDate.getFullYear(), currentDate.getMonth() + 12, currentDate.getDate()),
+    ];
+    return timelineData;
+}
+
 export function getLayout(data) {
   const lgList = data.map(function (element) {
     return {
