@@ -10,7 +10,7 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-export default function Chart({ variableData }) {
+export default function DetVariableChart({ variableData }) {
   const data = variableData["time"].map((t, i) => ({
     name: t,
     mean: variableData["mean"][i]
@@ -30,7 +30,7 @@ export default function Chart({ variableData }) {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Legend />
+        {/* <Legend /> */}
         {/* <Line
           type="monotone"
           dataKey="pv"
