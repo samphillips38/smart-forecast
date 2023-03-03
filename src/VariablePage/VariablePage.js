@@ -6,12 +6,14 @@ import { Divider } from "@material-ui/core";
 import ConstantsGrid from "./ConstantsGrid/ConstantsGrid";
 import VariableGrid from "./VariableGrid/VariableGrid";
 import Timeline from "./Timeline/Timeline";
+import { getTimelineData } from "../Utility";
 
 export default function VariablePage({ data, setData }) {
     const onRemoveItem = (variable) => {
         console.log('Deleted');
         console.log(variable.symbol);
     };
+    const timelineData = getTimelineData();
     return (
         <Stack spacing={2} >
             <Typography variant="h5">Timeline</Typography>
@@ -22,10 +24,20 @@ export default function VariablePage({ data, setData }) {
             <ConstantsGrid data={data} setData={setData}></ConstantsGrid>
             <Typography variant="h5">Independent Variables</Typography>
             <Divider/>
-            <VariableGrid data={data} setData={setData} isDependent={false}/>
+            <VariableGrid 
+            data={data} 
+            setData={setData} 
+            isDependent={false} 
+            timelineData={timelineData}
+            />
             <Typography variant="h5">Dependent Variables</Typography>
             <Divider/>
-            <VariableGrid data={data} setData={setData} isDependent={true}/>
+            <VariableGrid 
+            data={data} 
+            setData={setData} 
+            isDependent={true} 
+            timelineData={timelineData}
+            />
             <AddVariableCard data={data} setData={setData}/>
         </Stack>
     );
