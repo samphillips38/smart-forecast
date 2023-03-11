@@ -4,7 +4,6 @@ import { Grid, CardContent } from "@material-ui/core";
 import { Button, CardActionArea } from '@mui/material';
 import GaussianChart from "../../../charts/ExampleCharts/Gaussian";
 import TriangleChart from "../../../charts/ExampleCharts/Triangle";
-import ProbAttributeSelector from "./ProbAttributeSelector";
 import { useState } from "react";
 import EditableGaussian from "../../../charts/EditableGaussian";
 import EditableTriangular from "../../../charts/EditableTriangular";
@@ -43,14 +42,8 @@ export default function ProbSelector({ editedVariable, setEditedVariable }) {
                 <ProbCard onClick={() => {handleCardSelected('Triangular')}}>
                     <TriangleChart width="100%" height={150}/>
                 </ProbCard>
-                {[0, 1, 2, 3].map((element) => (
-                    <ProbCard>
-                        {element % 2 ? (<TriangleChart width="100%" height={150}/>) : (<GaussianChart width="100%" height={150}/>)}
-                    </ProbCard>
-                ))}
             </Grid>
             <Typography>{editedVariable['probType']}</Typography>
-            {/* <ProbAttributeSelector editedVariable={editedVariable} setEditedVariable={setEditedVariable}/> */}
             {(() => {
                 switch (selectedDist) {
                     case 'Gaussian':
