@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 export default function App() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
   const [data, setData] = useState({});
   const [content, setContent] = useState("Dashboard");
   const [contentWidth, setContentWidth] = useState(`calc(100vw - ${open ? drawerWidth : 0}px - 50px)`) // There is a fudge factor of 50px - not sure why it is needed
