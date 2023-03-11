@@ -1,7 +1,6 @@
 import React from "react";
 import EditableGraph from "./EditableGraph";
 import DetVariableChart from "../../charts/DetVariableChart";
-import { Box } from "@material-ui/core";
 
 export default function ShowVariableCard({ variable, editedVariable, setEditedVariable, onRemoveItem }) {
   return (
@@ -9,7 +8,7 @@ export default function ShowVariableCard({ variable, editedVariable, setEditedVa
         {variable.isProb ? (
             <EditableGraph editedVariable={editedVariable} setEditedVariable={setEditedVariable}/>
         ) : (
-            <DetVariableChart variableData={editedVariable.data}/>
+            <DetVariableChart variableData={editedVariable.data} width="100%" height={350}/>
         )}
     </>
   );
