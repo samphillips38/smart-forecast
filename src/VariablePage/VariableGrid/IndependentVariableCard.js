@@ -1,6 +1,5 @@
 import Card from "@material-ui/core/Card";
 import { useState } from 'react';
-import EditVariableCard from "./EditVariableCard";
 import ShowVariableCard from "./ShowVariableCard";
 import { CardContent, Box } from "@material-ui/core";
 import Button from '@mui/material/Button';
@@ -28,11 +27,7 @@ export default function IndependentVariableCard({ variable, onRemoveItem }) {
                             <CloseIcon fontSize="small" />
                         </IconButton>
                     </Stack>
-                    {isEditing ? (
-                        <EditVariableCard variable={variable} editedVariable={editedVariable} setEditedVariable={setEditedVariable} setIsEditing={setIsEditing} onRemoveItem={onRemoveItem}/>
-                    ) : (
-                        <ShowVariableCard variable={variable} editedVariable={editedVariable} setEditedVariable={setEditedVariable} onRemoveItem={onRemoveItem}/>
-                    )}
+                    <ShowVariableCard variable={variable} editedVariable={editedVariable} setEditedVariable={setEditedVariable} onRemoveItem={onRemoveItem}/>
                     <Box alignSelf="flex-end">
                         <Button
                             aria-label="Edit"
