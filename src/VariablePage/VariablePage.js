@@ -7,6 +7,7 @@ import ConstantsGrid from "./ConstantsGrid/ConstantsGrid";
 import VariableGrid from "./VariableGrid/VariableGrid";
 import Timeline from "./Timeline/Timeline";
 import { getTimelineData } from "../Utility";
+import Timeline2 from "./Timeline/timeline2";
 
 export default function VariablePage({ data, setData }) {
     const onRemoveItem = (variable) => {
@@ -19,6 +20,7 @@ export default function VariablePage({ data, setData }) {
             <Typography variant="h5">Timeline</Typography>
             <Divider/>
             <Timeline/>
+            <Timeline2/>
             <Typography variant="h5">Constants</Typography>
             <Divider/>
             <ConstantsGrid data={data} setData={setData}></ConstantsGrid>

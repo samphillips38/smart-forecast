@@ -52,7 +52,6 @@ function getMarks(startDate, endDate) {
         value: new Date(endDate),
         label: valuetext(endDate),
     });
-    console.log(marks);
     return marks;
 }
 
