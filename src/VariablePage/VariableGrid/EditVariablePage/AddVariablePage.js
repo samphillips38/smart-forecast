@@ -10,7 +10,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import ProbSelector from "./ProbSelector";
 import DeterministicSelector from "./DeterministicSelector";
-import Timeline from "../../Timeline/Timeline";
 
 function TabPanel(props) {
     const { value, variable, timelineData } = props;
@@ -63,7 +62,7 @@ export default function AddVariablePage({ variable, open, setOpen, timelineData 
     return (
         <Dialog onClose={onClose} open={open} maxWidth={false}>
             <DialogTitle>Edit Variable</DialogTitle>
-            <DialogContent style={{width: '75vw', height: '90vh'}}>
+            <DialogContent style={{width: '75vw', maxHeight: '90vh'}}>
                 <Stack spacing={2}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
@@ -85,8 +84,6 @@ export default function AddVariablePage({ variable, open, setOpen, timelineData 
                                 />
                         </Grid>
                     </Grid>
-                    <Typography variant="h6">Timeline</Typography>
-                    <Timeline/>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <Tabs value={tabIndex} onChange={onTabIndexChange} aria-label="basic tabs example" color="inherit">
                             <Tab label="Deterministic" {...a11yProps(0)} />
@@ -94,14 +91,10 @@ export default function AddVariablePage({ variable, open, setOpen, timelineData 
                         </Tabs>
                     </Box>
                     <TabPanel value={tabIndex} variable={editedVariable} timelineData={timelineData}/>
-                    <Grid container justifyContent="space-between">
-                        <Grid item xs={1}>
-                            <Button onClick={onClose}>Cancel</Button>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <Button onClick={onClose}>Save</Button>
-                        </Grid>
-                    </Grid>
+                    <Stack direction="row" justifyContent="space-between">
+                        <Button onClick={onClose}>Cancel</Button>   
+                        <Button onClick={onClose}>Save</Button>
+                    </Stack>
                 </Stack>
             </DialogContent>
         </Dialog>
