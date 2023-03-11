@@ -40,7 +40,7 @@ export default function AddVariablePage({ variable, open, setOpen, timelineData 
         title: 'New Variable',
         data: {
             time: timelineData,
-            mean: [0.5, 0.5, 0.5, 0.5, 0.5]
+            mean: [0, 0.5, 1.5, 2.5, 3.5]
         }
     }
     const [editedVariable, setEditedVariable] = useState(
