@@ -1,9 +1,10 @@
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import { Grid, CardContent } from "@material-ui/core";
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { Button, CardActionArea } from '@mui/material';
 import GaussianChart from "../../../charts/ExampleCharts/Gaussian";
 import TriangleChart from "../../../charts/ExampleCharts/Triangle";
+import ProbAttributeSelector from "./ProbAttributeSelector";
 
 function ProbCard({ onClick, children }) {
     return (
@@ -19,16 +20,17 @@ function ProbCard({ onClick, children }) {
     );
 }
 
-export default function ProbSelector({ variable, setVariable }) {
+export default function ProbSelector({ editedVariable, setEditedVariable }) {
     const handleCardSelected = (selection) => {
-        const newVar = variable;
+        const newVar = editedVariable;
         newVar.probType = selection;
-        setVariable(newVar);
+        setEditedVariable(newVar);
         console.log(selection);
+        console.log(`Prob type: ${editedVariable.probType}`);
     }
     return (
         <>
-            <Typography>Probabilistic Selector</Typography>
+            <Typography>Select a distribution</Typography>
             <Grid container spacing={2}>
                 <ProbCard onClick={() => {handleCardSelected('Gaussian')}}>
                     <GaussianChart/>
@@ -42,6 +44,18 @@ export default function ProbSelector({ variable, setVariable }) {
                     </ProbCard>
                 ))}
             </Grid>
+            <Typography>{editedVariable['probType']}</Typography>
+            <ProbAttributeSelector editedVariable={editedVariable} setEditedVariable={setEditedVariable}/>
+            {/* {(() => {
+                switch (editedVariable.probType) {
+                    case 'Gaussian':
+                        return (<Typography>{editedVariable.probType}</Typography>);
+                    case 'Triangular':
+                        return (<Typography>{editedVariable.probType}</Typography>);
+                    default:
+                        return (<></>);
+                }
+            })()} */}
         </>
     );
 }
