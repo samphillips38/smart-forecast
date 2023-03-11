@@ -1,6 +1,6 @@
 import React from "react";
 import EditableGraph from "./EditableGraph";
-import DetVariableChart from "../charts/DetVariableChart";
+import DetVariableChart from "../../charts/DetVariableChart";
 import { Box } from "@material-ui/core";
 
 export default function ShowVariableCard({ variable, editedVariable, setEditedVariable, onRemoveItem }) {
