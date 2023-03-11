@@ -7,12 +7,13 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { Stack } from "@mui/material";
+import AddVariablePage from "./EditVariablePage/AddVariablePage";
 
 export default function IndependentVariableCard({ variable, onRemoveItem }) {
+    const [open, setOpen] = useState(false);
     const [editedVariable, setEditedVariable] = useState(variable);
-    const [isEditing, setIsEditing] = useState(false);
     const onEditClicked = () => {
-        setIsEditing(!isEditing);
+        setOpen(true)
     };
     return (
         <Card>
@@ -33,10 +34,16 @@ export default function IndependentVariableCard({ variable, onRemoveItem }) {
                             aria-label="Edit"
                             color="inherit"
                             onClick={onEditClicked}
-                        >{isEditing ? "Save Variable" : "Edit Variable"}</Button>
+                        >Edit Variable</Button>
                     </Box>
                 </Stack>
             </CardContent>
+            <AddVariablePage 
+                variable={variable} 
+                open={open} 
+                setOpen={setOpen}
+                timelineData={null}
+            />
         </Card>
   );
 }
