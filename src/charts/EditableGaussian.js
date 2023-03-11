@@ -82,8 +82,8 @@ export default function EditableGaussian({ variableData }) {
         <ResponsiveContainer width="100%" height={300}>
             <LineChart data={data} onClick={handleClick}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
+                <XAxis dataKey="name" height={20}/>
+                <YAxis width={30}/>
                 <Tooltip />
                 <Line type="monotone" dataKey="std+" stroke="#ffc658" />
                 <Line type="monotone" dataKey="mean" stroke="#ff7300" />
