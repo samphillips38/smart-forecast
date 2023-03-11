@@ -10,6 +10,7 @@ export function getData() {
         expression: "Normal(1, 0)",
         title: "Sales per Month",
         isProb: true,
+        probType: 'Gaussian',
         type: "Independent"
     },
     {
@@ -33,6 +34,7 @@ export function getData() {
         expression: "S \\times P",
         title: "Monthly Turnover",
         isProb: true,
+        probType: 'Gaussian',
         type: "Dependent"
     }
   ];

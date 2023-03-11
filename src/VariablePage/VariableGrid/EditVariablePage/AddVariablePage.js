@@ -12,7 +12,7 @@ import ProbSelector from "./ProbSelector";
 import DeterministicSelector from "./DeterministicSelector";
 
 function TabPanel(props) {
-    const { value, variable, timelineData } = props;
+    const { value, variable, setVariable, timelineData } = props;
     switch (value) {
         case 0:
             return (
@@ -20,7 +20,7 @@ function TabPanel(props) {
             );
         case 1:
             return (
-                <ProbSelector variable={variable} />
+                <ProbSelector variable={variable} setVariable={setVariable}/>
             );
         default:
             break;
@@ -90,7 +90,7 @@ export default function AddVariablePage({ variable, open, setOpen, timelineData 
                             <Tab label="Probabilistic" {...a11yProps(1)} />
                         </Tabs>
                     </Box>
-                    <TabPanel value={tabIndex} variable={editedVariable} timelineData={timelineData}/>
+                    <TabPanel value={tabIndex} variable={editedVariable} setVariable={setEditedVariable} timelineData={timelineData}/>
                     <Stack direction="row" justifyContent="space-between">
                         <Button onClick={onClose}>Cancel</Button>   
                         <Button onClick={onClose}>Save</Button>
