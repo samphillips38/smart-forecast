@@ -110,18 +110,6 @@ export default function EditVariableCard({ variable, editedVariable, setEditedVa
                 </Tabs>
             </Box>
             <TabPanel value={tabIndex} editedVariable={editedVariable} setEditedVariable={setEditedVariable}/>
-            {/* <TabPanel value={tabIndex} index={1}>
-                Item Two
-            </TabPanel>
-            <TabPanel value={tabIndex} index={2}>
-                Item Three
-            </TabPanel> */}
-            {/* {variable.isProb ? (
-                <EditableGraph editedVariable={editedVariable} setEditedVariable={setEditedVariable}/>
-                // <RVariableChart variableData={editedVariable.data}/>
-            ) : (
-                <DetVariableChart variableData={editedVariable.data}/>
-            )} */}
         </>
     );
 }
