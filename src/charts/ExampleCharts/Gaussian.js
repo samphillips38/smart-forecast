@@ -12,10 +12,10 @@ function getGaussianData() {
     return probabilityDensityData;
 }
 
-export default function GaussianChart() {
+export default function GaussianChart({ width, height}) {
     const probabilityDensityData = getGaussianData()
     return (
-        <ResponsiveContainer width="100%" height={150}>
+        <ResponsiveContainer width={width} height={height}>
             <AreaChart data={probabilityDensityData}>
                 <Area type="monotone" dataKey="y" stroke="#8884d8" fill="#8884d8" />
                 <Line type="linear" dataKey="y" stroke="#ff7300" />
