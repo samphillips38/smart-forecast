@@ -1,27 +1,45 @@
 import Typography from "@material-ui/core/Typography";
-import { Card, Grid } from "@material-ui/core";
-import { CardContent } from "@mui/material";
+import Card from "@material-ui/core/Card";
+import { Grid, CardContent } from "@material-ui/core";
 import GaussianChart from "../../../charts/ExampleCharts/Gaussian";
+import TriangleChart from "../../../charts/ExampleCharts/Triangle";
 
-function ProbCard({ index }) {
-    console.log(index);
-    return (
-        <Card>
-            <CardContent>
-                <GaussianChart/>
-            </CardContent>
-        </Card>
-    );
-}
+// function ProbCard({ child }) {
+//     return (
+//         <Card>
+//             <CardContent>
+//                 {...child}
+//             </CardContent>
+//         </Card>
+//     );
+// }
 
 export default function ProbSelector({ variable }) {
     return (
         <>
             <Typography>Probabilistic Selector</Typography>
             <Grid container spacing={2}>
-                {[0, 1, 3, 4, 5, 6, 7].map((element) => (
+                <Grid item xs={6} sm={4} md={3}>
+                    <Card>
+                        <CardContent>
+                            <GaussianChart/>
+                        </CardContent>
+                    </Card>
+                </Grid>
+                <Grid item xs={6} sm={4} md={3}>
+                    <Card>
+                        <CardContent>
+                            <TriangleChart/>
+                        </CardContent>
+                    </Card>
+                </Grid>
+                {[0, 1, 3].map((element) => (
                     <Grid item xs={6} sm={4} md={3}>
-                        <ProbCard index={element} ></ProbCard>
+                        <Card>
+                            <CardContent>
+                                <GaussianChart/>
+                            </CardContent>
+                        </Card>
                     </Grid>
                 ))}
             </Grid>
