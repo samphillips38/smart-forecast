@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import SaveIcon from "@material-ui/icons/Save";
 import AddList from "./AddList";
+import { Box } from "@mui/material";
+import Button from '@mui/material/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,15 +25,20 @@ export default function TopBar({
   const classes = useStyles();
   return (
     <Card className={classes.root}>
-      <AddList
-        onRemoveItem={onRemoveItem}
-        onAddItem={onAddItem}
-        itemSymbolsToDisplay={itemSymbolsToDisplay}
-        data={data}
-      />
-      <IconButton aria-label="save" onClick={onLayoutSave}>
-        <SaveIcon />
-      </IconButton>
+        <AddList
+            onRemoveItem={onRemoveItem}
+            onAddItem={onAddItem}
+            itemSymbolsToDisplay={itemSymbolsToDisplay}
+            data={data}
+        />
+        <IconButton aria-label="save" onClick={onLayoutSave}>
+            <SaveIcon />
+        </IconButton>
+        <Button
+            aria-label="Review"
+            color="inherit"
+            onClick={()=>{}}
+        >Review</Button>
     </Card>
   );
 }

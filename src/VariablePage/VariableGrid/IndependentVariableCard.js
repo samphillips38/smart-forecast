@@ -1,7 +1,7 @@
 import Card from "@material-ui/core/Card";
 import { useState } from 'react';
-import EditVariableCard from "../EditVariableCard";
-import ShowVariableCard from "../ShowVariableCard";
+import EditVariableCard from "./EditVariableCard";
+import ShowVariableCard from "./ShowVariableCard";
 import { CardContent, Box } from "@material-ui/core";
 import Button from '@mui/material/Button';
 import Typography from "@material-ui/core/Typography";

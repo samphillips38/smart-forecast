@@ -10,6 +10,7 @@ export function getData() {
         expression: "Normal(1, 0)",
         title: "Sales per Month",
         isProb: true,
+        probType: 'Gaussian',
         type: "Independent"
     },
     {
@@ -33,6 +34,7 @@ export function getData() {
         expression: "S \\times P",
         title: "Monthly Turnover",
         isProb: true,
+        probType: 'Gaussian',
         type: "Dependent"
     }
   ];
@@ -48,6 +50,18 @@ export function getData() {
     })
   }) 
   return testData;
+}
+
+export function getTimelineData() {
+    const currentDate = new Date();
+    const timelineData = [
+        currentDate,
+        new Date(currentDate.getFullYear(), currentDate.getMonth() + 3, currentDate.getDate()),
+        new Date(currentDate.getFullYear(), currentDate.getMonth() + 6, currentDate.getDate()),
+        new Date(currentDate.getFullYear(), currentDate.getMonth() + 9, currentDate.getDate()),
+        new Date(currentDate.getFullYear(), currentDate.getMonth() + 12, currentDate.getDate()),
+    ];
+    return timelineData;
 }
 
 export function getLayout(data) {
