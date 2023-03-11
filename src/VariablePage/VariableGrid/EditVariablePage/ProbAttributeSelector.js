@@ -15,7 +15,7 @@ import {
 } from "recharts";
 import { Grid, CardContent } from "@material-ui/core";
 
-export default function EditableGraph({ editedVariable, setEditedVariable }) {
+export default function ProbAttributeSelector({ editedVariable, setEditedVariable }) {
     
     return (
         <Grid container>
