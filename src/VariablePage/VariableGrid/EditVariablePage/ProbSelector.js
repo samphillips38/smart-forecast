@@ -5,6 +5,9 @@ import { Button, CardActionArea } from '@mui/material';
 import GaussianChart from "../../../charts/ExampleCharts/Gaussian";
 import TriangleChart from "../../../charts/ExampleCharts/Triangle";
 import ProbAttributeSelector from "./ProbAttributeSelector";
+import { useState } from "react";
+import EditableGaussian from "../../../charts/EditableGaussian";
+import EditableTriangular from "../../../charts/EditableTriangular";
 
 function ProbCard({ onClick, children }) {
     return (
@@ -21,41 +24,43 @@ function ProbCard({ onClick, children }) {
 }
 
 export default function ProbSelector({ editedVariable, setEditedVariable }) {
+    const [selectedDist, setSelectedDist] = useState(editedVariable.probType || 'None');
     const handleCardSelected = (selection) => {
         const newVar = editedVariable;
         newVar.probType = selection;
         setEditedVariable(newVar);
         console.log(selection);
         console.log(`Prob type: ${editedVariable.probType}`);
+        setSelectedDist(selection);
     }
     return (
         <>
             <Typography>Select a distribution</Typography>
             <Grid container spacing={2}>
                 <ProbCard onClick={() => {handleCardSelected('Gaussian')}}>
-                    <GaussianChart/>
+                    <GaussianChart width="100%" height={150}/>
                 </ProbCard>
                 <ProbCard onClick={() => {handleCardSelected('Triangular')}}>
-                    <TriangleChart/>
+                    <TriangleChart width="100%" height={150}/>
                 </ProbCard>
                 {[0, 1, 2, 3].map((element) => (
                     <ProbCard>
-                        {element % 2 ? (<TriangleChart/>) : (<GaussianChart/>)}
+                        {element % 2 ? (<TriangleChart width="100%" height={150}/>) : (<GaussianChart width="100%" height={150}/>)}
                     </ProbCard>
                 ))}
             </Grid>
             <Typography>{editedVariable['probType']}</Typography>
-            <ProbAttributeSelector editedVariable={editedVariable} setEditedVariable={setEditedVariable}/>
-            {/* {(() => {
-                switch (editedVariable.probType) {
+            {/* <ProbAttributeSelector editedVariable={editedVariable} setEditedVariable={setEditedVariable}/> */}
+            {(() => {
+                switch (selectedDist) {
                     case 'Gaussian':
-                        return (<Typography>{editedVariable.probType}</Typography>);
+                        return (<EditableGaussian variableData={editedVariable.data}/>);
                     case 'Triangular':
-                        return (<Typography>{editedVariable.probType}</Typography>);
+                        return (<EditableTriangular variableData={editedVariable.data}/>);
                     default:
                         return (<></>);
                 }
-            })()} */}
+            })()}
         </>
     );
 }
