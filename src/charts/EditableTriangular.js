@@ -86,11 +86,11 @@ export default function EditableTriangular({ variableData }) {
     }));
     return (
         <>
-        <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={data} onClick={handleClick}>
+        <ResponsiveContainer width="100%" height={300} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+            <LineChart data={data} onClick={handleClick} padding={{ top: 0, right: 0, bottom: 0, left: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
+                <XAxis dataKey="name" height={20}/>
+                <YAxis width={30}/>
                 <Tooltip />
                 <Line type="monotone" dataKey="max+" stroke="#ffc658" />
                 <Line type="monotone" dataKey="mean" stroke="#ff7300" />

@@ -1,6 +1,5 @@
 import Card from "@material-ui/core/Card";
 import { useState } from 'react';
-import EditVariableCard from "./EditVariableCard";
 import ShowVariableCard from "./ShowVariableCard";
 import { CardContent, Box } from "@material-ui/core";
 import Button from '@mui/material/Button';
@@ -8,12 +7,13 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { Stack } from "@mui/material";
+import AddVariablePage from "./EditVariablePage/AddVariablePage";
 
 export default function IndependentVariableCard({ variable, onRemoveItem }) {
+    const [open, setOpen] = useState(false);
     const [editedVariable, setEditedVariable] = useState(variable);
-    const [isEditing, setIsEditing] = useState(false);
     const onEditClicked = () => {
-        setIsEditing(!isEditing);
+        setOpen(true)
     };
     return (
         <Card>
@@ -28,20 +28,22 @@ export default function IndependentVariableCard({ variable, onRemoveItem }) {
                             <CloseIcon fontSize="small" />
                         </IconButton>
                     </Stack>
-                    {isEditing ? (
-                        <EditVariableCard variable={variable} editedVariable={editedVariable} setEditedVariable={setEditedVariable} setIsEditing={setIsEditing} onRemoveItem={onRemoveItem}/>
-                    ) : (
-                        <ShowVariableCard variable={variable} editedVariable={editedVariable} setEditedVariable={setEditedVariable} onRemoveItem={onRemoveItem}/>
-                    )}
+                    <ShowVariableCard variable={variable} editedVariable={editedVariable} setEditedVariable={setEditedVariable} onRemoveItem={onRemoveItem}/>
                     <Box alignSelf="flex-end">
                         <Button
                             aria-label="Edit"
                             color="inherit"
                             onClick={onEditClicked}
-                        >{isEditing ? "Save Variable" : "Edit Variable"}</Button>
+                        >Edit Variable</Button>
                     </Box>
                 </Stack>
             </CardContent>
+            <AddVariablePage 
+                variable={variable} 
+                open={open} 
+                setOpen={setOpen}
+                timelineData={null}
+            />
         </Card>
   );
 }
