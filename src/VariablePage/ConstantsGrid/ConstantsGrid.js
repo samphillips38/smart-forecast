@@ -8,17 +8,21 @@ import TextField from "@mui/material/TextField";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-function EditValue({ onClose, open, variableData, data, setData }) {
-    const newVarData = {
-        title: variableData ? variableData.title : null,
-        symbol: variableData ? variableData.symbol : null,
-        data: variableData ? variableData.data : null,
-        type: 'Constant',
-        isProb: false
-    }
+function EditValue({ onClose, open, variableData, data, setData, isNew }) {
+    const editedConstant = {
+            title: variableData ? variableData.title : null,
+            symbol: variableData ? variableData.symbol : null,
+            data: variableData ? variableData.data : null,
+            type: 'Constant',
+            isProb: false
+        }
     const onSaveClicked = () => {
         const newData = data;
-        newData[newVarData.symbol] = newVarData;
+        if (variableData && (variableData.symbol != editedConstant.symbol)) {
+            console.log(variableData.symbol);
+            delete newData[variableData.symbol];
+        }
+        newData[editedConstant.symbol] = editedConstant;
         setData(newData);
         onClose();
     }
@@ -26,31 +30,30 @@ function EditValue({ onClose, open, variableData, data, setData }) {
         onClose();
     }
     return (
-        <Dialog onClose={onClose} open={open}>
+        <Dialog onClose={onClose} open={open} onKeyUp={(e) => {e.key == "Enter" && onSaveClicked()}}>
             <DialogContent>
                 <Stack spacing={2} width="200px">
-                    <Typography >Edit Constant</Typography>
+                    <Typography >{variableData ? "Edit Constant" : "Add Constant"}</Typography>
                     <TextField
                         id="title"
                         label="Select Title"
-                        defaultValue={newVarData.title}
-                        onChange={(event)=>{newVarData.title = event.target.value}}
+                        defaultValue={editedConstant.title}
+                        onChange={(event)=>{editedConstant.title = event.target.value}}
                         fullWidth
                     />
                     <TextField
                         id="symbol"
                         label="Select Symbol"
-                        defaultValue={newVarData.symbol}
-                        onChange={(event)=>{newVarData.symbol = event.target.value}}
+                        defaultValue={editedConstant.symbol}
+                        onChange={(event)=>{editedConstant.symbol = event.target.value}}
                         fullWidth
                     />
                     <TextField
                         id="value"
                         label="Select Value"
-                        defaultValue={newVarData.data}
-                        onChange={(event)=>{newVarData.data = event.target.value}}
+                        defaultValue={editedConstant.data}
+                        onChange={(event)=>{editedConstant.data = event.target.value}}
                         type="number"
-                        onKeyDown={(e) => {e.key == "Enter" && onSaveClicked()}}
                         fullWidth
                     />
                     <Stack direction="row" justifyContent="space-between">
@@ -81,7 +84,13 @@ function ConstantElement({ variable, onClick }) {
 
 export default function ConstantsGrid({ data, setData }) {
     const [open, setOpen] = useState(false);
+    const [selectedConstant, setSelectedConstant] = useState(null);
     const handleAddConstant = () => {
+        setSelectedConstant(null);
+        setOpen(true);
+    }
+    const handleEditConstant = (variable) => {
+        setSelectedConstant(variable);
         setOpen(true);
     }
     const onClose = (event) => {
@@ -94,7 +103,7 @@ export default function ConstantsGrid({ data, setData }) {
                     <Grid item key={key} xs={4} sm={3} md={2}>
                         <ConstantElement
                         variable={value}
-                        onClick={() => {setOpen(true)}}
+                        onClick={() => {handleEditConstant(value)}}
                         />
                     </Grid>
                     )
@@ -108,7 +117,7 @@ export default function ConstantsGrid({ data, setData }) {
                             </Box>
                         </CardContent>
                     </CardActionArea>
-                    <EditValue onClose={onClose} open={open} variableData={null} data={data} setData={setData} />
+                    <EditValue onClose={onClose} open={open} variableData={selectedConstant} data={data} setData={setData}/>
                 </Card>
             </Grid>
         </Grid>
