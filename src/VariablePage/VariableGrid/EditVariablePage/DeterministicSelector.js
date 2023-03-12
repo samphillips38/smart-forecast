@@ -8,9 +8,7 @@ export default function DeterministicSelector({ variable }) {
     }
     return (
         <>
-            <Box height={350}>
-                <DetVariableChart variableData={variable.data}/>
-            </Box>
+            <DetVariableChart variableData={variable.data} width="100%" height={350}/>
             <Button onClick={onAddPoint} >Add Point</Button>
         </>
     );

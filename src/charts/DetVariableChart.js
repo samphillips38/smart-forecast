@@ -52,7 +52,7 @@ function EditValue({ onClose, open, variableData }) {
     )
 }
 
-export default function DetVariableChart({ variableData }) {
+export default function DetVariableChart({ variableData, width, height }) {
     const [open, setOpen] = useState(false);
     const handleClick = (event) => {
         console.log("clicked point (chart)", event.activePayload[0].payload);
@@ -69,7 +69,7 @@ export default function DetVariableChart({ variableData }) {
     }));
     return (
         <>
-        <ResponsiveContainer>
+        <ResponsiveContainer width={width} height={height}>
         <LineChart
             data={data}
             margin={{
