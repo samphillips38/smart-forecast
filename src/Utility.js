@@ -39,16 +39,16 @@ export function getData() {
     }
   ];
   // Add constants to the system
-  ['A', 'B', 'C', 'D', 'E'].forEach((val, index) => {
-    testData.push({
-        symbol: val,
-        data: index,
-        expression: "None",
-        title: `Some Factor ${index}`,
-        isProb: false,
-        type: "Constant"
-    })
-  }) 
+//   ['A', 'B', 'C', 'D', 'E'].forEach((val, index) => {
+//     testData.push({
+//         symbol: val,
+//         data: index,
+//         expression: "None",
+//         title: `Some Factor ${index}`,
+//         isProb: false,
+//         type: "Constant"
+//     })
+//   })
   return testData;
 }
 
