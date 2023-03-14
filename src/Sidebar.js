@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -19,6 +19,7 @@ import CalculateIcon from "@mui/icons-material/Calculate";
 import ListItemButton from '@mui/material/ListItemButton';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+
 
 
 const drawerWidth = 240;
@@ -40,13 +41,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ({ window, open, setOpen, handleDrawerClose, setContent }) {
-    // const [mobileOpen, setMobileOpen] = React.useState(false);
-
-    // const handleDrawerToggle = () => {
-    //     setMobileOpen(!mobileOpen);
-    // };
-
+export default function ({ window, open, setOpen, handleDrawerClose, setContent, isMobileSize }) {
     const menuItemList = (
         <div>
             <Toolbar />
@@ -108,7 +103,6 @@ export default function ({ window, open, setOpen, handleDrawerClose, setContent 
     )
 
     const container = window !== undefined ? () => window().document.body : undefined;
-
     return (
         <Box
             component="nav"
@@ -116,31 +110,34 @@ export default function ({ window, open, setOpen, handleDrawerClose, setContent 
             aria-label="mailbox folders"
         >
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-            <Drawer
-                container={container}
-                variant="temporary"
-                open={open}
-                onClose={handleDrawerClose}
-                ModalProps={{
-                    keepMounted: true, // Better open performance on mobile.
-                }}
-                sx={{
-                    display: { xs: 'block', sm: 'none' },
-                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                }}
-            >
-                {menuItemList}
-            </Drawer>
-            <Drawer
-                variant="permanent"
-                sx={{
-                    display: { xs: 'none', sm: 'block' },
-                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                }}
-                open
-            >
-                {menuItemList}
-            </Drawer>
+            {isMobileSize ? (
+                <Drawer
+                    container={container}
+                    variant="temporary"
+                    open={open}
+                    onClose={handleDrawerClose}
+                    ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                    }}
+                    sx={{
+                        display: { xs: 'block', sm: 'none' },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                    }}
+                >
+                    {menuItemList}
+                </Drawer>
+            ) : (
+                <Drawer
+                    variant="permanent"
+                    sx={{
+                        display: { xs: 'none', sm: 'block' },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                    }}
+                    open
+                >
+                    {menuItemList}
+                </Drawer>
+            )}
         </Box>
     );
 }
