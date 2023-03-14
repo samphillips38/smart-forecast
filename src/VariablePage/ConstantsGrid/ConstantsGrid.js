@@ -1,6 +1,5 @@
-import { Grid, CardContent, CardActionArea, Box, Typography, DialogContent } from "@material-ui/core";
+import { Grid, CardContent, CardActionArea, Box, Typography, DialogContent, Divider } from "@material-ui/core";
 import Dialog from '@mui/material/Dialog';
-import ConstantElement from "./ConstantElement";
 import Card from "@material-ui/core/Card";
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,46 +8,52 @@ import TextField from "@mui/material/TextField";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-function EditValue({ onClose, open, variableData }) {
-    const newData = {
-        title: variableData ? variableData.title : null,
-        symbol: variableData ? variableData.symbol : null,
-        data: variableData ? variableData.data : null,
-        type: 'Constant',
-        isProb: false
-    }
+function EditValue({ onClose, open, variableData, data, setData, isNew }) {
+    const editedConstant = {
+            title: variableData ? variableData.title : null,
+            symbol: variableData ? variableData.symbol : null,
+            data: variableData ? variableData.data : null,
+            type: 'Constant',
+            isProb: false
+        }
     const onSaveClicked = () => {
-
-        console.log(newData.title)
-        onClose(newData);
+        const newData = data;
+        if (variableData && (variableData.symbol != editedConstant.symbol)) {
+            console.log(variableData.symbol);
+            delete newData[variableData.symbol];
+        }
+        newData[editedConstant.symbol] = editedConstant;
+        setData(newData);
+        onClose();
     }
     const onCancelClicked = () => {
         onClose();
     }
     return (
-        <Dialog onClose={onClose} open={open}>
+        <Dialog onClose={onClose} open={open} onKeyUp={(e) => {e.key == "Enter" && onSaveClicked()}}>
             <DialogContent>
                 <Stack spacing={2} width="200px">
-                    <Typography >Edit Constant</Typography>
+                    <Typography >{variableData ? "Edit Constant" : "Add Constant"}</Typography>
                     <TextField
                         id="title"
                         label="Select Title"
-                        defaultValue={newData.title}
-                        onChange={(event)=>{newData.title = event.target.value}}
+                        defaultValue={editedConstant.title}
+                        onChange={(event)=>{editedConstant.title = event.target.value}}
                         fullWidth
                     />
                     <TextField
                         id="symbol"
                         label="Select Symbol"
-                        defaultValue={newData.symbol}
-                        onChange={(event)=>{newData.symbol = event.target.value}}
+                        defaultValue={editedConstant.symbol}
+                        onChange={(event)=>{editedConstant.symbol = event.target.value}}
                         fullWidth
                     />
                     <TextField
                         id="value"
                         label="Select Value"
-                        defaultValue={newData.data}
-                        onChange={(event)=>{newData.data = event.target.value}}
+                        defaultValue={editedConstant.data}
+                        onChange={(event)=>{editedConstant.data = event.target.value}}
+                        type="number"
                         fullWidth
                     />
                     <Stack direction="row" justifyContent="space-between">
@@ -61,15 +66,34 @@ function EditValue({ onClose, open, variableData }) {
     )
 }
 
+function ConstantElement({ variable, onClick }) {
+    return (
+        <Card style={{height: 'inherit'}}>
+            <CardActionArea onClick={onClick}>
+                <CardContent  style={{ minHeight: "100%" }}>
+                    <Stack spacing={1}>
+                        <Typography>{variable.title}</Typography>
+                        <Divider/>
+                        <Typography>{`${variable.symbol} = ${variable.data}`}</Typography>
+                    </Stack>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    );
+}
+
 export default function ConstantsGrid({ data, setData }) {
     const [open, setOpen] = useState(false);
+    const [selectedConstant, setSelectedConstant] = useState(null);
     const handleAddConstant = () => {
+        setSelectedConstant(null);
         setOpen(true);
     }
-    const onClose = (newVarData) => {
-        const newData = data;
-        newData[newVarData.symbol] = newVarData;
-        setData(newData);
+    const handleEditConstant = (variable) => {
+        setSelectedConstant(variable);
+        setOpen(true);
+    }
+    const onClose = (event) => {
         setOpen(false);
     }
     return (
@@ -79,6 +103,7 @@ export default function ConstantsGrid({ data, setData }) {
                     <Grid item key={key} xs={4} sm={3} md={2}>
                         <ConstantElement
                         variable={value}
+                        onClick={() => {handleEditConstant(value)}}
                         />
                     </Grid>
                     )
@@ -92,7 +117,7 @@ export default function ConstantsGrid({ data, setData }) {
                             </Box>
                         </CardContent>
                     </CardActionArea>
-                    <EditValue onClose={onClose} open={open} variableData={null} />
+                    <EditValue onClose={onClose} open={open} variableData={selectedConstant} data={data} setData={setData}/>
                 </Card>
             </Grid>
         </Grid>

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import { CssBaseline, ThemeProvider, createTheme } from "@material-ui/core";
+import { CssBaseline, ThemeProvider, createTheme, Toolbar } from "@material-ui/core";
 import Content from "./Content";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { getData, formatData } from "./Utility";
 import { Box } from "@material-ui/core";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const loadedData = getData();
 const drawerWidth = 240;
@@ -43,60 +44,60 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function App() {
-  const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-  const [data, setData] = useState({});
-  const [content, setContent] = useState("Dashboard");
-  const [contentWidth, setContentWidth] = useState(`calc(100vw - ${open ? drawerWidth : 0}px - 50px)`) // There is a fudge factor of 50px - not sure why it is needed
+    const classes = useStyles();
+    const [open, setOpen] = useState(false);
+    const [darkMode, setDarkMode] = useState(false);
+    const [data, setData] = useState({});
+    const [content, setContent] = useState("Dashboard");
+    const theme = createTheme({
+        palette: {
+            type: darkMode ? "dark" : "light"
+        }
+    });
+    const isMobileSize = !useMediaQuery(theme.breakpoints.up('sm'));
+    
+    useEffect(() => {
+        setData(formatData(loadedData));
+    }, []);
 
-  useEffect(() => {
-    setData(formatData(loadedData));
-  }, []);
+    const handleDrawerToggle = () => {
+        setOpen(!open);
+    };
 
-  const handleDrawerToggle = () => {
-    setContentWidth(`calc(100vw - ${!open ? drawerWidth : 0}px - 50px)`);
-    setOpen(!open);
-  };
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const theme = createTheme({
-    palette: {
-      type: darkMode ? "dark" : "light"
-    }
-  });
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-  return (
-    <ThemeProvider theme={theme}>
-      <div className={classes.root}>
-        <CssBaseline />
-        <Header
-          handleDrawerToggle={handleDrawerToggle}
-          toggleDarkMode={toggleDarkMode}
-          darkMode={darkMode}
-        />
-        <Sidebar
-          handleDrawerClose={handleDrawerClose}
-          open={open}
-          setContent={setContent}
-        />
-        <main
-          className={clsx(classes.content, {
-            [classes.contentShift]: open
-          })}
-        >
-          <div className={classes.drawerHeader} />
-          <Box width={contentWidth}>
-            <Content data={data} setData={setData} content={content} />
-          </Box>
-        </main>
-      </div>
-    </ThemeProvider>
-  );
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode);
+    };
+    return (
+        <ThemeProvider theme={theme}>
+            <Box sx={{ display: 'flex' }}>
+                <CssBaseline />
+                <Header
+                handleDrawerToggle={handleDrawerToggle}
+                toggleDarkMode={toggleDarkMode}
+                darkMode={darkMode}
+                />
+                <Sidebar
+                handleDrawerClose={handleDrawerClose}
+                open={open}
+                setOpen={setOpen}
+                setContent={setContent}
+                isMobileSize={isMobileSize}
+                />
+                <Box
+                    component="main"
+                    sx={{ flexGrow: 1, p: 3, 
+                        width: isMobileSize ? '100%' : { 
+                            sm: `calc(100% - ${drawerWidth}px)` 
+                        } }}
+                >
+                    <Toolbar/>
+                    <Content data={data} setData={setData} content={content} />
+                </Box>
+            </Box>
+        </ThemeProvider>
+    );
 }

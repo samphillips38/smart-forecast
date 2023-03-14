@@ -41,6 +41,9 @@ export default function Header({
           aria-label="open drawer"
           onClick={handleDrawerToggle}
           edge="start"
+          sx={{
+            display: { xs: 'block', sm: 'none' }
+            }}
         >
           <MenuIcon />
         </IconButton>
