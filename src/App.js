@@ -48,14 +48,12 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [data, setData] = useState({});
   const [content, setContent] = useState("Dashboard");
-  const [contentWidth, setContentWidth] = useState(`calc(100vw - ${open ? drawerWidth : 0}px - 50px)`) // There is a fudge factor of 50px - not sure why it is needed
 
   useEffect(() => {
     setData(formatData(loadedData));
   }, []);
 
   const handleDrawerToggle = () => {
-    setContentWidth(`calc(100vw - ${!open ? drawerWidth : 0}px - 50px)`);
     setOpen(!open);
   };
 
@@ -74,29 +72,27 @@ export default function App() {
   };
   return (
     <ThemeProvider theme={theme}>
-      <div className={classes.root}>
-        <CssBaseline />
-        <Header
-          handleDrawerToggle={handleDrawerToggle}
-          toggleDarkMode={toggleDarkMode}
-          darkMode={darkMode}
-        />
-        <Sidebar
-          handleDrawerClose={handleDrawerClose}
-          open={open}
-          setContent={setContent}
-        />
-        <main
-          className={clsx(classes.content, {
-            [classes.contentShift]: open
-          })}
-        >
-          <div className={classes.drawerHeader} />
-          <Box width={contentWidth}>
-            <Content data={data} setData={setData} content={content} />
-          </Box>
-        </main>
-      </div>
+        <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <Header
+            handleDrawerToggle={handleDrawerToggle}
+            toggleDarkMode={toggleDarkMode}
+            darkMode={darkMode}
+            />
+            <Sidebar
+            handleDrawerClose={handleDrawerClose}
+            open={open}
+            setOpen={setOpen}
+            setContent={setContent}
+            />
+            <Box
+                component="main"
+                sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+            >
+                <div className={classes.drawerHeader} />
+                <Content data={data} setData={setData} content={content} />
+            </Box>
+        </Box>
     </ThemeProvider>
   );
 }
