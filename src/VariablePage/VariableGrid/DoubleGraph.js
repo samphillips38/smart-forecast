@@ -17,7 +17,7 @@ import Stack from '@mui/material/Stack';
 import { useState } from "react";
 import { Grid, CardContent } from "@material-ui/core";
 
-export default function EditableGraph({ editedVariable, setEditedVariable }) {
+export default function DoubleGraph({ editedVariable, setEditedVariable }) {
     const [probabilityDensityData, setProbabilityDensityData] = useState(getDistAtTime(1))
     const variableData = editedVariable.data;
     const data = variableData["time"].map((t, i) => ({
@@ -96,8 +96,8 @@ export default function EditableGraph({ editedVariable, setEditedVariable }) {
                 <ResponsiveContainer width="100%" height={300}>
                     <LineChart data={data} onMouseMove={onMouseMove} onClick={onMouseClick}>
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
+                        <XAxis dataKey="name" height={15}/>
+                        <YAxis width={25}/>
                         <Tooltip />
                         <Line type="monotone" dataKey="std+" stroke="#ffc658" />
                         <Line type="monotone" dataKey="mean" stroke="#ff7300" />
@@ -109,8 +109,8 @@ export default function EditableGraph({ editedVariable, setEditedVariable }) {
                 <ResponsiveContainer width="100%" height={300}>
                     <AreaChart data={probabilityDensityData} onMouseDown={onProbMouseDown} onMouseUp={onProbMouseUp} onMouseMove={onProbMouseMove}>
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="x" />
-                        <YAxis />
+                        <XAxis dataKey="x" height={15}/>
+                        <YAxis width={25}/>
                         <Tooltip />
                         <Area type="monotone" dataKey="y" stroke="#8884d8" fill="#8884d8" />
                         <Line type="linear" dataKey="y" stroke="#ff7300" />
