@@ -108,6 +108,7 @@ export default function ({ window, open, setOpen, handleDrawerClose, setContent,
             component="nav"
             sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
             aria-label="mailbox folders"
+            onClick={handleDrawerClose}
         >
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             {isMobileSize ? (
