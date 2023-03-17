@@ -97,7 +97,7 @@ export default function DoubleGraph({ editedVariable, setEditedVariable }) {
                     <LineChart data={data} onMouseMove={onMouseMove} onClick={onMouseClick}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" height={15}/>
-                        <YAxis width={25}/>
+                        <YAxis width={30}/>
                         <Tooltip />
                         <Line type="monotone" dataKey="std+" stroke="#ffc658" />
                         <Line type="monotone" dataKey="mean" stroke="#ff7300" />
@@ -110,7 +110,7 @@ export default function DoubleGraph({ editedVariable, setEditedVariable }) {
                     <AreaChart data={probabilityDensityData} onMouseDown={onProbMouseDown} onMouseUp={onProbMouseUp} onMouseMove={onProbMouseMove}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="x" height={15}/>
-                        <YAxis width={25}/>
+                        <YAxis width={30}/>
                         <Tooltip />
                         <Area type="monotone" dataKey="y" stroke="#8884d8" fill="#8884d8" />
                         <Line type="linear" dataKey="y" stroke="#ff7300" />
