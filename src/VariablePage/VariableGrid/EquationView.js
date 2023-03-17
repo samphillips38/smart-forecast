@@ -1,16 +1,41 @@
-import { Typography } from "@material-ui/core";
+import { Box, Card, Typography, Grid } from "@material-ui/core";
 import { MathJax } from "better-react-mathjax";
 import nerdamer from "nerdamer";
-import Grid from "@material-ui/core";
+
+function EquationElement({ children }) {
+    return (
+        <Grid item>
+            <Card>
+                <Box 
+                width={50} 
+                height={50} 
+                display="flex" 
+                alignItems="center" 
+                justifyContent="center"
+                >
+                    <Typography variant="h4">{children}</Typography>
+                </Box>
+            </Card>
+        </Grid>
+    )
+}
 
 function recursiveEquationView(equationTree) {
     if ( equationTree.type == 'VARIABLE_OR_LITERAL' ) {
-        return equationTree.value;
+        return (
+            <EquationElement>{equationTree.value}</EquationElement>
+        );
     } else {
         const leftSide = recursiveEquationView(equationTree.left);
         const rightSide = recursiveEquationView(equationTree.right);
         const operator = equationTree.value;
-        return `${leftSide} ${operator} ${rightSide}`;
+        return (
+            <>
+            {leftSide}
+            <EquationElement>{equationTree.value}</EquationElement>
+            {rightSide}
+            </>
+        )
     }
 }
 
@@ -19,6 +44,9 @@ export default function EquationView({ variable }) {
     const equationTree = nerdamer.tree(variable.expression);
     const opVarList = [];
     return (
-        <Typography>{recursiveEquationView(equationTree)}</Typography>
+        <Grid container spacing={2}>
+            {recursiveEquationView(equationTree)}
+        </Grid>
+        // <Typography>{recursiveEquationView(equationTree)}</Typography>
     )
 }
