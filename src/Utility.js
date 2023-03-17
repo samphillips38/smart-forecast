@@ -29,9 +29,10 @@ export function getData() {
         data: {
             time: [1, 2, 3, 4],
             mean: [5, 24, 56, 72],
-            std: [2, 10, 15, 30]
+            std: [2, 10, 15, 30],
+            valid: true
         },
-        expression: "S \\times P",
+        expression: "x^2+2*x+1",
         title: "Monthly Turnover",
         isProb: true,
         probType: 'Gaussian',
