@@ -32,7 +32,7 @@ export function getData() {
             std: [2, 10, 15, 30],
             valid: true
         },
-        expression: "x^2+2*x+1",
+        expression: "2S + x + 41 + P + P^2 + S^P + 1/S",
         title: "Monthly Turnover",
         isProb: true,
         probType: 'Gaussian',

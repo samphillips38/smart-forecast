@@ -11,6 +11,7 @@ import AddVariablePage from "./EditVariablePage/AddVariablePage";
 import { MathJax } from "better-react-mathjax";
 import nerdamer from "nerdamer";
 import EquationView from "./EquationView";
+import EditDependentVariablePage from "./EditDependentVariable/EditDependentVariablePage";
 
 export default function DependentVariableCard({ variable, onRemoveItem }) {
     const [open, setOpen] = useState(false);
@@ -46,7 +47,7 @@ export default function DependentVariableCard({ variable, onRemoveItem }) {
                     </Box>
                 </Stack>
             </CardContent>
-            <AddVariablePage 
+            <EditDependentVariablePage 
                 variable={variable} 
                 open={open} 
                 setOpen={setOpen}

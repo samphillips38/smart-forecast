@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Stack from '@mui/material/Stack';
 import Typography from "@material-ui/core/Typography";
-import { Divider } from "@material-ui/core";
+import { Button, Divider } from "@material-ui/core";
 import ConstantsGrid from "./ConstantsGrid/ConstantsGrid";
 import VariableGrid from "./VariableGrid/VariableGrid";
 import { getTimelineData } from "../Utility";
@@ -17,7 +17,10 @@ export default function VariablePage({ data, setData }) {
             <Typography variant="h5">Constants</Typography>
             <Divider/>
             <ConstantsGrid data={data} setData={setData}></ConstantsGrid>
-            <Typography variant="h5">Independent Variables</Typography>
+            <Stack direction="row" justifyContent="space-between">
+                <Typography variant="h5">Independent Variables</Typography>
+                <Button>Add Independent Variable</Button>
+            </Stack>
             <Divider/>
             <VariableGrid 
             data={data} 
