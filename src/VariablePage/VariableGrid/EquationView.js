@@ -19,7 +19,7 @@ function EquationElement({ children }) {
                     <Typography variant="h4">{children}</Typography>
                 </Box>
             </Card>
-        </Grid>
+            </Grid>
     )
 }
 
@@ -42,10 +42,10 @@ function recursiveEquationView(equationTree) {
     }
 }
 
-export default function EquationView({ variable }) {
-    const equation = nerdamer(variable.expression);
+export default function EquationView({ symbol, expression }) {
+    const equation = nerdamer(expression);
     const latexEquation = nerdamer.convertToLaTeX(equation.toString())
-    const equationTree = nerdamer.tree(variable.expression);
+    const equationTree = nerdamer.tree(expression);
     const opVarList = [];
     return (
         <>
@@ -54,6 +54,12 @@ export default function EquationView({ variable }) {
             <MathJax>`$${latexEquation.toString()}$$`</MathJax>
         </Stack>
         <Divider/>
+        {/* <ResponsiveReactGridLayout
+        className="Test"
+        rowHeight={50}
+        cols={12}>
+            {recursiveEquationView(equationTree)}
+        </ResponsiveReactGridLayout> */}
         <Grid container spacing={2}>
             <Grid item>
                 <Box 
@@ -63,7 +69,7 @@ export default function EquationView({ variable }) {
                 alignItems="center" 
                 justifyContent="center"
                 >
-                    <Typography variant="h4">{variable.symbol}</Typography>
+                    <Typography variant="h4">{symbol}</Typography>
                 </Box>
             </Grid>
             <Grid item>

@@ -19,8 +19,14 @@ export default function DependentVariableCard({ variable, onRemoveItem }) {
     const onEditClicked = () => {
         setOpen(true)
     };
-    const expression = "2x + 3";
-    const equation = nerdamer(expression);
+    const onSave = (newTitle, newSymbol, newExpression) => {
+        const newVariable = variable;
+        newVariable.title = newTitle;
+        newVariable.symbol = newSymbol;
+        newVariable.expression = newExpression;
+        setEditedVariable(newVariable)
+        setOpen(false);
+    }
     return (
         <Card>
             <CardContent>
@@ -37,7 +43,7 @@ export default function DependentVariableCard({ variable, onRemoveItem }) {
                     {variable.data.valid && (
                         <ShowVariableCard variable={variable} editedVariable={editedVariable} setEditedVariable={setEditedVariable} onRemoveItem={onRemoveItem}/>
                     )}
-                    <EquationView variable={variable}/>
+                    <EquationView symbol={editedVariable.symbol} expression={editedVariable.expression}/>
                     <Box alignSelf="flex-end">
                         <Button
                             aria-label="Edit"
@@ -52,6 +58,7 @@ export default function DependentVariableCard({ variable, onRemoveItem }) {
                 open={open} 
                 setOpen={setOpen}
                 timelineData={null}
+                onSave={onSave}
             />
         </Card>
   );
