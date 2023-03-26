@@ -12,6 +12,7 @@
     "@mui/icons-material": "5.11.0",
     "@mui/material": "5.11.5",
     "@mui/x-date-pickers": "^6.0.1",
+    "@reduxjs/toolkit": "^1.9.3",
     "better-react-mathjax": "^2.0.2",
     "clsx": "^1.1.1",
     "dayjs": "^1.11.7",
@@ -25,6 +26,7 @@
     "react-dom": "17.0.2",
     "react-grid-layout": "^1.2.5",
     "react-katex": "3.0.1",
+    "react-redux": "^8.0.5",
     "react-scripts": "^5.0.1",
     "react-sizeme": "^3.0.1",
     "recharts": "^2.0.9"
