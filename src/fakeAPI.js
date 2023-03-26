@@ -12,6 +12,7 @@ const var1 = {
     isProb: true,
     probType: 'Gaussian',
     type: "Independent",
+    displayOnDashboard: true,
     status: "loaded" // Options will be ["loaded", "loading", "needs updating"]
 }
 const var2 = {
@@ -26,6 +27,7 @@ const var2 = {
     title: "Price",
     isProb: false,
     type: "Independent",
+    displayOnDashboard: true,
     status: "loaded"
 }
 const var3 = {
@@ -43,6 +45,7 @@ const var3 = {
     isProb: false,
     probType: 'Gaussian',
     type: "Dependent",
+    displayOnDashboard: true,
     status: "loaded"
 }
 

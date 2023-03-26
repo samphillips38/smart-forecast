@@ -44,7 +44,20 @@ const investmentSlice = createSlice({
         variableDeleted(state, action) {
             const variableId = action.payload;
             delete state.entities[state.displayInvestment].variables.entities[variableId]
+        },
+        variableDisplayStatusUpdated: {
+            reducer(state, action) {
+                const { variableId, displayStatus } = action.payload;
+                const variable = state.entities[state.displayInvestment].variables.entities[variableId];
+                variable.displayOnDashboard = displayStatus;
+            },
+            prepare(variableId, displayStatus) {
+                return {
+                    payload: { variableId, displayStatus }
+                }
+            }
         }
+        
     },
     extraReducers: builder => {
         builder
@@ -62,7 +75,7 @@ const investmentSlice = createSlice({
       }
 })
 
-export const { investmentAdded, investmentDeleted, variableAdded, variableDeleted } = investmentSlice.actions
+export const { investmentAdded, investmentDeleted, variableAdded, variableDeleted, variableDisplayStatusUpdated } = investmentSlice.actions
 export default investmentSlice.reducer
 
 // Selectors
