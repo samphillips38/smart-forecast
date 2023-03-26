@@ -29,7 +29,10 @@ export const fetchInvestments = createAsyncThunk('investments/fetchInvestments',
 //         return response.todo
 //     }
 // )
-
+const getNextVariableId = (state) => {
+    const variables = Object.values(state.entities[state.displayInvestment].variables.entities);
+    return variables.reduce((acc, variable) => acc > variable.id ? acc : variable.id) + 1
+}
 const investmentSlice = createSlice({
     name: 'investments',
     initialState,
@@ -38,11 +41,17 @@ const investmentSlice = createSlice({
         investmentDeleted: investmentsAdapter.removeOne,
         variableAdded(state, action) {
             const variable = action.payload;
+            variable.id = getNextVariableId(state);
+            variable.investmentId = state.displayInvestment;
             state.entities[state.displayInvestment].variables.entities[variable.id] = variable
         },
         variableDeleted(state, action) {
             const variableId = action.payload;
             delete state.entities[state.displayInvestment].variables.entities[variableId]
+        },
+        variableEdited(state, action) {
+            const variable = action.payload;
+            state.entities[state.displayInvestment].variables.entities[variable.id] = variable
         },
         variableDisplayStatusUpdated: {
             reducer(state, action) {
@@ -74,7 +83,14 @@ const investmentSlice = createSlice({
       }
 })
 
-export const { investmentAdded, investmentDeleted, variableAdded, variableDeleted, variableDisplayStatusUpdated } = investmentSlice.actions
+export const { 
+    investmentAdded, 
+    investmentDeleted, 
+    variableAdded, 
+    variableDeleted, 
+    variableEdited,
+    variableDisplayStatusUpdated,
+ } = investmentSlice.actions
 export default investmentSlice.reducer
 
 // Selectors

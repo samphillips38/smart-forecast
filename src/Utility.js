@@ -118,6 +118,18 @@ export function getLayoutsFromVariableList(variables) {
     }
 }
 
+export function getNewConstant() {
+    return {
+        symbol: null,
+        data: null,
+        title: null,
+        isProb: false,
+        type: "Constant",
+        displayOnDashboard: true,
+        status: "needs updating" // Options will be ["loaded", "loading", "needs updating"]
+    }
+}
+
 export function formatData(rawLoadedData) {
   const d = {};
   rawLoadedData.forEach((element) => {

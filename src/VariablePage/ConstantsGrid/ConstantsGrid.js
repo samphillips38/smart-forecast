@@ -7,22 +7,20 @@ import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import { getNewConstant } from "../../Utility";
 
 import { useSelector, useDispatch } from "react-redux";
-import { selectConstants, variableAdded } from "../../investmentsReducer";
+import { selectConstants, variableAdded, variableEdited } from "../../investmentsReducer";
 
 function EditValue({ onClose, open, variable }) {
     const dispatch = useDispatch();
-    const editedConstant = {
-        id: variable ? variable.id : null,
-        title: variable ? variable.title : null,
-        symbol: variable ? variable.symbol : null,
-        data: variable ? variable.data : null,
-        type: 'Constant',
-        isProb: false
-    }
+    const editedConstant = variable ? {...variable} : getNewConstant();
     const onSaveClicked = () => {
-        dispatch(variableAdded(editedConstant))
+        if (editedConstant.id) {
+            dispatch(variableEdited(editedConstant))
+        } else {
+            dispatch(variableAdded(editedConstant))
+        }
         // const newData = data;
         // if (variableData && (variableData.symbol != editedConstant.symbol)) {
         //     console.log(variableData.symbol);
