@@ -36,7 +36,6 @@ const investmentSlice = createSlice({
     reducers: {
         investmentAdded: investmentsAdapter.addOne,
         investmentDeleted: investmentsAdapter.removeOne,
-        // variables: variablesReducer(state.)
         variableAdded(state, action) {
             const variable = action.payload;
             state.entities[state.displayInvestment].variables.entities[variable.id] = variable
@@ -100,4 +99,8 @@ export const selectVariables = createSelector(
 export const selectVariableIds = createSelector(
     selectVariables,
     (variables) => variables.map((variable) => variable.id)
+)
+export const selectConstants = createSelector(
+    selectVariables,
+    (variables) => variables.filter((variable) => variable.type == "Constant")
 )

@@ -7,7 +7,7 @@ export default function Content({ content }) {
         case "Dashboard":
             return (<Dashboard/>);
         case "Add Variable":
-            return (<VariablePage data={data} setData={setData} />);
+            return (<VariablePage/>);
         default:
             return (<Dashboard data={data} />);
     };

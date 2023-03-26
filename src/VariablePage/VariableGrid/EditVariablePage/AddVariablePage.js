@@ -11,12 +11,15 @@ import Tab from '@mui/material/Tab';
 import ProbSelector from "./ProbSelector";
 import DeterministicSelector from "./DeterministicSelector";
 
+import { useDispatch } from "react-redux";
+import { variableAdded } from "../../../investmentsReducer";
+
 function TabPanel(props) {
-    const { value, editedVariable, setEditedVariable, timelineData } = props;
+    const { value, editedVariable, setEditedVariable } = props;
     switch (value) {
         case 0:
             return (
-                <DeterministicSelector variable={editedVariable} timelineData={timelineData}/>
+                <DeterministicSelector variable={editedVariable}/>
             );
         case 1:
             return (
@@ -33,12 +36,13 @@ function a11yProps(index) {
     'aria-controls': `simple-tabpanel-${index}`,
     };
 }
-export default function AddVariablePage({ variable, open, setOpen, timelineData }) {
+export default function AddVariablePage({ variable, open, setOpen }) {
+    const dispatch = useDispatch();
     const defaultVariable = {
         symbol: 'x',
         title: 'New Variable',
         data: {
-            time: timelineData,
+            time: [0, 1, 2, 3, 4],
             mean: [0, 0.5, 1.5, 2.5, 3.5],
             std: [1, 2, 3, 4, 5]
         }
@@ -51,8 +55,11 @@ export default function AddVariablePage({ variable, open, setOpen, timelineData 
         setTabIndex(newValue);
     }
     const onClose = () => {
-        console.log('Closed');
         setOpen(false);
+    }
+    const onSave = () => {
+        dispatch(variableAdded(editedVariable));
+        onClose()
     }
     const onVarNameChanged = () => {
 
@@ -91,10 +98,10 @@ export default function AddVariablePage({ variable, open, setOpen, timelineData 
                             <Tab label="Probabilistic" {...a11yProps(1)} />
                         </Tabs>
                     </Box>
-                    <TabPanel value={tabIndex} editedVariable={editedVariable} setEditedVariable={setEditedVariable} timelineData={timelineData}/>
+                    <TabPanel value={tabIndex} editedVariable={editedVariable} setEditedVariable={setEditedVariable}/>
                     <Stack direction="row" justifyContent="space-between">
                         <Button onClick={onClose}>Cancel</Button>   
-                        <Button onClick={onClose}>Save</Button>
+                        <Button onClick={onSave}>Save</Button>
                     </Stack>
                 </Stack>
             </DialogContent>
