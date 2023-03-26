@@ -83,7 +83,7 @@ function returnAfterDelay(value) {
     return new Promise(resolve => {
         setTimeout(() => {
             resolve(value);
-        }, 20000);
+        }, 2000);
     })
 }
 
@@ -92,7 +92,7 @@ export default async function fakeGet(endpoint) {
         case 'api/rootData':
             return returnAfterDelay(rootData);
         case 'api/investments':
-            return returnAfterDelay(rootData.investments);
+            return returnAfterDelay([investment1, investment2]);
         default:
             return null
     }
