@@ -6,12 +6,13 @@ import {
 } from '@reduxjs/toolkit'
 
 import fakeGet from './fakeAPI'
-import variablesReducer from './variablesReducer';
 
 const investmentsAdapter = createEntityAdapter();
 
 const initialState = investmentsAdapter.getInitialState({
     status: 'idle',
+    displayInvestment: 0,
+    variables: {status: 'idle', entities: {}},
 })
 
 // Thunk functions
@@ -34,8 +35,16 @@ const investmentSlice = createSlice({
     initialState,
     reducers: {
         investmentAdded: investmentsAdapter.addOne,
-        invetsmentDeleted: investmentsAdapter.removeOne,
-        variables: variablesReducer
+        investmentDeleted: investmentsAdapter.removeOne,
+        // variables: variablesReducer(state.)
+        variableAdded(state, action) {
+            const variable = action.payload;
+            state.entities[state.displayInvestment].variables.entities[variable.id] = variable
+        },
+        variableDeleted(state, action) {
+            const variableId = action.payload;
+            delete state.entities[state.displayInvestment].variables.entities[variableId]
+        }
     },
     extraReducers: builder => {
         builder
@@ -43,11 +52,7 @@ const investmentSlice = createSlice({
             state.status = 'loading'
           })
           .addCase(fetchInvestments.fulfilled, (state, action) => {
-            const newEntities = {}
-            action.payload.forEach(investment => {
-              newEntities[investment.id] = investment
-            })
-            state.entities = newEntities
+            investmentsAdapter.setAll(state, action.payload)
             state.status = 'idle'
           })
         //   .addCase(saveNewTodo.fulfilled, (state, action) => {
@@ -57,5 +62,29 @@ const investmentSlice = createSlice({
       }
 })
 
-export const { investmentAdded, invetsmentDeleted } = investmentSlice.actions
+export const { investmentAdded, investmentDeleted, variableAdded, variableDeleted } = investmentSlice.actions
 export default investmentSlice.reducer
+
+// Selectors
+export const {
+    selectAll: selectInvestments,
+    selectById: selectInvestmentsById,
+} = investmentsAdapter.getSelectors((state) => state.investments)
+export const selectInvestmentIds = createSelector(
+    selectInvestments,
+    (investments) => investments.map((investment) => investment.id)
+)
+export const selectDisplayingInvestment = (state) => selectInvestmentsById(state, state.investments.displayInvestment);
+export const selectVariables = createSelector(
+    selectDisplayingInvestment,
+    (displayInvestment) => {
+        if (displayInvestment) {
+            return Object.values(displayInvestment.variables.entities);
+        }
+        return [];
+    }
+)
+export const selectVariableIds = createSelector(
+    selectVariables,
+    (variables) => variables.map((variable) => variable.id)
+)
