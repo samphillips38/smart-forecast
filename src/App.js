@@ -100,7 +100,7 @@ export default function App() {
                                 } }}
                         >
                             <Toolbar/>
-                            <Content data={data} setData={setData} content={content} />
+                            <Content content={content} />
                         </Box>
                     </Box>
                 </ThemeProvider>
