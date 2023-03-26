@@ -18,9 +18,7 @@ const useStyles = makeStyles((theme) => ({
 export default function TopBar({
   onLayoutSave,
   onRemoveItem,
-  onAddItem,
-  itemSymbolsToDisplay,
-  data
+  onAddItem
 }) {
   const classes = useStyles();
   return (
@@ -28,8 +26,6 @@ export default function TopBar({
         <AddList
             onRemoveItem={onRemoveItem}
             onAddItem={onAddItem}
-            itemSymbolsToDisplay={itemSymbolsToDisplay}
-            data={data}
         />
         <IconButton aria-label="save" onClick={onLayoutSave}>
             <SaveIcon />
