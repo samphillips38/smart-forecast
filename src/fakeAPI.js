@@ -49,9 +49,9 @@ const var3 = {
 const investment1 = {
     id: 0,
     name: "Test Investment",
-    status: "loaded",
+    status: "idle",
     variables: {
-        state: "loaded",
+        status: "idle",
         entities: {
             [var1.id]: var1,
             [var2.id]: var2,
@@ -62,12 +62,15 @@ const investment1 = {
 const investment2 = {
     id: 1,
     name: "Test Investment 2",
-    status: "inactive",
-    variables: {}
+    status: "idle",
+    variables: {
+        status: "idle",
+        entities: {}
+    }
 }
 const rootData = {
     investments: {
-        state: "loaded",
+        status: "idle",
         displayInvestment: investment1.id,
         entities: {
             [investment1.id]: investment1,
