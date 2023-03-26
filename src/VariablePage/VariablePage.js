@@ -6,36 +6,25 @@ import ConstantsGrid from "./ConstantsGrid/ConstantsGrid";
 import VariableGrid from "./VariableGrid/VariableGrid";
 import { getTimelineData } from "../Utility";
 
-export default function VariablePage({ data, setData }) {
+export default function VariablePage() {
     const onRemoveItem = (variable) => {
         console.log('Deleted');
         console.log(variable.symbol);
     };
-    const timelineData = getTimelineData();
     return (
         <Stack spacing={2} >
             <Typography variant="h5">Constants</Typography>
             <Divider/>
-            <ConstantsGrid data={data} setData={setData}></ConstantsGrid>
+            <ConstantsGrid/>
             <Stack direction="row" justifyContent="space-between">
                 <Typography variant="h5">Independent Variables</Typography>
                 <Button>Add Independent Variable</Button>
             </Stack>
             <Divider/>
-            <VariableGrid 
-            data={data} 
-            setData={setData} 
-            isDependent={false} 
-            timelineData={timelineData}
-            />
+            <VariableGrid isDependent={false} />
             <Typography variant="h5">Dependent Variables</Typography>
             <Divider/>
-            <VariableGrid 
-            data={data} 
-            setData={setData} 
-            isDependent={true} 
-            timelineData={timelineData}
-            />
+            <VariableGrid isDependent={true} />
         </Stack>
     );
 }

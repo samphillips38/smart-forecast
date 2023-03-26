@@ -8,22 +8,28 @@ import TextField from "@mui/material/TextField";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-function EditValue({ onClose, open, variableData, data, setData, isNew }) {
+import { useSelector, useDispatch } from "react-redux";
+import { selectConstants, variableAdded } from "../../investmentsReducer";
+
+function EditValue({ onClose, open, variable }) {
+    const dispatch = useDispatch();
     const editedConstant = {
-            title: variableData ? variableData.title : null,
-            symbol: variableData ? variableData.symbol : null,
-            data: variableData ? variableData.data : null,
-            type: 'Constant',
-            isProb: false
-        }
+        id: variable ? variable.id : null,
+        title: variable ? variable.title : null,
+        symbol: variable ? variable.symbol : null,
+        data: variable ? variable.data : null,
+        type: 'Constant',
+        isProb: false
+    }
     const onSaveClicked = () => {
-        const newData = data;
-        if (variableData && (variableData.symbol != editedConstant.symbol)) {
-            console.log(variableData.symbol);
-            delete newData[variableData.symbol];
-        }
-        newData[editedConstant.symbol] = editedConstant;
-        setData(newData);
+        dispatch(variableAdded(editedConstant))
+        // const newData = data;
+        // if (variableData && (variableData.symbol != editedConstant.symbol)) {
+        //     console.log(variableData.symbol);
+        //     delete newData[variableData.symbol];
+        // }
+        // newData[editedConstant.symbol] = editedConstant;
+        // setData(newData);
         onClose();
     }
     const onCancelClicked = () => {
@@ -33,7 +39,7 @@ function EditValue({ onClose, open, variableData, data, setData, isNew }) {
         <Dialog onClose={onClose} open={open} onKeyUp={(e) => {e.key == "Enter" && onSaveClicked()}}>
             <DialogContent>
                 <Stack spacing={2} width="200px">
-                    <Typography >{variableData ? "Edit Constant" : "Add Constant"}</Typography>
+                    <Typography >{variable ? "Edit Constant" : "Add Constant"}</Typography>
                     <TextField
                         id="title"
                         label="Select Title"
@@ -82,7 +88,8 @@ function ConstantElement({ variable, onClick }) {
     );
 }
 
-export default function ConstantsGrid({ data, setData }) {
+export default function ConstantsGrid() {
+    const constants = useSelector(selectConstants);
     const [open, setOpen] = useState(false);
     const [selectedConstant, setSelectedConstant] = useState(null);
     const handleAddConstant = () => {
@@ -98,7 +105,15 @@ export default function ConstantsGrid({ data, setData }) {
     }
     return (
         <Grid container spacing={3} alignItems="stretch">
-            {Object.entries(data).map(([key, value]) => (
+            {constants.map((constant) => (
+                <Grid item key={constant.id} xs={4} sm={3} md={2}>
+                    <ConstantElement
+                    variable={constant}
+                    onClick={() => {handleEditConstant(constant)}}
+                    />
+                </Grid>
+            ))}
+            {/* {Object.entries(data).map(([key, value]) => (
                 value.type == "Constant" && (
                     <Grid item key={key} xs={4} sm={3} md={2}>
                         <ConstantElement
@@ -107,7 +122,7 @@ export default function ConstantsGrid({ data, setData }) {
                         />
                     </Grid>
                     )
-            ))}
+            ))} */}
             <Grid item key="Add Constant" xs={4} sm={3} md={2}>
                 <Card>
                     <CardActionArea onClick={handleAddConstant}>
@@ -117,7 +132,7 @@ export default function ConstantsGrid({ data, setData }) {
                             </Box>
                         </CardContent>
                     </CardActionArea>
-                    <EditValue onClose={onClose} open={open} variableData={selectedConstant} data={data} setData={setData}/>
+                    <EditValue onClose={onClose} open={open} variable={selectedConstant}/>
                 </Card>
             </Grid>
         </Grid>

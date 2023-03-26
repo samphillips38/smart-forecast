@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectInvestments, selectDisplayingInvestment, selectVariables } from "../../investmentsReducer";
 
-export default function VariableGrid({ data, setData, isDependent, timelineData }) {
+export default function VariableGrid({ isDependent }) {
     const [open, setOpen] = useState(false);
     const type = isDependent ? "Dependent" : "Independent";
     const variables = useSelector(selectVariables);
@@ -49,7 +49,6 @@ export default function VariableGrid({ data, setData, isDependent, timelineData 
                     variable={null} 
                     open={open} 
                     setOpen={setOpen}
-                    timelineData={timelineData}
                     />
                 </Card>
             </Grid>
