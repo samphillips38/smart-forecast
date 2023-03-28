@@ -8,12 +8,11 @@ import Typography from "@material-ui/core/Typography";
 import EquationView from "../EquationView";
 import nerdamer from "nerdamer";
 
-export default function EditDependentVariablePage({ variable, open, setOpen, timelineData, onSave }) {
+export default function EditDependentVariablePage({ variable, open, setOpen, onSave }) {
     const defaultVariable = {
         symbol: 'x',
         title: 'New Variable',
         data: {
-            time: timelineData,
             mean: [0, 0.5, 1.5, 2.5, 3.5],
             std: [1, 2, 3, 4, 5]
         }
