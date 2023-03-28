@@ -75,7 +75,7 @@ function ConstantElement({ variable, onClick }) {
         <Card style={{height: 'inherit'}}>
             <CardActionArea onClick={onClick}>
                 <CardContent  style={{ minHeight: "100%" }}>
-                    <Stack spacing={1}>
+                    <Stack spacing={1} height={60}>
                         <Typography>{variable.title}</Typography>
                         <Divider/>
                         <Typography>{`${variable.symbol} = ${variable.data}`}</Typography>
@@ -111,21 +111,11 @@ export default function ConstantsGrid() {
                     />
                 </Grid>
             ))}
-            {/* {Object.entries(data).map(([key, value]) => (
-                value.type == "Constant" && (
-                    <Grid item key={key} xs={4} sm={3} md={2}>
-                        <ConstantElement
-                        variable={value}
-                        onClick={() => {handleEditConstant(value)}}
-                        />
-                    </Grid>
-                    )
-            ))} */}
             <Grid item key="Add Constant" xs={4} sm={3} md={2}>
                 <Card>
                     <CardActionArea onClick={handleAddConstant}>
                         <CardContent>
-                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60px'}}>
                                 <AddIcon/>
                             </Box>
                         </CardContent>
