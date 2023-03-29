@@ -17,7 +17,7 @@ import Stack from '@mui/material/Stack';
 import { useState } from "react";
 import { Grid, CardContent } from "@material-ui/core";
 
-export default function DoubleGraph({ editedVariable, setEditedVariable }) {
+export default function DoubleGraph({ editedVariable, setEditedVariable, isEditable=false }) {
     const [probabilityDensityData, setProbabilityDensityData] = useState(getDistAtTime(1))
     const variableData = editedVariable.data;
     const data = variableData["time"].map((t, i) => ({
@@ -58,43 +58,21 @@ export default function DoubleGraph({ editedVariable, setEditedVariable }) {
         // setSelectedTimeIndex(e.activeTooltipIndex);
     }
     const onMouseClick = (e) => {
-        setSelectedTimeIndex(e.activeTooltipIndex);
-        const toTime = editedVariable.data.time[e.activeTooltipIndex];
-        if (toTime != null) {
-            setProbabilityDensityData(getDistAtTime(toTime));
+        if (isEditable) {
+            setSelectedTimeIndex(e.activeTooltipIndex);
+            const toTime = editedVariable.data.time[e.activeTooltipIndex];
+            if (toTime != null) {
+                setProbabilityDensityData(getDistAtTime(toTime));
+            }
         }
     }
-    const [isDraggingVariance, setIsDraggingVariance] = useState(false);
     const [selectedXIndex, setSelectedXIndex] = useState(null);
     const [initStd, setInitStd] = useState(null);
-    const onProbMouseUp = (e) => {
-        setIsDraggingVariance(false);
-    }
-    const onProbMouseDown = (e) => {
-        const { chartX, chartY } = e;
-        console.log(chartX);
-        console.log(probabilityDensityData);
-        setSelectedXIndex(chartX);
-        setInitStd(editedVariable.data.std[selectedTimeIndex]);
-        setIsDraggingVariance(true);
-    }
-    const onProbMouseMove = (e) => {
-        if (isDraggingVariance) {
-            const { chartX, chartY } = e;
-            console.log(chartX);
-            console.log(selectedXIndex);
-            let updatedVariable = editedVariable;
-            let newStd = initStd + probabilityDensityData[chartX].x - probabilityDensityData[selectedXIndex].x;
-            updatedVariable.data.std[selectedTimeIndex] = newStd;
-            setEditedVariable(updatedVariable);
-            setProbabilityDensityData(getDistAtTime(updatedVariable.data.time[selectedTimeIndex]));
-        }
-    }
     return (
         <Grid container>
             <Grid item xs={12} md={6}>
                 <ResponsiveContainer width="100%" height={300}>
-                    <LineChart data={data} onMouseMove={onMouseMove} onClick={onMouseClick}>
+                    <LineChart data={data} onClick={onMouseClick}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" height={15}/>
                         <YAxis width={30}/>
@@ -107,7 +85,7 @@ export default function DoubleGraph({ editedVariable, setEditedVariable }) {
             </Grid>
             <Grid item xs={12} md={6}>
                 <ResponsiveContainer width="100%" height={300}>
-                    <AreaChart data={probabilityDensityData} onMouseDown={onProbMouseDown} onMouseUp={onProbMouseUp} onMouseMove={onProbMouseMove}>
+                    <AreaChart data={probabilityDensityData}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="x" height={15}/>
                         <YAxis width={30}/>
