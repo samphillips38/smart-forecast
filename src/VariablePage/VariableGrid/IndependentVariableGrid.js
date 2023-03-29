@@ -7,38 +7,27 @@ import DependentVariableCard from "./DependentVariableCard";
 import AddVariablePage from "./EditVariablePage/AddVariablePage";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectInvestments, selectDisplayingInvestment, selectVariables } from "../../investmentsReducer";
+import { selectVariables } from "../../investmentsReducer";
 
-export default function VariableGrid({ isDependent }) {
-    const [open, setOpen] = useState(false);
-    const type = isDependent ? "Dependent" : "Independent";
+export default function IndependentVariableGrid({ openAddVariable, setOpenAddVariable}) {
     const variables = useSelector(selectVariables);
     const onRemoveItem = () => {
 
     }
     const handleAddVariable = () => {
-        setOpen(true);
+        setOpenAddVariable(true);
     }
     return (
         <Grid container spacing={2} wrap="wrap">
             {variables
-                .filter((variable) => variable.type == type)
-                .map((variable) => (
-                    <Grid item key={variable.id} xs={12}>
-                        {
-                            type == "Dependent" ? (
-                                <DependentVariableCard
-                                variable={variable}
-                                onRemoveItem={onRemoveItem}
-                                />
-                            ) : (
-                                <IndependentVariableCard
-                                variable={variable}
-                                onRemoveItem={onRemoveItem}
-                                />
-                            )
-                        }
-                    </Grid>
+            .filter((variable) => variable.type == "Independent")
+            .map((variable) => (
+                <Grid item key={variable.id} xs={12}>
+                    <IndependentVariableCard
+                    variable={variable}
+                    onRemoveItem={onRemoveItem}
+                    />
+                </Grid>
             ))}
             <Grid item key="Add Variable" xs={12}>
                 <Card>
@@ -51,8 +40,8 @@ export default function VariableGrid({ isDependent }) {
                     </CardActionArea>
                     <AddVariablePage 
                     variable={null} 
-                    open={open} 
-                    setOpen={setOpen}
+                    open={openAddVariable} 
+                    setOpen={setOpenAddVariable}
                     />
                 </Card>
             </Grid>

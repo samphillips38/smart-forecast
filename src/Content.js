@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import Dashboard from "./Dashboard/Dashboard";
 import VariablePage from "./VariablePage/VariablePage";
 
-export default function Content({ data, setData, content }) {
+export default function Content({ content }) {
     switch (content) {
         case "Dashboard":
-            return (<Dashboard data={data} />);
+            return (<Dashboard/>);
         case "Add Variable":
-            return (<VariablePage data={data} setData={setData} />);
+            return (<VariablePage/>);
         default:
             return (<Dashboard data={data} />);
     };
