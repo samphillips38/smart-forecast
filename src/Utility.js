@@ -11,7 +11,8 @@ export function getData() {
         title: "Sales per Month",
         isProb: true,
         probType: 'Gaussian',
-        type: "Independent"
+        type: "Independent",
+        investmentId: 0
     },
     {
         symbol: "P",
@@ -22,20 +23,23 @@ export function getData() {
         expression: "3.5",
         title: "Price",
         isProb: false,
-        type: "Independent"
+        type: "Independent",
+        investmentId: 0
     },
     {
         symbol: "T",
         data: {
             time: [1, 2, 3, 4],
             mean: [5, 24, 56, 72],
-            std: [2, 10, 15, 30]
+            std: [2, 10, 15, 30],
+            valid: true
         },
-        expression: "S \\times P",
+        expression: "2S + x + 41 + P + P^2 + S^P + 1/S",
         title: "Monthly Turnover",
-        isProb: true,
+        isProb: false,
         probType: 'Gaussian',
-        type: "Dependent"
+        type: "Dependent",
+        investmentId: 0
     }
   ];
   // Add constants to the system
@@ -98,6 +102,32 @@ export function getLayoutsFromFormattedData(data) {
     lg: lgList
   };
   return layouts;
+}
+
+export function getLayoutsFromVariableList(variables) {
+    return {
+        lg: variables.map((variable) => ({
+            w: 1,
+            h: 2,
+            x: 0,
+            y: 0,
+            i: variable.symbol,
+            moved: false,
+            static: false
+        }))
+    }
+}
+
+export function getNewConstant() {
+    return {
+        symbol: null,
+        data: null,
+        title: null,
+        isProb: false,
+        type: "Constant",
+        displayOnDashboard: true,
+        status: "needs updating" // Options will be ["loaded", "loading", "needs updating"]
+    }
 }
 
 export function formatData(rawLoadedData) {
