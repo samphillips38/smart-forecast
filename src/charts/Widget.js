@@ -4,6 +4,8 @@ import Card from "@material-ui/core/Card";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
+import { Button } from "@material-ui/core";
+import DragHandleIcon from '@mui/icons-material/DragHandle';
 
 const useStyles = makeStyles({
   root: {
@@ -36,6 +38,9 @@ export default function Widget({
   return (
         <Card className={classes.root}>
             <div className={classes.header}>
+                <IconButton className="drag-handle">
+                    <DragHandleIcon />
+                </IconButton>
                 <Typography variant="h6" gutterBottom>{id}</Typography>
                     <div className={classes.spacer} />
                 <IconButton aria-label="delete" onClick={() => onRemoveItem(id)}>
