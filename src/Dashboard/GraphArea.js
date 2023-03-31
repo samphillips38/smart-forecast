@@ -7,6 +7,7 @@ import RVariableChart from "../charts/RVariableChart";
 import { useSelector } from "react-redux";
 import { selectVariables } from "../investmentsReducer";
 
+
 function GraphArea({
         size: { width },
         onRemoveItem,
@@ -24,6 +25,7 @@ function GraphArea({
                 rowHeight={150}
                 width={width}
                 onLayoutChange={onLayoutChange}
+                draggableHandle={".drag-handle"}
             >
                 {variables.filter((variable) => variable.type !== "Constant" && variable.displayOnDashboard).map((variable) => (
                 <div
