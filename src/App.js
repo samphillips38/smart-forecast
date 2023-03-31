@@ -5,14 +5,12 @@ import { CssBaseline, ThemeProvider, createTheme, Toolbar } from "@material-ui/c
 import Content from "./Content";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import { getData, formatData } from "./Utility";
 import { Box } from "@material-ui/core";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { MathJaxContext } from "better-react-mathjax";
 import { Provider } from 'react-redux';
 import store from "./store";
 
-const loadedData = getData();
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -50,7 +48,6 @@ export default function App() {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
-    const [data, setData] = useState({});
     const [content, setContent] = useState("Dashboard");
     const theme = createTheme({
         palette: {
@@ -58,10 +55,6 @@ export default function App() {
         }
     });
     const isMobileSize = !useMediaQuery(theme.breakpoints.up('sm'));
-    
-    useEffect(() => {
-        setData(formatData(loadedData));
-    }, []);
 
     const handleDrawerToggle = () => {
         setOpen(!open);
@@ -81,6 +74,7 @@ export default function App() {
                     <Box sx={{ display: 'flex' }}>
                         <CssBaseline />
                         <Header
+                        isMobileSize={isMobileSize}
                         handleDrawerToggle={handleDrawerToggle}
                         toggleDarkMode={toggleDarkMode}
                         darkMode={darkMode}
