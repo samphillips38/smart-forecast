@@ -10,7 +10,7 @@ export default function Dashboard() {
     const displayingInvestment = useSelector(selectDisplayingInvestment);
     const variables = useSelector(selectVariables);
     const [layouts, setLayouts] = useState(
-        getFromLS("layouts") || getLayoutsFromFormattedData(data)
+        getFromLS("layouts") || getLayoutsFromVariableList(variables)
     );
 
     const onLayoutChange = (_, allLayouts) => {
