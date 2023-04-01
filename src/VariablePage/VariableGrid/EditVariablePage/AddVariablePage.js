@@ -16,12 +16,19 @@ import { variableAdded } from "../../../investmentsReducer";
 
 function TabPanel(props) {
     const { value, editedVariable, setEditedVariable } = props;
+    const setIsProb = (newIsProb) => {
+        const newVar = editedVariable;
+        newVar["isProb"] = newIsProb;
+        setEditedVariable(newVar);
+    }
     switch (value) {
         case 0:
+            setIsProb(false);
             return (
                 <DeterministicSelector variable={editedVariable}/>
             );
         case 1:
+            setIsProb(true);
             return (
                 <ProbSelector editedVariable={editedVariable} setEditedVariable={setEditedVariable}/>
             );
@@ -45,12 +52,13 @@ export default function AddVariablePage({ variable, open, setOpen }) {
             time: [0, 1, 2, 3, 4],
             mean: [0, 0.5, 1.5, 2.5, 3.5],
             std: [1, 2, 3, 4, 5]
-        }
+        },
+        isProb: false
     }
     const [editedVariable, setEditedVariable] = useState(
-        variable || defaultVariable
+        variable ? {...variable} : defaultVariable
     );
-    const [tabIndex, setTabIndex] = useState(0);
+    const [tabIndex, setTabIndex] = useState(editedVariable.isProb ? 1 : 0);
     const onTabIndexChange = (event, newValue) => {
         setTabIndex(newValue);
     }
@@ -61,6 +69,7 @@ export default function AddVariablePage({ variable, open, setOpen }) {
         dispatch(variableAdded(editedVariable));
         onClose()
     }
+    
     const onVarNameChanged = () => {
 
     }
@@ -84,12 +93,12 @@ export default function AddVariablePage({ variable, open, setOpen }) {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
-                                    id={editedVariable.symbol}
-                                    label="Symbol"
-                                    defaultValue={editedVariable.symbol}
-                                    onChange={onSymbolChanged}
-                                    fullWidth
-                                />
+                                id={editedVariable.symbol}
+                                label="Symbol"
+                                defaultValue={editedVariable.symbol}
+                                onChange={onSymbolChanged}
+                                fullWidth
+                            />
                         </Grid>
                     </Grid>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
