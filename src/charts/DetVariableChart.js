@@ -62,8 +62,7 @@ export default function DetVariableChart({ variableData, width, height }) {
     const handleClose = () => {
         setOpen(false);
     };
-    
-    const data = variableData["time"].map((t, i) => ({
+    const data = variableData.time.map((t, i) => ({
         name: t,
         mean: variableData["mean"][i]
     }));
