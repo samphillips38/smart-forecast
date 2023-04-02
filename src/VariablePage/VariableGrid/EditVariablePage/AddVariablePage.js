@@ -16,19 +16,12 @@ import { variableAdded } from "../../../investmentsReducer";
 
 function TabPanel(props) {
     const { value, editedVariable, setEditedVariable } = props;
-    const setIsProb = (newIsProb) => {
-        const newVar = editedVariable;
-        newVar["isProb"] = newIsProb;
-        setEditedVariable(newVar);
-    }
     switch (value) {
         case 0:
-            setIsProb(false);
             return (
                 <DeterministicSelector variable={editedVariable}/>
             );
         case 1:
-            setIsProb(true);
             return (
                 <ProbSelector editedVariable={editedVariable} setEditedVariable={setEditedVariable}/>
             );
@@ -61,6 +54,10 @@ export default function AddVariablePage({ variable, open, setOpen }) {
     const [tabIndex, setTabIndex] = useState(editedVariable.isProb ? 1 : 0);
     const onTabIndexChange = (event, newValue) => {
         setTabIndex(newValue);
+        setEditedVariable({
+            ...editedVariable,
+            isProb: newValue == 1
+        })
     }
     const onClose = () => {
         setOpen(false);
