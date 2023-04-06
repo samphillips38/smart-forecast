@@ -41,9 +41,10 @@ const investmentSlice = createSlice({
         investmentDeleted: investmentsAdapter.removeOne,
         variableAdded(state, action) {
             const variable = action.payload;
-            state.entities[state.displayInvestment].variables.entities[variable.id] = {
+            const newId = getNextVariableId(state);
+            state.entities[state.displayInvestment].variables.entities[newId] = {
                 ...variable,
-                id: getNextVariableId(state),
+                id: newId,
                 investmentId: state.displayInvestment
             }
         },
