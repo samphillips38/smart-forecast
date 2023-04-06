@@ -47,7 +47,8 @@ export default function AddVariablePage({ variable, open, setOpen }) {
             std: [1, 2, 3, 4, 5]
         },
         isProb: false,
-        type: "Independent"
+        type: "Independent",
+        displayOnDashboard: true
     }
     const [editedVariable, setEditedVariable] = useState(
         variable ? {...variable} : defaultVariable
