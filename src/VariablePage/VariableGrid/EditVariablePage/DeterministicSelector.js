@@ -4,7 +4,10 @@ import Button from '@mui/material/Button';
 
 export default function DeterministicSelector({ editedVariable, setEditedVariable }) {
     const onAddPoint = () => {
-        
+        setEditedVariable({
+            ...editedVariable,
+
+        })
     }
     return (
         <>
@@ -13,7 +16,7 @@ export default function DeterministicSelector({ editedVariable, setEditedVariabl
             setEditedVariable={setEditedVariable} 
             width="100%" height={350}
             />
-            <Button onClick={onAddPoint} >Add Point</Button>
+            {/* <Button onClick={onAddPoint} >Add Point</Button> */}
         </>
     );
 }
