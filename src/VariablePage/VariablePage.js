@@ -3,7 +3,6 @@ import Stack from '@mui/material/Stack';
 import Typography from "@material-ui/core/Typography";
 import { Button, Divider } from "@material-ui/core";
 import ConstantsGrid from "./ConstantsGrid/ConstantsGrid";
-import VariableGrid from "./VariableGrid/VariableGrid";
 import DependentVariableGrid from "./VariableGrid/DependentVariableGrid";
 import IndependentVariableGrid from "./VariableGrid/IndependentVariableGrid";
 
