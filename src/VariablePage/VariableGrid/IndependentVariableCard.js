@@ -29,7 +29,7 @@ export default function IndependentVariableCard({ variable, onRemoveItem, onEdit
                     {variable.isProb ? (
                         <DoubleGraph editedVariable={variable}/>
                     ) : (
-                        <DetVariableChart variableData={variable.data} width="100%" height={350}/>
+                        <DetVariableChart editedVariable={variable} width="100%" height={350}/>
                     )}
                     <Box alignSelf="flex-end">
                         <Button
