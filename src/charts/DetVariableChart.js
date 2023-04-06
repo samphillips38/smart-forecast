@@ -69,8 +69,11 @@ export default function DetVariableChart({ editedVariable, setEditedVariable, wi
     const [open, setOpen] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const handleClick = (event) => {
-        if (setEditedVariable){
+        if (setEditedVariable && event){
             setSelectedIndex(event.activeTooltipIndex);
+            setOpen(true)
+        } else if (setEditedVariable) {
+            setSelectedIndex(null);
             setOpen(true)
         }
     };
@@ -108,6 +111,7 @@ export default function DetVariableChart({ editedVariable, setEditedVariable, wi
         setEditedVariable={setEditedVariable}
         i={selectedIndex}
         />
+        {setEditedVariable && <Button onClick={handleClick} >Add Point</Button>}
         </>
     );
 }
