@@ -19,7 +19,7 @@ function TabPanel(props) {
     switch (value) {
         case 0:
             return (
-                <DeterministicSelector variable={editedVariable}/>
+                <DeterministicSelector editedVariable={editedVariable} setEditedVariable={setEditedVariable}/>
             );
         case 1:
             return (

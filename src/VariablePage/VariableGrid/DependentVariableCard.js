@@ -42,7 +42,7 @@ export default function DependentVariableCard({ variable, onRemoveItem, onEditCl
                     {variable.data.valid && (variable.isProb ? (
                         <DoubleGraph editedVariable={variable}/>
                     ) : (
-                        <DetVariableChart variableData={variable.data} width="100%" height={350}/>
+                        <DetVariableChart editedVariable={variable} width="100%" height={350}/>
                     ))}
                     <EquationView symbol={editedVariable.symbol} expression={editedVariable.expression}/>
                     <Box alignSelf="flex-end">

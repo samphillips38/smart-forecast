@@ -68,7 +68,7 @@ function EditValue({ onClose, open, editedVariable, setEditedVariable, i }) {
                             fullWidth
                         />
                     </Stack>
-                    <GaussianChart width={350} height={250}/>
+                    <GaussianChart width="100%" height={250}/>
                 </Stack>
                 <Stack direction="row" justifyContent="space-between">
                     <Button onClick={onCancelClicked}>Cancel</Button>
