@@ -25,11 +25,10 @@ function ProbCard({ onClick, children }) {
 export default function ProbSelector({ editedVariable, setEditedVariable }) {
     const [selectedDist, setSelectedDist] = useState(editedVariable.probType || 'None');
     const handleCardSelected = (selection) => {
-        const newVar = editedVariable;
-        newVar.probType = selection;
-        setEditedVariable(newVar);
-        console.log(selection);
-        console.log(`Prob type: ${editedVariable.probType}`);
+        setEditedVariable({
+            ...editedVariable,
+            probType: selection
+        })
         setSelectedDist(selection);
     }
     return (
@@ -47,7 +46,7 @@ export default function ProbSelector({ editedVariable, setEditedVariable }) {
             {(() => {
                 switch (selectedDist) {
                     case 'Gaussian':
-                        return (<EditableGaussian variableData={editedVariable.data}/>);
+                        return (<EditableGaussian editedVariable={editedVariable} setEditedVariable={setEditedVariable}/>);
                     case 'Triangular':
                         return (<EditableTriangular variableData={editedVariable.data}/>);
                     default:
