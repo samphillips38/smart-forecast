@@ -12,7 +12,7 @@ import ProbSelector from "./ProbSelector";
 import DeterministicSelector from "./DeterministicSelector";
 
 import { useDispatch } from "react-redux";
-import { variableAdded } from "../../../investmentsReducer";
+import { variableAdded, variableEdited } from "../../../investmentsReducer";
 
 function TabPanel(props) {
     const { value, editedVariable, setEditedVariable } = props;
@@ -46,12 +46,17 @@ export default function AddVariablePage({ variable, open, setOpen }) {
             mean: [0, 0.5, 1.5, 2.5, 3.5],
             std: [1, 2, 3, 4, 5]
         },
-        isProb: false
+        isProb: false,
+        type: "Independent"
     }
     const [editedVariable, setEditedVariable] = useState(
         variable ? {...variable} : defaultVariable
     );
     const [tabIndex, setTabIndex] = useState(editedVariable.isProb ? 1 : 0);
+    useEffect(() => {
+        setEditedVariable(variable ? {...variable} : defaultVariable);
+        setTabIndex(variable && variable.isProb ? 1 : 0)
+    }, [variable])
     const onTabIndexChange = (event, newValue) => {
         setTabIndex(newValue);
         setEditedVariable({
@@ -60,18 +65,31 @@ export default function AddVariablePage({ variable, open, setOpen }) {
         })
     }
     const onClose = () => {
+        setEditedVariable(defaultVariable)
         setOpen(false);
     }
     const onSave = () => {
-        dispatch(variableAdded(editedVariable));
+        if (variable != null) {
+            console.log(editedVariable)
+            dispatch(variableEdited(editedVariable));
+        } else {
+            console.log(editedVariable)
+            dispatch(variableAdded(editedVariable));
+        }
         onClose()
     }
     
-    const onVarNameChanged = () => {
-
+    const onVarNameChanged = (e) => {
+        setEditedVariable({
+            ...editedVariable,
+            title: e.target.value
+        })
     }
-    const onSymbolChanged = () => {
-
+    const onSymbolChanged = (e) => {
+        setEditedVariable({
+            ...editedVariable,
+            symbol: e.target.value
+        })
     }
     return (
         <Dialog onClose={onClose} open={open} maxWidth={false}>
