@@ -12,10 +12,20 @@ import { selectVariables } from "../../investmentsReducer";
 
 export default function DependentVariableGrid({ openAddVariable, setOpenAddVariable}) {
     const variables = useSelector(selectVariables);
+    const [editedVariable, setEditedVariable] = useState(null);
     const onRemoveItem = () => {
 
     }
-    const handleAddVariable = () => {
+    const onOpen = (varId) => {
+        console.log(varId);
+        if (varId !== null) {
+            const variable = variables.filter((variable) => variable.id == varId)[0];
+            console.log(variable);
+            setEditedVariable(variable);
+        } else {
+            setEditedVariable(null);
+        }
+        console.log(editedVariable);
         setOpenAddVariable(true);
     }
     return (
@@ -27,12 +37,13 @@ export default function DependentVariableGrid({ openAddVariable, setOpenAddVaria
                     <DependentVariableCard
                     variable={variable}
                     onRemoveItem={onRemoveItem}
+                    onEditClicked={() => onOpen(variable.id)}
                     />
                 </Grid>
             ))}
             <Grid item key="Add Variable" xs={12}>
                 <Card>
-                    <CardActionArea onClick={handleAddVariable}>
+                    <CardActionArea onClick={() => onOpen(null)}>
                         <CardContent>
                             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                                 <AddIcon/>
@@ -40,7 +51,7 @@ export default function DependentVariableGrid({ openAddVariable, setOpenAddVaria
                         </CardContent>
                     </CardActionArea>
                     <EditDependentVariablePage 
-                    variable={null} 
+                    variable={editedVariable} 
                     open={openAddVariable} 
                     setOpen={setOpenAddVariable}
                     />

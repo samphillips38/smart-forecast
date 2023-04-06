@@ -10,6 +10,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import ProbSelector from "./ProbSelector";
 import DeterministicSelector from "./DeterministicSelector";
+import { TitleTextField, SymbolTextField } from "../EditVariableComponents";
 
 import { useDispatch } from "react-redux";
 import { variableAdded, variableEdited } from "../../../investmentsReducer";
@@ -71,20 +72,11 @@ export default function AddVariablePage({ variable, open, setOpen }) {
     }
     const onSave = () => {
         if (variable != null) {
-            console.log(editedVariable)
             dispatch(variableEdited(editedVariable));
         } else {
-            console.log(editedVariable)
             dispatch(variableAdded(editedVariable));
         }
         onClose()
-    }
-    
-    const onVarNameChanged = (e) => {
-        setEditedVariable({
-            ...editedVariable,
-            title: e.target.value
-        })
     }
     const onSymbolChanged = (e) => {
         setEditedVariable({
@@ -99,21 +91,15 @@ export default function AddVariablePage({ variable, open, setOpen }) {
                 <Stack spacing={2}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                id={editedVariable.symbol}
-                                label="Variable Name"
-                                defaultValue={editedVariable.title}
-                                onChange={onVarNameChanged}
-                                fullWidth
+                            <TitleTextField 
+                            editedVariable={editedVariable}
+                            setEditedVariable={setEditedVariable}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                id={editedVariable.symbol}
-                                label="Symbol"
-                                defaultValue={editedVariable.symbol}
-                                onChange={onSymbolChanged}
-                                fullWidth
+                            <SymbolTextField
+                            editedVariable={editedVariable}
+                            setEditedVariable={setEditedVariable}
                             />
                         </Grid>
                     </Grid>

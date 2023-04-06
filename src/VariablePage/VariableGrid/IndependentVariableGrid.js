@@ -15,9 +15,6 @@ export default function IndependentVariableGrid({ openAddVariable, setOpenAddVar
     const onRemoveItem = () => {
 
     }
-    const handleAddVariable = () => {
-        setOpenAddVariable(true);
-    }
     const onOpen = (varId) => {
         console.log(varId);
         if (varId !== null) {
