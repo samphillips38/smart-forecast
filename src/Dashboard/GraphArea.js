@@ -6,6 +6,7 @@ import DetVariableChart from "../charts/DetVariableChart";
 import RVariableChart from "../charts/RVariableChart";
 import { useSelector } from "react-redux";
 import { selectVariables } from "../investmentsReducer";
+import { Grid, Skeleton } from "@mui/material";
 
 
 function GraphArea({
@@ -15,8 +16,9 @@ function GraphArea({
         onLayoutChange
     }) {
     const variables = useSelector(selectVariables);
+    console.log(variables);
     return (
-        <>
+        <>{variables.length > 0 ? (
             <ResponsiveGridLayout
                 className="layout"
                 layouts={layouts}
@@ -44,6 +46,16 @@ function GraphArea({
                 </div>
                 ))}
             </ResponsiveGridLayout>
+        ) : (
+            <Grid container spacing={2}>
+                {[1, 2, 3].map((el) => (
+                    <Grid item key={el}>
+                        <Skeleton variant="rectangular" width={width} height={150} padding={0.5}/>
+                    </Grid>
+                ))}
+            </Grid>
+        )}
+            
         </>
     );
 }
