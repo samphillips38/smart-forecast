@@ -4,10 +4,9 @@ import GraphArea from "./GraphArea";
 import { useSelector } from "react-redux";
 
 import { getLayoutsFromVariableList } from "../Utility";
-import { selectDisplayingInvestment, selectVariables } from "../investmentsReducer";
+import { selectVariables } from "../investmentsReducer";
 
 export default function Dashboard() {
-    const displayingInvestment = useSelector(selectDisplayingInvestment);
     const variables = useSelector(selectVariables);
     const [layouts, setLayouts] = useState(
         getFromLS("layouts") || getLayoutsFromVariableList(variables)
@@ -25,12 +24,6 @@ export default function Dashboard() {
     const onAddItem = (symbol) => {
         setItemSymbolsToDisplay([...itemSymbolsToDisplay, symbol]);
     };
-    const getItemSymbolsToDisplay = () => {
-        return variables
-                .filter((variable) => variable.type !== "Constant")
-                .map((variable) => variable.symbol)
-    }
-
     useEffect(() => {
         setLayouts(getLayoutsFromVariableList(variables));
     }, [variables]);
@@ -43,10 +36,10 @@ export default function Dashboard() {
             onAddItem={onAddItem}
         />
         <GraphArea
-            className="GraphArea"
-            onRemoveItem={onRemoveItem}
-            layouts={layouts}
-            onLayoutChange={onLayoutChange}
+        className="GraphArea"
+        onRemoveItem={onRemoveItem}
+        layouts={layouts}
+        onLayoutChange={onLayoutChange}
         />
         </>
     );
