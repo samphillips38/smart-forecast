@@ -16,7 +16,6 @@ function GraphArea({
         onLayoutChange
     }) {
     const variables = useSelector(selectVariables);
-    console.log(variables);
     return (
         <>{variables.length > 0 ? (
             <ResponsiveGridLayout
