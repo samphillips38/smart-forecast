@@ -54,9 +54,6 @@ export default function DoubleGraph({ editedVariable, setEditedVariable, isEdita
         }
         return probabilityDensityData;
     };
-    const onMouseMove = (e) => {
-        // setSelectedTimeIndex(e.activeTooltipIndex);
-    }
     const onMouseClick = (e) => {
         if (isEditable) {
             setSelectedTimeIndex(e.activeTooltipIndex);
@@ -64,9 +61,14 @@ export default function DoubleGraph({ editedVariable, setEditedVariable, isEdita
             if (toTime != null) {
                 setProbabilityDensityData(getDistAtTime(toTime));
             }
+        } else {
+            setProbabilityDensityData(
+                getDistAtTime(
+                    editedVariable.data.time[e.activeTooltipIndex]
+                )
+            )
         }
     }
-    const [selectedXIndex, setSelectedXIndex] = useState(null);
     const [initStd, setInitStd] = useState(null);
     return (
         <Grid container>

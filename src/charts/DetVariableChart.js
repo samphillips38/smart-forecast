@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -20,8 +20,21 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Button from '@mui/material/Button';
 
-function EditValue({ onClose, open, variableData }) {
+function EditValue({ onClose, open, editedVariable, setEditedVariable, i }) {
+    const [mean, setMean] = useState(editedVariable.data.mean[i]);
+    const [time, setTime] = useState(editedVariable.data.time[i]);
+    useEffect(() => {
+        setMean(editedVariable.data.mean[i]);
+        setTime(editedVariable.data.time[i]);
+    }, [i])
     const onSaveClicked = () => {
+        setEditedVariable({
+            ...editedVariable,
+            data: {
+                time: editedVariable.data.time.map((el, index) => (index == i) ? time : el),
+                mean: editedVariable.data.mean.map((el, index) => (index == i) ? parseFloat(mean) : el)
+            }
+        })
         onClose();
     }
     const onCancelClicked = () => {
@@ -38,8 +51,8 @@ function EditValue({ onClose, open, variableData }) {
                     <TextField
                         id="Val"
                         label="Select Value"
-                        defaultValue={variableData.mean[1]}
-                        onChange={()=>{}}
+                        defaultValue={editedVariable.data.mean[i]}
+                        onChange={(e) => setMean(e.target.value)}
                         fullWidth
                     />
                     <Stack direction="row" justifyContent="space-between">
@@ -52,20 +65,24 @@ function EditValue({ onClose, open, variableData }) {
     )
 }
 
-export default function DetVariableChart({ variableData, width, height }) {
+export default function DetVariableChart({ editedVariable, setEditedVariable, width, height }) {
     const [open, setOpen] = useState(false);
+    const [selectedIndex, setSelectedIndex] = useState(0);
     const handleClick = (event) => {
-        console.log("clicked point (chart)", event.activePayload[0].payload);
-        setOpen(true)
+        if (setEditedVariable && event){
+            setSelectedIndex(event.activeTooltipIndex);
+            setOpen(true)
+        } else if (setEditedVariable) {
+            setSelectedIndex(null);
+            setOpen(true)
+        }
     };
-    
     const handleClose = () => {
         setOpen(false);
     };
-    
-    const data = variableData["time"].map((t, i) => ({
+    const data = editedVariable.data.time.map((t, i) => ({
         name: t,
-        mean: variableData["mean"][i]
+        mean: editedVariable.data.mean[i]
     }));
     return (
         <>
@@ -87,7 +104,14 @@ export default function DetVariableChart({ variableData, width, height }) {
             <Line type="monotone" dataKey="mean" stroke="#82ca9d"/>
         </LineChart>
         </ResponsiveContainer>
-        <EditValue onClose={handleClose} open={open} variableData={variableData}/>
+        <EditValue 
+        onClose={handleClose} 
+        open={open} 
+        editedVariable={editedVariable}
+        setEditedVariable={setEditedVariable}
+        i={selectedIndex}
+        />
+        {setEditedVariable && <Button onClick={handleClick} >Add Point</Button>}
         </>
     );
 }

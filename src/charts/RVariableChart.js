@@ -11,7 +11,7 @@ import {
 
 export default function Chart({ variableData }) {
   const data = variableData["time"].map((t, i) => ({
-    name: t,
+    name: (new Date(t)).toDateString(),
     mean: variableData["mean"][i],
     "std+": variableData["mean"][i] + variableData["std"][i],
     "std-": variableData["mean"][i] - variableData["std"][i]

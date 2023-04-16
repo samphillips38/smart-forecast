@@ -3,64 +3,37 @@ import Dialog from '@mui/material/Dialog';
 import { Box, DialogContent, DialogTitle, Divider, Grid } from "@material-ui/core";
 import { Button } from "@mui/material";
 import Stack from '@mui/material/Stack';
-import TextField from "@mui/material/TextField";
-import Typography from "@material-ui/core/Typography";
 import EquationView from "../EquationView";
-import nerdamer from "nerdamer";
+import { useDispatch } from "react-redux";
 
-export default function EditDependentVariablePage({ variable, open, setOpen, onSave }) {
+import { TitleTextField, SymbolTextField, ExpressionTextField } from "../EditVariableComponents";
+import { variableEdited, variableAdded } from "../../../investmentsReducer";
+
+export default function EditDependentVariablePage({ variable, open, setOpen }) {
+    const dispatch = useDispatch();
     const defaultVariable = {
         symbol: 'x',
         title: 'New Variable',
         data: {
             mean: [0, 0.5, 1.5, 2.5, 3.5],
             std: [1, 2, 3, 4, 5]
-        }
+        },
+        type: "Dependent",
+        displayOnDashboard: true
     }
     const [editedVariable, setEditedVariable] = useState(
-        variable || defaultVariable
+        variable ? {...variable} : defaultVariable
     );
-    const [variableName, setVariableName] = useState(editedVariable.title)
-    const [variableSymbol, setVariableSymbol] = useState(editedVariable.symbol)
-    const [expression, setExpression] = useState(editedVariable.expression)
-    const [symbolError, setSymbolError] = useState("");
-    const [titleError, setTitleError] = useState("");
-    const [expressionError, setExpressionError] = useState("");
+    const onSave = () => {
+        if (variable != null) {
+            dispatch(variableEdited(editedVariable));
+        } else {
+            dispatch(variableAdded(editedVariable));
+        }
+        onClose()
+    }
     const onClose = () => {
-        console.log('Closed');
         setOpen(false);
-    }
-    const onVarNameChanged = (e) => {
-        if (e.target.value == "") {
-            setTitleError("Cannot be blank");
-        } else {
-            setVariableName(e.target.value);
-            setTitleError("");
-        }
-    }
-    const onSymbolChanged = (e) => {
-        if (e.target.value == "") {
-            setSymbolError("Cannot be blank");
-        } else {
-            setVariableSymbol(e.target.value)
-            setSymbolError("");
-        }
-    }
-    const onExpressionChange = (e) => {
-        let isValidExpression = true;
-        try {
-            nerdamer(e.target.value)
-        } catch (error) {
-            isValidExpression = false;
-        }
-        if (e.target.value == "") {
-            setExpressionError("Cannot be blank");
-        } else if (!isValidExpression) {
-            setExpressionError("Invalid expression")
-        } else {
-            setExpression(e.target.value);
-            setExpressionError("");
-        }
     }
     return (
         <Dialog onClose={onClose} open={open} maxWidth={false}>
@@ -69,41 +42,26 @@ export default function EditDependentVariablePage({ variable, open, setOpen, onS
                 <Stack spacing={2}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                id={editedVariable.symbol}
-                                label="Variable Name"
-                                defaultValue={editedVariable.title}
-                                onChange={onVarNameChanged}
-                                fullWidth
-                                error={titleError != ""}
-                                helperText={titleError}
+                            <TitleTextField
+                            editedVariable={editedVariable}
+                            setEditedVariable={setEditedVariable}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                    id={editedVariable.symbol}
-                                    label="Symbol"
-                                    defaultValue={editedVariable.symbol}
-                                    onChange={onSymbolChanged}
-                                    fullWidth
-                                    error={symbolError != ""}
-                                    helperText={symbolError}
-                                />
+                            <SymbolTextField
+                            editedVariable={editedVariable}
+                            setEditedVariable={setEditedVariable}
+                            />
                         </Grid>
                     </Grid>
-                    <EquationView symbol={variableSymbol} expression={expression}/>
-                    <TextField
-                        id={editedVariable.symbol}
-                        label="Expression"
-                        defaultValue={editedVariable.expression}
-                        onChange={onExpressionChange}
-                        fullWidth
-                        error={expressionError != ""}
-                        helperText={expressionError}
+                    <EquationView symbol={editedVariable.symbol} expression={editedVariable.expression}/>
+                    <ExpressionTextField
+                    editedVariable={editedVariable}
+                    setEditedVariable={setEditedVariable}
                     />
                     <Stack direction="row" justifyContent="space-between">
                         <Button onClick={onClose}>Cancel</Button>   
-                        <Button onClick={() => onSave(variableName, variableSymbol, expression)}>Save</Button>
+                        <Button onClick={onSave}>Save</Button>
                     </Stack>
                 </Stack>
             </DialogContent>

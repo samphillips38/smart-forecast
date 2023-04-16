@@ -10,16 +10,17 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import ProbSelector from "./ProbSelector";
 import DeterministicSelector from "./DeterministicSelector";
+import { TitleTextField, SymbolTextField } from "../EditVariableComponents";
 
 import { useDispatch } from "react-redux";
-import { variableAdded } from "../../../investmentsReducer";
+import { variableAdded, variableEdited } from "../../../investmentsReducer";
 
 function TabPanel(props) {
     const { value, editedVariable, setEditedVariable } = props;
     switch (value) {
         case 0:
             return (
-                <DeterministicSelector variable={editedVariable}/>
+                <DeterministicSelector editedVariable={editedVariable} setEditedVariable={setEditedVariable}/>
             );
         case 1:
             return (
@@ -45,27 +46,43 @@ export default function AddVariablePage({ variable, open, setOpen }) {
             time: [0, 1, 2, 3, 4],
             mean: [0, 0.5, 1.5, 2.5, 3.5],
             std: [1, 2, 3, 4, 5]
-        }
+        },
+        isProb: false,
+        type: "Independent",
+        displayOnDashboard: true
     }
     const [editedVariable, setEditedVariable] = useState(
-        variable || defaultVariable
+        variable ? {...variable} : defaultVariable
     );
-    const [tabIndex, setTabIndex] = useState(0);
+    const [tabIndex, setTabIndex] = useState(editedVariable.isProb ? 1 : 0);
+    useEffect(() => {
+        setEditedVariable(variable ? {...variable} : defaultVariable);
+        setTabIndex(variable && variable.isProb ? 1 : 0)
+    }, [variable])
     const onTabIndexChange = (event, newValue) => {
         setTabIndex(newValue);
+        setEditedVariable({
+            ...editedVariable,
+            isProb: newValue == 1
+        })
     }
     const onClose = () => {
+        setEditedVariable(defaultVariable)
         setOpen(false);
     }
     const onSave = () => {
-        dispatch(variableAdded(editedVariable));
+        if (variable != null) {
+            dispatch(variableEdited(editedVariable));
+        } else {
+            dispatch(variableAdded(editedVariable));
+        }
         onClose()
     }
-    const onVarNameChanged = () => {
-
-    }
-    const onSymbolChanged = () => {
-
+    const onSymbolChanged = (e) => {
+        setEditedVariable({
+            ...editedVariable,
+            symbol: e.target.value
+        })
     }
     return (
         <Dialog onClose={onClose} open={open} maxWidth={false}>
@@ -74,22 +91,16 @@ export default function AddVariablePage({ variable, open, setOpen }) {
                 <Stack spacing={2}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                id={editedVariable.symbol}
-                                label="Variable Name"
-                                defaultValue={editedVariable.title}
-                                onChange={onVarNameChanged}
-                                fullWidth
+                            <TitleTextField 
+                            editedVariable={editedVariable}
+                            setEditedVariable={setEditedVariable}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                    id={editedVariable.symbol}
-                                    label="Symbol"
-                                    defaultValue={editedVariable.symbol}
-                                    onChange={onSymbolChanged}
-                                    fullWidth
-                                />
+                            <SymbolTextField
+                            editedVariable={editedVariable}
+                            setEditedVariable={setEditedVariable}
+                            />
                         </Grid>
                     </Grid>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
