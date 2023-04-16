@@ -12,6 +12,11 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 import Stack from '@mui/material/Stack';
+import FormControl from '@mui/material/FormControl';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 import { selectDisplayingInvestment } from "./investmentsReducer";
 import { Button } from "@mui/material";
@@ -68,34 +73,57 @@ export default function Header({
                 )}
             </Stack>
             <div className={classes.spacer} />
-            <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDarkMode}
-            edge="start"
-            className={classes.rightIcons}
-            >
-            {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
-            </IconButton>
+            <Stack spacing={2} direction="row" alignItems="center">
+                <Box sx={{ minWidth: 140}}>
+                    <FormControl fullWidth size="small">
+                        <InputLabel id="demo-simple-select-label">Model</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={"Choose Model"}
+                        label="Age"
+                        // onChange={handleChange}
+                        >
+                        <MenuItem value={10}>Model 1</MenuItem>
+                        <MenuItem value={20}>Model 2</MenuItem>
+                        <MenuItem value={30}>Model 3</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
 
-            <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            className={classes.rightIcons}
-            >
-            <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-            </Badge>
-            </IconButton>
-            <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            className={classes.rightIcons}
-            >
-            <AccountCircleIcon />
-            </IconButton>
+                <Button
+                color="inherit"
+                variant="outlined"
+                >New Model</Button>
+                <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={toggleDarkMode}
+                edge="start"
+                className={classes.rightIcons}
+                >
+                {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+                </IconButton>
+
+                <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                className={classes.rightIcons}
+                >
+                <Badge badgeContent={4} color="secondary">
+                    <NotificationsIcon />
+                </Badge>
+                </IconButton>
+                <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                className={classes.rightIcons}
+                >
+                <AccountCircleIcon />
+                </IconButton>
+            </Stack>
         </Toolbar>
         </AppBar>
     );
