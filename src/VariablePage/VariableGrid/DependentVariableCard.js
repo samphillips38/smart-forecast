@@ -1,6 +1,6 @@
 import Card from "@material-ui/core/Card";
 import { useState } from 'react';
-import ShowVariableCard from "./ShowVariableCard";
+// import ShowVariableCard from "./ShowVariableCard";
 import { CardContent, Box } from "@material-ui/core";
 import Button from '@mui/material/Button';
 import Typography from "@material-ui/core/Typography";
@@ -12,13 +12,12 @@ import { MathJax } from "better-react-mathjax";
 import nerdamer from "nerdamer";
 import EquationView from "./EquationView";
 import EditDependentVariablePage from "./EditDependentVariable/EditDependentVariablePage";
+import DoubleGraph from "./DoubleGraph";
+import DetVariableChart from "../../charts/DetVariableChart";
 
-export default function DependentVariableCard({ variable, onRemoveItem }) {
+export default function DependentVariableCard({ variable, onRemoveItem, onEditClicked }) {
     const [open, setOpen] = useState(false);
     const [editedVariable, setEditedVariable] = useState(variable);
-    const onEditClicked = () => {
-        setOpen(true)
-    };
     const onSave = (newTitle, newSymbol, newExpression) => {
         const newVariable = variable;
         newVariable.title = newTitle;
@@ -40,9 +39,11 @@ export default function DependentVariableCard({ variable, onRemoveItem }) {
                             <CloseIcon fontSize="small" />
                         </IconButton>
                     </Stack>
-                    {variable.data.valid && (
-                        <ShowVariableCard variable={variable} editedVariable={editedVariable} setEditedVariable={setEditedVariable} onRemoveItem={onRemoveItem}/>
-                    )}
+                    {variable.data.valid && (variable.isProb ? (
+                        <DoubleGraph editedVariable={variable}/>
+                    ) : (
+                        <DetVariableChart editedVariable={variable} width="100%" height={350}/>
+                    ))}
                     <EquationView symbol={editedVariable.symbol} expression={editedVariable.expression}/>
                     <Box alignSelf="flex-end">
                         <Button

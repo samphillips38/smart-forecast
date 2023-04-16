@@ -6,6 +6,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
 import DragHandleIcon from '@mui/icons-material/DragHandle';
+import RVariableChart from './RVariableChart'
+import DetVariableChart from "./DetVariableChart";
 
 const useStyles = makeStyles({
   root: {
@@ -48,7 +50,12 @@ export default function Widget({
                 </IconButton>
             </div>
             <div className={classes.body}>
-                <Item variableData={variable["data"]} />
+                {variable.isProb ? (
+                    <RVariableChart variableData={variable["data"]}/>
+                ) : (
+                    <DetVariableChart editedVariable={variable} />
+                )}
+                {/* <Item variableData={variable["data"]} /> */}
             </div>
         </Card>
   );
