@@ -9,7 +9,6 @@ import VariableCard from "../../Components/VariableCard";
 
 export default function VariablePage() {
     const variables = useSelector(selectVariables);
-    const [variableDialogIsOpen, setVariableDialogIsOpen] = useState(false);
     return (
         <Stack spacing={2} >
             <VariableTopBar/>
