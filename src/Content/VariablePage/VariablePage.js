@@ -10,7 +10,7 @@ import VariableCard from "../../Components/VariableCard";
 
 export default function VariablePage() {
     const variables = useSelector(selectVariables);
-    const [showVariableIsOpen, setShowVariableIsOpen] = useState(false);
+    const [variableDialogIsOpen, setVariableDialogIsOpen] = useState(false);
     return (
         <Stack spacing={2} >
             <VariableTopBar/>
@@ -18,7 +18,7 @@ export default function VariablePage() {
                 {variables.map((variable) => (
                     <Grid item id={variable.id}>
                         <VariableCard variable={variable}/>
-                        <VariableDialog variable={variable} open={open} setOpen={setOpen}/>
+                        <VariableDialog variable={show} open={variableDialogIsOpen} setOpen={setVariableDialogIsOpen}/>
                     </Grid>
                 ))}
             </Grid>
