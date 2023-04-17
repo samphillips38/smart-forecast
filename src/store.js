@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import investmentsReducer from './investmentsReducer'
+import modelsReducer from './modelsReducer'
 
 const store = configureStore({
   reducer: {
-    investments: investmentsReducer
+    models: modelsReducer
   }
 })
 
