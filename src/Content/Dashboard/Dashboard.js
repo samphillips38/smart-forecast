@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import DashboardTopBar from "./DashboardTopBar";
-import { getLayoutsFromVariableList } from "../Utility";
+import { getLayoutsFromVariableList } from "../../Utility";
 import { selectVariables } from "../../modelsReducer";
 
 export default function Dashboard() {

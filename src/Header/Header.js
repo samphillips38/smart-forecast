@@ -20,7 +20,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
 
-import { selectSelectedModel, selectModels, selectSelectedModel } from "../modelsReducer";
+import { selectSelectedModel, selectModels } from "../modelsReducer";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
