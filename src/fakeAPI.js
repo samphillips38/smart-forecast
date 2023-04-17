@@ -1,57 +1,62 @@
 const var1 = {
     id: 0,
-    investmentId: 0,
+    modelId: 0,
+    name: "Sales per Month",
     symbol: "S",
-    data: {
-        time: [1680895752, 1688684400, 1696633200, 1704585600],
-        mean: [1, 5, 18, 20],
-        std: [1, 2, 3, 4]
+    isFormula: false,
+    formula: null,
+    points: {
+        areProbabilistic: false,
+        entities: {
+            0: {id: 0, xCoordinate: 1, yCoordinate: 1, yDeviation: 1},
+            1: {id: 2, xCoordinate: 2, yCoordinate: 5, yDeviation: 2},
+            2: {id: 3, xCoordinate: 3, yCoordinate: 18, yDeviation: 3},
+            3: {id: 4, xCoordinate: 4, yCoordinate: 20, yDeviation: 4}
+        }
     },
-    expression: "Normal(1, 0)",
-    title: "Sales per Month",
-    isProb: true,
-    probType: 'Gaussian',
-    type: "Independent",
-    displayOnDashboard: true,
     status: "loaded" // Options will be ["loaded", "loading", "needs updating"]
 }
 const var2 = {
     id: 1,
-    investmentId: 0,
+    modelId: 0,
+    name: "Price",
     symbol: "P",
-    data: {
-        time: [1, 2, 3, 4],
-        mean: [5, 6, 8, 6]
+    isFormula: false,
+    formula: null,
+    points: {
+        areProbabilistic: false,
+        entities: {
+            0: {id: 0, xCoordinate: 1, yCoordinate: 5, yDeviation: null},
+            1: {id: 2, xCoordinate: 2, yCoordinate: 6, yDeviation: null},
+            2: {id: 3, xCoordinate: 3, yCoordinate: 8, yDeviation: null},
+            3: {id: 4, xCoordinate: 4, yCoordinate: 6, yDeviation: null}
+        }
     },
-    expression: "3.5",
-    title: "Price",
-    isProb: false,
-    type: "Independent",
-    displayOnDashboard: true,
     status: "loaded"
 }
 const var3 = {
     id: 2,
-    investmentId: 0,
+    modelId: 0,
+    name: "Monthly Turnover",
     symbol: "T",
-    data: {
-        time: [1, 2, 3, 4],
-        mean: [5, 24, 56, 72],
-        std: [2, 10, 15, 30],
-        valid: true
+    isFormula: true,
+    formula: "2S + x + 41 + P + P^2 + S^P + 1/S",
+    points: {
+        areProbabilistic: true,
+        entities: {
+            0: {id: 0, xCoordinate: 1, yCoordinate: 5, yDeviation: 2},
+            1: {id: 2, xCoordinate: 2, yCoordinate: 24, yDeviation: 10},
+            2: {id: 3, xCoordinate: 3, yCoordinate: 56, yDeviation: 15},
+            3: {id: 4, xCoordinate: 4, yCoordinate: 72, yDeviation: 30}
+        }
     },
-    expression: "2S + x + 41 + P + P^2 + S^P + 1/S",
-    title: "Monthly Turnover",
-    isProb: false,
-    probType: 'Gaussian',
-    type: "Dependent",
-    displayOnDashboard: true,
     status: "loaded"
 }
 
-const investment1 = {
+const model1 = {
     id: 0,
-    name: "Test Investment",
+    name: "Test Model",
+    description: "This model is for something",
     status: "idle",
     variables: {
         status: "idle",
@@ -62,9 +67,10 @@ const investment1 = {
         }
     }
 }
-const investment2 = {
+const model2 = {
     id: 1,
-    name: "Test Investment 2",
+    name: "Test Model 2",
+    description: "This model is for something else",
     status: "idle",
     variables: {
         status: "idle",
@@ -72,12 +78,12 @@ const investment2 = {
     }
 }
 const rootData = {
-    investments: {
+    models: {
         status: "idle",
-        displayInvestment: investment1.id,
+        selectedModel: model1.id,
         entities: {
-            [investment1.id]: investment1,
-            [investment2.id]: investment2
+            [model1.id]: model1,
+            [model2.id]: model2
         }
     }
 }
@@ -95,7 +101,7 @@ export default async function fakeGet(endpoint) {
         case 'api/rootData':
             return returnAfterDelay(rootData);
         case 'api/models':
-            return returnAfterDelay([investment1, investment2]);
+            return returnAfterDelay([model1, model2]);
         default:
             return null
     }
