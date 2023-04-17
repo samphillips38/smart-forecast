@@ -11,18 +11,18 @@ const modelsAdapter = createEntityAdapter();
 
 const initialState = modelsAdapter.getInitialState({
     status: 'idle',
-    displayInvestment: 0,
+    selectedModel: 0,
     variables: {status: 'idle', entities: {}},
 })
 
 // Thunk functions
-export const fetchmodels = createAsyncThunk('models/fetchModels', async () => {
+export const fetchModels = createAsyncThunk('models/fetchModels', async () => {
     const response = await fakeGet('api/models')
     return response
 })
 
-// export const saveNewInvestment = createAsyncThunk(
-//     'model/saveNewInvestment',
+// export const saveNewModel = createAsyncThunk(
+//     'model/saveNewModel',
 //     async (text) => {
 //         const initialTodo = { text }
 //         const response = await client.post('/fakeApi/todos', { todo: initialTodo })
@@ -30,36 +30,36 @@ export const fetchmodels = createAsyncThunk('models/fetchModels', async () => {
 //     }
 // )
 const getNextVariableId = (state) => {
-    const variables = Object.values(state.entities[state.displayInvestment].variables.entities);
+    const variables = Object.values(state.entities[state.selectedModel].variables.entities);
     return variables.reduce((acc, variable) => acc > variable.id ? acc : variable.id) + 1
 }
-const investmentSlice = createSlice({
+const modelSlice = createSlice({
     name: 'model',
     initialState,
     reducers: {
-        investmentAdded: modelAdapter.addOne,
-        investmentDeleted: modelAdapter.removeOne,
+        modelAdded: modelsAdapter.addOne,
+        modelDeleted: modelsAdapter.removeOne,
         variableAdded(state, action) {
             const variable = action.payload;
             const newId = getNextVariableId(state);
-            state.entities[state.displayInvestment].variables.entities[newId] = {
+            state.entities[state.selectedModel].variables.entities[newId] = {
                 ...variable,
                 id: newId,
-                investmentId: state.displayInvestment
+                modelId: state.selectedModel
             }
         },
         variableDeleted(state, action) {
             const variableId = action.payload;
-            delete state.entities[state.displayInvestment].variables.entities[variableId]
+            delete state.entities[state.selectedModel].variables.entities[variableId]
         },
         variableEdited(state, action) {
             const variable = action.payload;
-            state.entities[state.displayInvestment].variables.entities[variable.id] = variable
+            state.entities[state.selectedModel].variables.entities[variable.id] = variable
         },
         variableDisplayStatusUpdated: {
             reducer(state, action) {
                 const { variableId, displayStatus } = action.payload;
-                const variable = state.entities[state.displayInvestment].variables.entities[variableId];
+                const variable = state.entities[state.selectedModel].variables.entities[variableId];
                 variable.displayOnDashboard = displayStatus;
             },
             prepare(variableId, displayStatus) {
@@ -72,11 +72,11 @@ const investmentSlice = createSlice({
     },
     extraReducers: builder => {
         builder
-          .addCase(fetchModel.pending, (state, action) => {
+          .addCase(fetchModels.pending, (state, action) => {
             state.status = 'loading'
           })
-          .addCase(fetchModel.fulfilled, (state, action) => {
-            modelAdapter.setAll(state, action.payload)
+          .addCase(fetchModels.fulfilled, (state, action) => {
+            modelsAdapter.setAll(state, action.payload)
             state.status = 'idle'
           })
         //   .addCase(saveNewTodo.fulfilled, (state, action) => {
@@ -87,30 +87,30 @@ const investmentSlice = createSlice({
 })
 
 export const { 
-    investmentAdded, 
-    investmentDeleted, 
+    modelAdded, 
+    modelDeleted, 
     variableAdded, 
     variableDeleted, 
     variableEdited,
     variableDisplayStatusUpdated,
- } = investmentSlice.actions
-export default investmentSlice.reducer
+ } = modelSlice.actions
+export default modelSlice.reducer
 
 // Selectors
 export const {
     selectAll: selectModel,
     selectById: selectModelById,
-} = modelAdapter.getSelectors((state) => state.model)
-export const selectInvestmentIds = createSelector(
+} = modelsAdapter.getSelectors((state) => state.model)
+export const selectModelIds = createSelector(
     selectModel,
-    (model) => model.map((investment) => investment.id)
+    (model) => model.map((model) => model.id)
 )
-export const selectDisplayingInvestment = (state) => selectModelById(state, state.model.displayInvestment);
+export const selectDisplayingModel = (state) => selectModelById(state, state.model.selectedModel);
 export const selectVariables = createSelector(
-    selectDisplayingInvestment,
-    (displayInvestment) => {
-        if (displayInvestment) {
-            return Object.values(displayInvestment.variables.entities);
+    selectDisplayingModel,
+    (selectedModel) => {
+        if (selectedModel) {
+            return Object.values(selectedModel.variables.entities);
         }
         return [];
     }
