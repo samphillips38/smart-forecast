@@ -94,7 +94,7 @@ export default async function fakeGet(endpoint) {
     switch (endpoint) {
         case 'api/rootData':
             return returnAfterDelay(rootData);
-        case 'api/investments':
+        case 'api/models':
             return returnAfterDelay([investment1, investment2]);
         default:
             return null

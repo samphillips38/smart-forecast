@@ -17,8 +17,9 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import AddIcon from "@mui/icons-material/Add";
 
-import { selectDisplayingInvestment } from "./investmentsReducer";
+import { selectDisplayingInvestment } from "../investmentsReducer";
 import { Button } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
@@ -94,7 +95,9 @@ export default function Header({
                 <Button
                 color="inherit"
                 variant="outlined"
-                >New Model</Button>
+                >
+                    <AddIcon/>
+                    New Model</Button>
                 <IconButton
                 color="inherit"
                 aria-label="open drawer"
