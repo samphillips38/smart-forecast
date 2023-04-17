@@ -10,17 +10,17 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Stack from '@mui/material/Stack';
 import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import AddIcon from "@mui/icons-material/Add";
-
-import { selectDisplayingInvestment } from "../investmentsReducer";
 import { Button } from "@mui/material";
+
+import { selectSelectedModel, selectModels, selectSelectedModel } from "../modelsReducer";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -45,7 +45,12 @@ export default function Header({
     darkMode
     }) {
     const classes = useStyles();
-    const investment = useSelector(selectDisplayingInvestment);
+    const dispatch = useDispatch();
+    const models = useSelector(selectModels);
+    const selectedModel = useSelector(selectSelectedModel);
+    const onSelectedNewModel = (modelId) => {
+        dispatch(selectSelectedModel(modelId));
+    }
     return (
         <AppBar position="fixed" className={classes.appbar}>
         <Toolbar>
@@ -62,32 +67,24 @@ export default function Header({
                         <MenuIcon />
                 </IconButton>
             )}
-            <Stack spacing={2} direction="row">
-                <Typography variant="h6" noWrap>
-                {isMobileSize ? "SF" : "Smart Forecast"}
-                </Typography>
-                {investment && investment.status == "idle" && (
-                    <Button 
-                    color="inherit" 
-                    variant="outlined"
-                    display={{marginLeft: 0.5}}>Refresh</Button>
-                )}
-            </Stack>
+            <Typography variant="h6" noWrap>
+                {isMobileSize ? "MC" : "Model Creator"}
+            </Typography>
             <div className={classes.spacer} />
             <Stack spacing={2} direction="row" alignItems="center">
                 <Box sx={{ minWidth: 140}}>
                     <FormControl fullWidth size="small">
-                        <InputLabel id="demo-simple-select-label">Model</InputLabel>
+                        <InputLabel id="model-select-label">Model</InputLabel>
                         <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={"Choose Model"}
+                        labelId="model-select-label"
+                        id="model-select"
+                        value={selectedModel.name}
                         label="Age"
-                        // onChange={handleChange}
+                        onChange={onSelectedNewModel}
                         >
-                        <MenuItem value={10}>Model 1</MenuItem>
-                        <MenuItem value={20}>Model 2</MenuItem>
-                        <MenuItem value={30}>Model 3</MenuItem>
+                            {models.map((model) => (
+                                <MenuItem value={model.id}>{model.name}</MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
                 </Box>
