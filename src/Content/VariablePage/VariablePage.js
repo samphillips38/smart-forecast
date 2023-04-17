@@ -5,7 +5,6 @@ import { Grid } from "@material-ui/core";
 
 import { selectVariables } from "../../modelsReducer";
 import VariableTopBar from "./VariableTopBar";
-import VariableDialog from "./VariableDialog";
 import VariableCard from "../../Components/VariableCard";
 
 export default function VariablePage() {
@@ -18,7 +17,6 @@ export default function VariablePage() {
                 {variables.map((variable) => (
                     <Grid item id={variable.id}>
                         <VariableCard variable={variable}/>
-                        <VariableDialog variable={show} open={variableDialogIsOpen} setOpen={setVariableDialogIsOpen}/>
                     </Grid>
                 ))}
             </Grid>
