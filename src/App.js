@@ -6,9 +6,9 @@ import { MathJaxContext } from "better-react-mathjax";
 import { Provider } from 'react-redux';
 
 import store from "./store";
-import Content from "./Content";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
+import Content from "./Content/Content";
+import Header from "./Header/Header";
+import Sidebar from "./Sidebar/Sidebar";
 
 const drawerWidth = 240;
 
