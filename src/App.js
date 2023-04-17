@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { CssBaseline, ThemeProvider, createTheme, Toolbar } from "@material-ui/core";
-import Content from "./Content";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
 import { Box } from "@material-ui/core";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { MathJaxContext } from "better-react-mathjax";
 import { Provider } from 'react-redux';
+
 import store from "./store";
+import Content from "./Content";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 const drawerWidth = 240;
 
