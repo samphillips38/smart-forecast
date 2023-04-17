@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import TopBar from "../../OLD/Dashboard/TopBar";
-import GraphArea from "../../OLD/Dashboard/GraphArea";
 import { useSelector } from "react-redux";
 
+import TopBar from "./TopBar";
 import { getLayoutsFromVariableList } from "../Utility";
-import { selectVariables } from "../../OLD/investmentsReducer";
+import { selectVariables } from "../../modelsReducer";
 
 export default function Dashboard() {
     const variables = useSelector(selectVariables);
@@ -35,12 +34,12 @@ export default function Dashboard() {
             onRemoveItem={onRemoveItem}
             onAddItem={onAddItem}
         />
-        <GraphArea
+        {/* <GraphArea
         className="GraphArea"
         onRemoveItem={onRemoveItem}
         layouts={layouts}
         onLayoutChange={onLayoutChange}
-        />
+        /> */}
         </>
     );
     }
