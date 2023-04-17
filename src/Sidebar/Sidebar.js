@@ -1,47 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import MailIcon from "@material-ui/icons/Mail";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import DevicesIcon from "@material-ui/icons/Devices";
 import EventIcon from "@material-ui/icons/Event";
 import ExploreIcon from "@material-ui/icons/Explore";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import SettingsIcon from "@material-ui/icons/Settings";
 import CalculateIcon from "@mui/icons-material/Calculate";
-import ListItemButton from '@mui/material/ListItemButton';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 
-
-
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0
-  },
-  drawerPaper: {
-    width: drawerWidth
-  },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end"
-  }
-}));
-
-export default function ({ window, open, setOpen, handleDrawerClose, setContent, isMobileSize }) {
+export default function ({ window, open, handleDrawerClose, setContent, isMobileSize }) {
     const menuItemList = (
         <div>
             <Toolbar />
