@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import TopBar from "./TopBar";
-import GraphArea from "./GraphArea";
+import TopBar from "../../OLD/Dashboard/TopBar";
+import GraphArea from "../../OLD/Dashboard/GraphArea";
 import { useSelector } from "react-redux";
 
 import { getLayoutsFromVariableList } from "../Utility";
-import { selectVariables } from "../investmentsReducer";
+import { selectVariables } from "../../OLD/investmentsReducer";
 
 export default function Dashboard() {
     const variables = useSelector(selectVariables);
