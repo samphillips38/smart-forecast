@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import TopBar from "./TopBar";
+import DashboardTopBar from "./DashboardTopBar";
 import { getLayoutsFromVariableList } from "../Utility";
 import { selectVariables } from "../../modelsReducer";
 
@@ -29,7 +29,7 @@ export default function Dashboard() {
 
     return (
         <>
-        <TopBar
+        <DashboardTopBar
             onLayoutSave={onLayoutSave}
             onRemoveItem={onRemoveItem}
             onAddItem={onAddItem}
