@@ -39,6 +39,9 @@ const modelSlice = createSlice({
     reducers: {
         modelAdded: modelsAdapter.addOne,
         modelDeleted: modelsAdapter.removeOne,
+        selectedModelChanged(state, action) {
+            state.selectedModel = action.payload;
+        },
         variableAdded(state, action) {
             const variable = action.payload;
             const newId = getNextVariableId(state);
@@ -98,16 +101,16 @@ export default modelSlice.reducer
 
 // Selectors
 export const {
-    selectAll: selectModel,
+    selectAll: selectModels,
     selectById: selectModelById,
 } = modelsAdapter.getSelectors((state) => state.model)
 export const selectModelIds = createSelector(
-    selectModel,
-    (model) => model.map((model) => model.id)
+    selectModels,
+    (models) => models.map((model) => model.id)
 )
-export const selectDisplayingModel = (state) => selectModelById(state, state.model.selectedModel);
+export const selectSelectedModel = (state) => selectModelById(state, state.model.selectedModel);
 export const selectVariables = createSelector(
-    selectDisplayingModel,
+    selectSelectedModel,
     (selectedModel) => {
         if (selectedModel) {
             return Object.values(selectedModel.variables.entities);
