@@ -17,7 +17,9 @@ const initialState = modelsAdapter.getInitialState({
 
 // Thunk functions
 export const fetchModels = createAsyncThunk('models/fetchModels', async () => {
-    const response = await fakeGet('api/models')
+    console.log("Loading data from API...");
+    const response = await fakeGet('api/models');
+    console.log("Data loaded.");
     return response
 })
 
@@ -34,7 +36,7 @@ const getNextVariableId = (state) => {
     return variables.reduce((acc, variable) => acc > variable.id ? acc : variable.id) + 1
 }
 const modelSlice = createSlice({
-    name: 'model',
+    name: 'models',
     initialState,
     reducers: {
         modelAdded: modelsAdapter.addOne,
@@ -91,9 +93,10 @@ const modelSlice = createSlice({
 
 export const { 
     modelAdded, 
-    modelDeleted, 
-    variableAdded, 
-    variableDeleted, 
+    modelDeleted,
+    selectedModelChanged,
+    variableAdded,
+    variableDeleted,
     variableEdited,
     variableDisplayStatusUpdated,
  } = modelSlice.actions
@@ -103,12 +106,12 @@ export default modelSlice.reducer
 export const {
     selectAll: selectModels,
     selectById: selectModelById,
-} = modelsAdapter.getSelectors((state) => state.model)
+} = modelsAdapter.getSelectors((state) => state.models)
 export const selectModelIds = createSelector(
     selectModels,
     (models) => models.map((model) => model.id)
 )
-export const selectSelectedModel = (state) => selectModelById(state, state.model.selectedModel);
+export const selectSelectedModel = (state) => selectModelById(state, state.models.selectedModel);
 export const selectVariables = createSelector(
     selectSelectedModel,
     (selectedModel) => {

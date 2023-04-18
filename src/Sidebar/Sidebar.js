@@ -14,7 +14,6 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-
 const drawerWidth = 240;
 
 export default function ({ window, open, handleDrawerClose, setContent, isMobileSize }) {
@@ -61,7 +60,7 @@ export default function ({ window, open, handleDrawerClose, setContent, isMobile
                 </ListItem>
             </List>
             <Divider />
-            <List>
+            {/* <List>
                 <ListItem button>
                     <ListItemIcon>
                         <DevicesIcon />
@@ -74,7 +73,7 @@ export default function ({ window, open, handleDrawerClose, setContent, isMobile
                     </ListItemIcon>
                     <ListItemText primary="Settings" />
                 </ListItem>
-            </List>
+            </List> */}
         </div>
     )
 
