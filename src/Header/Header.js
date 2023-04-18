@@ -20,7 +20,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
 
-import { selectSelectedModel, selectModels } from "../modelsReducer";
+import { selectSelectedModel, selectedModelChanged, selectModels } from "../modelsReducer";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -48,8 +48,8 @@ export default function Header({
     const dispatch = useDispatch();
     const models = useSelector(selectModels);
     const selectedModel = useSelector(selectSelectedModel);
-    const onSelectedNewModel = (modelId) => {
-        dispatch(selectSelectedModel(modelId));
+    const onSelectedNewModel = (e) => {
+        dispatch(selectedModelChanged(e.target.value));
     }
     return (
         <AppBar position="fixed" className={classes.appbar}>
@@ -75,17 +75,20 @@ export default function Header({
                 <Box sx={{ minWidth: 140}}>
                     <FormControl fullWidth size="small">
                         <InputLabel id="model-select-label">Model</InputLabel>
-                        <Select
-                        labelId="model-select-label"
-                        id="model-select"
-                        value={selectedModel.name}
-                        label="Age"
-                        onChange={onSelectedNewModel}
-                        >
-                            {models.map((model) => (
-                                <MenuItem value={model.id}>{model.name}</MenuItem>
-                            ))}
-                        </Select>
+                            <Select
+                            labelId="model-select-label"
+                            id="model-select"
+                            value={selectedModel ? selectedModel.id : -1}
+                            label="Age"
+                            onChange={onSelectedNewModel}
+                            >
+                                <MenuItem value={-1} key={-1}>None</MenuItem>
+                                {models && (
+                                    models.map((model) => (
+                                        <MenuItem value={model.id} key={model.id}>{model.name}</MenuItem>
+                                    ))
+                                )}
+                            </Select>
                     </FormControl>
                 </Box>
 
