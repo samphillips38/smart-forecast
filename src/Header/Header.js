@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -21,6 +21,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
 
 import { selectSelectedModel, selectedModelChanged, selectModels } from "../modelsReducer";
+import EditModelDialog from "../Components/EditModelDialog";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -48,6 +49,7 @@ export default function Header({
     const dispatch = useDispatch();
     const models = useSelector(selectModels);
     const selectedModel = useSelector(selectSelectedModel);
+    const [editModelOpen, setEditModelOpen] = useState(false);
     const onSelectedNewModel = (e) => {
         dispatch(selectedModelChanged(e.target.value));
     }
@@ -95,9 +97,12 @@ export default function Header({
                 <Button
                 color="inherit"
                 variant="outlined"
+                onClick={() => setEditModelOpen(true)}
                 >
                     <AddIcon/>
-                    New Model</Button>
+                    New Model
+                </Button>
+                <EditModelDialog onClose={() => setEditModelOpen(false)} open={editModelOpen}/>
                 <IconButton
                 color="inherit"
                 aria-label="open drawer"

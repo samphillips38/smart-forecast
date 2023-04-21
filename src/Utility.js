@@ -130,6 +130,18 @@ export function getNewConstant() {
     }
 }
 
+export function getNewModel() {
+    return {
+        name: null,
+        description: null,
+        status: "idle",
+        variables: {
+            status: "idle",
+            entities: {}
+        }
+    }
+}
+
 export function formatData(rawLoadedData) {
   const d = {};
   rawLoadedData.forEach((element) => {
