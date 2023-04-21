@@ -8,9 +8,12 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { getNewModel } from "../Utility";
 import { modelEdited, modelAdded } from "../modelsReducer";
+import { useState } from "react";
+import EditVariableDialog from "./EditVariableDialog/EditVariableDialog";
 
 export default function EditModelDialog({ onClose, open, model }) {
     const dispatch = useDispatch();
+    const [newVariableOpen, setNewVariableOpen] = useState(false);
     const editedModel = model ? {...model} : getNewModel();
     const onSaveClicked = () => {
         if (editedModel.id) {
@@ -49,13 +52,17 @@ export default function EditModelDialog({ onClose, open, model }) {
                         <Typography key={variable.id}>{variable.name}</Typography>
                     ))}
                     <Card>
-                        <CardActionArea>
+                        <CardActionArea onClick={() => setNewVariableOpen(true)}>
                             <Stack height={50} direction="row" alignItems="center">
                                 <AddIcon/>
                                 <Typography>New Variable</Typography>
                             </Stack>
                         </CardActionArea>
                     </Card>
+                    <EditVariableDialog 
+                    onClose={() => setNewVariableOpen(false)}
+                    open={newVariableOpen}
+                    />
                     <Stack direction="row" justifyContent="space-between">
                         <Button onClick={onCancelClicked}>Cancel</Button>
                         <Button onClick={onSaveClicked}>Save</Button>

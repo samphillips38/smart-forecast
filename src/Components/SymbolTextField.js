@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 
-export function SymbolTextField({ editedVariable, setEditedVariable }) {
+export default function SymbolTextField({ editedVariable, setEditedVariable }) {
     const [error, setError] = useState(null);
     const onSymbolChanged = (e) => {
         if (e.target.value == "") {
