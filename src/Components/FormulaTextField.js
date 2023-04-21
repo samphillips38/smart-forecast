@@ -2,7 +2,7 @@ import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import nerdamer from "nerdamer";
 
-export function FormulaTextField({ editedVariable, setEditedVariable }) {
+export default function FormulaTextField({ editedVariable, setEditedVariable }) {
     const [error, setError] = useState(null);
     const onExpressionChanged = (e) => {
         let isValidExpression = true;

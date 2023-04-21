@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 
-export function TitleTextField({ editedVariable, setEditedVariable }) {
+export default function NameTextField({ editedVariable, setEditedVariable, ...props }) {
     const [titleError, setTitleError] = useState(null);
     const onVarNameChanged = (e) => {
         if (e.target.value == "") {
@@ -23,6 +23,7 @@ export function TitleTextField({ editedVariable, setEditedVariable }) {
             fullWidth
             error={titleError != null}
             helperText={titleError}
+            {...props}
         />
     )
 }

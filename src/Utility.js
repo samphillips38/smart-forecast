@@ -142,6 +142,20 @@ export function getNewModel() {
     }
 }
 
+export function getNewVariable() {
+    return {
+        name: null,
+        symbol: null,
+        isFormula: null,
+        formula: null,
+        points: {
+            areProbabilistic: null,
+            entities: {}
+        },
+        status: "loaded"
+    }
+}
+
 export function formatData(rawLoadedData) {
   const d = {};
   rawLoadedData.forEach((element) => {
