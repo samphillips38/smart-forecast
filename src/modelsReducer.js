@@ -2,7 +2,7 @@ import {
     createSlice,
     createSelector,
     createAsyncThunk,
-    createEntityAdapter,
+    createEntityAdapter
 } from '@reduxjs/toolkit'
 
 import fakeGet from './fakeAPI'

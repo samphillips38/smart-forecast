@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 import { Typography, DialogContent, Card, CardActionArea } from "@material-ui/core";
 import Dialog from '@mui/material/Dialog';
 import TextField from "@mui/material/TextField";
@@ -7,33 +7,21 @@ import Button from '@mui/material/Button';
 import AddIcon from "@mui/icons-material/Add";
 
 import { getNewModel, getNextVariableId } from "../Utility";
-import { modelEdited, modelAdded, variableAdded, variableEdited } from "../modelsReducer";
-import { useState } from "react";
 import EditVariableDialog from "./EditVariableDialog/EditVariableDialog";
 
-export default function EditModelDialog({ onClose, open, model }) {
-    const dispatch = useDispatch();
+export default function EditModelDialog({ onCancelClicked, onSaveClicked, open, model }) {
     const [newVariableOpen, setNewVariableOpen] = useState(false);
     const [selectedVariable, setSelectedVariable] = useState(null);
     const [editedModel, setEditedModel] = useState(model ? {...model} : getNewModel());
-    const onSaveClicked = () => {
-        if (editedModel.id) {
-            dispatch(modelEdited(editedModel))
-        } else {
-            dispatch(modelAdded(editedModel))
-        }
-        onClose();
-    }
-    const onCancelClicked = () => {
-        onClose();
-    }
+    useEffect(() => {
+        setEditedModel(model ? {...model} : getNewModel());
+    }, [open])
     const addVariableClicked = () => {
         setSelectedVariable(null);
         setNewVariableOpen(true);
     }
     const onVariableSaved = (variable) => {
         const id = getNextVariableId(editedModel);
-        console.log(editedModel);
         setEditedModel({
             ...editedModel,
             variables: {
@@ -51,7 +39,7 @@ export default function EditModelDialog({ onClose, open, model }) {
         setNewVariableOpen(false);
     }
     return (
-        <Dialog onClose={onClose} open={open} onKeyUp={(e) => {e.key == "Enter" && onSaveClicked()}}>
+        <Dialog onClose={onCancelClicked} open={open} onKeyUp={(e) => {e.key == "Enter" && onSaveClicked()}}>
             <DialogContent>
                 <Stack spacing={2} width="500px">
                     <Typography >{model ? "Edit Model" : "Add Model"}</Typography>
@@ -91,7 +79,7 @@ export default function EditModelDialog({ onClose, open, model }) {
                     />
                     <Stack direction="row" justifyContent="space-between">
                         <Button onClick={onCancelClicked}>Cancel</Button>
-                        <Button onClick={onSaveClicked}>Save</Button>
+                        <Button onClick={() => onSaveClicked(editedModel)}>Save</Button>
                     </Stack>
                 </Stack>
             </DialogContent>
