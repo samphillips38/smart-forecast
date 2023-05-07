@@ -2,27 +2,27 @@ import { useState } from "react";
 import TextField from "@mui/material/TextField";
 
 export default function NameTextField({ editedVariable, setEditedVariable, ...props }) {
-    const [titleError, setTitleError] = useState(null);
+    const [nameError, setNameError] = useState(null);
     const onVarNameChanged = (e) => {
         if (e.target.value == "") {
-            setTitleError("Cannot be blank");
+            setNameError("Cannot be blank");
         } else {
             setEditedVariable({
                 ...editedVariable,
-                title: e.target.value
+                name: e.target.value
             })
-            setTitleError(null);
+            setNameError(null);
         }
     }
     return (
         <TextField
-            id={editedVariable.symbol}
+            id="name"
             label="Variable Name"
-            defaultValue={editedVariable.title}
+            defaultValue={editedVariable.name}
             onChange={onVarNameChanged}
             fullWidth
-            error={titleError != null}
-            helperText={titleError}
+            error={nameError != null}
+            helperText={nameError}
             {...props}
         />
     )
