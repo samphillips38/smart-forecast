@@ -156,6 +156,11 @@ export function getNewVariable() {
     }
 }
 
+export function getNextVariableId(model) {
+    const variables = Object.values(model.variables.entities);
+    return variables.length != 0 ? variables.reduce((acc, variable) => acc > variable.id ? parseInt(acc) : parseInt(variable.id)) + 1 : 0
+}
+
 export function formatData(rawLoadedData) {
   const d = {};
   rawLoadedData.forEach((element) => {

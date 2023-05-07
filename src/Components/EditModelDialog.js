@@ -6,15 +6,16 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import AddIcon from "@mui/icons-material/Add";
 
-import { getNewModel } from "../Utility";
-import { modelEdited, modelAdded } from "../modelsReducer";
+import { getNewModel, getNextVariableId } from "../Utility";
+import { modelEdited, modelAdded, variableAdded, variableEdited } from "../modelsReducer";
 import { useState } from "react";
 import EditVariableDialog from "./EditVariableDialog/EditVariableDialog";
 
 export default function EditModelDialog({ onClose, open, model }) {
     const dispatch = useDispatch();
     const [newVariableOpen, setNewVariableOpen] = useState(false);
-    const editedModel = model ? {...model} : getNewModel();
+    const [selectedVariable, setSelectedVariable] = useState(null);
+    const [editedModel, setEditedModel] = useState(model ? {...model} : getNewModel());
     const onSaveClicked = () => {
         if (editedModel.id) {
             dispatch(modelEdited(editedModel))
@@ -25,6 +26,29 @@ export default function EditModelDialog({ onClose, open, model }) {
     }
     const onCancelClicked = () => {
         onClose();
+    }
+    const addVariableClicked = () => {
+        setSelectedVariable(null);
+        setNewVariableOpen(true);
+    }
+    const onVariableSaved = (variable) => {
+        const id = getNextVariableId(editedModel);
+        console.log(editedModel);
+        setEditedModel({
+            ...editedModel,
+            variables: {
+                ...editedModel.variables,
+                entities: {
+                    ...editedModel.variables.entities,
+                    [id]: {...variable, id: id}
+                }
+            }
+        });
+        setSelectedVariable(null);
+        setNewVariableOpen(false);
+    }
+    const onVariableCancelled = () => {
+        setNewVariableOpen(false);
     }
     return (
         <Dialog onClose={onClose} open={open} onKeyUp={(e) => {e.key == "Enter" && onSaveClicked()}}>
@@ -52,7 +76,7 @@ export default function EditModelDialog({ onClose, open, model }) {
                         <Typography key={variable.id}>{variable.name}</Typography>
                     ))}
                     <Card>
-                        <CardActionArea onClick={() => setNewVariableOpen(true)}>
+                        <CardActionArea onClick={addVariableClicked}>
                             <Stack height={50} direction="row" alignItems="center">
                                 <AddIcon/>
                                 <Typography>New Variable</Typography>
@@ -60,8 +84,10 @@ export default function EditModelDialog({ onClose, open, model }) {
                         </CardActionArea>
                     </Card>
                     <EditVariableDialog 
-                    onClose={() => setNewVariableOpen(false)}
+                    onCancelClicked={onVariableCancelled}
+                    onSaveClicked={onVariableSaved}
                     open={newVariableOpen}
+                    variable={selectedVariable}
                     />
                     <Stack direction="row" justifyContent="space-between">
                         <Button onClick={onCancelClicked}>Cancel</Button>
