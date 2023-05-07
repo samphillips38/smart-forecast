@@ -6,6 +6,7 @@ import {
 } from '@reduxjs/toolkit'
 
 import fakeGet from './fakeAPI'
+import { getNextVariableId } from './Utility';
 
 const modelsAdapter = createEntityAdapter();
 
@@ -31,10 +32,7 @@ export const fetchModels = createAsyncThunk('models/fetchModels', async () => {
 //         return response.todo
 //     }
 // )
-const getNextVariableId = (state) => {
-    const variables = Object.values(state.entities[state.selectedModel].variables.entities);
-    return variables.reduce((acc, variable) => acc > variable.id ? acc : variable.id) + 1
-}
+
 const modelSlice = createSlice({
     name: 'models',
     initialState,
@@ -46,21 +44,21 @@ const modelSlice = createSlice({
             state.selectedModel = action.payload;
         },
         variableAdded(state, action) {
-            const variable = action.payload;
-            const newId = getNextVariableId(state);
-            state.entities[state.selectedModel].variables.entities[newId] = {
+            const {model, variable} = action.payload;
+            const newId = getNextVariableId(model);
+            state.entities[model.id].variables.entities[newId] = {
                 ...variable,
                 id: newId,
-                modelId: state.selectedModel
-            }
+                modelId: model.id
+            };
         },
         variableDeleted(state, action) {
-            const variableId = action.payload;
-            delete state.entities[state.selectedModel].variables.entities[variableId]
+            const {model, variable} = action.payload;
+            delete state.entities[model.id].variables.entities[variable.id];
         },
         variableEdited(state, action) {
-            const variable = action.payload;
-            state.entities[state.selectedModel].variables.entities[variable.id] = variable
+            const {model, variable} = action.payload;
+            state.entities[model.id].variables.entities[variable.id] = variable
         },
         variableDisplayStatusUpdated: {
             reducer(state, action) {
