@@ -12,7 +12,7 @@ export default function VariablePage() {
     return (
         <Stack spacing={2} >
             <VariableTopBar/>
-            <Grid container>
+            <Grid container spacing={2} wrap="wrap">
                 {variables.map((variable) => (
                     <Grid item id={variable.id}>
                         <VariableCard variable={variable}/>

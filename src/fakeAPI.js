@@ -41,6 +41,7 @@ const var3 = {
     symbol: "T",
     isFormula: true,
     formula: "2S + x + 41 + P + P^2 + S^P + 1/S",
+    dependencies: ["S", "x", "P"],
     points: {
         areProbabilistic: true,
         entities: {
