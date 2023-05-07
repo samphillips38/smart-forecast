@@ -3,30 +3,23 @@ import { Typography, DialogContent } from "@material-ui/core";
 import Dialog from '@mui/material/Dialog';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { getNewVariable } from "../../Utility";
 import { variableEdited, variableAdded } from "../../modelsReducer";
 import NameTextField from "../NameTextField";
 import SymbolTextField from "../SymbolTextField";
 import FormulaTextField from "../FormulaTextField";
+import { getNextVariableId } from "../../Utility";
 
-export default function EditVariableDialog({ onClose, open, variable }) {
-    const dispatch = useDispatch();
-    const [editedVariable, setEditedVariable] = useState(variable ? {...variable} : getNewVariable());
-    const onSaveClicked = () => {
-        if (editedVariable.id) {
-            dispatch(variableEdited(editedVariable))
-        } else {
-            dispatch(variableAdded(editedVariable))
-        }
-        onClose();
-    }
-    const onCancelClicked = () => {
-        onClose();
-    }
+export default function EditVariableDialog({ onCancelClicked, onSaveClicked, open, variable }) {
+    const [editedVariable, setEditedVariable] = useState(variable ? variable : getNewVariable());
+    useEffect(() => {
+        setEditedVariable(variable ? variable : getNewVariable());
+    }, [open])
+
     return (
-        <Dialog onClose={onClose} open={open} onKeyUp={(e) => {e.key == "Enter" && onSaveClicked()}}>
+        <Dialog onClose={onCancelClicked} open={open} onKeyUp={(e) => {e.key == "Enter" && onSaveClicked(editedVariable)}}>
             <DialogContent>
                 <Stack spacing={2}>
                     <Typography >{variable ? "Edit Variable" : "Add Variable"}</Typography>
@@ -52,7 +45,7 @@ export default function EditVariableDialog({ onClose, open, variable }) {
                     </Stack>
                     <Stack direction="row" justifyContent="space-between">
                         <Button onClick={onCancelClicked}>Cancel</Button>
-                        <Button onClick={onSaveClicked}>Save</Button>
+                        <Button onClick={() => onSaveClicked(editedVariable)}>Save</Button>
                     </Stack>
                 </Stack>
             </DialogContent>
