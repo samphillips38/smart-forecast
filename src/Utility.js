@@ -161,6 +161,11 @@ export function getNextVariableId(model) {
     return variables.length != 0 ? variables.reduce((acc, variable) => acc > variable.id ? parseInt(acc) : parseInt(variable.id)) + 1 : 0
 }
 
+export function getNextModelId(state) {
+    const models = Object.values(state.entities);
+    return models.length != 0 ? models.reduce((acc, model) => acc > model.id ? parseInt(acc) : parseInt(model.id)) + 1 : 0;
+}
+
 export function formatData(rawLoadedData) {
   const d = {};
   rawLoadedData.forEach((element) => {

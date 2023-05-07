@@ -20,8 +20,10 @@ import MenuItem from '@mui/material/MenuItem';
 import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
 
-import { selectSelectedModel, selectedModelChanged, selectModels } from "../modelsReducer";
+import { selectSelectedModel, selectedModelChanged, selectModels, modelAdded } from "../modelsReducer";
 import EditModelDialog from "../Components/EditModelDialog";
+import { getNextModelId } from "../Utility";
+import store from "../store";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -52,6 +54,17 @@ export default function Header({
     const [editModelOpen, setEditModelOpen] = useState(false);
     const onSelectedNewModel = (e) => {
         dispatch(selectedModelChanged(e.target.value));
+    }
+    const onNewModelCancelled = () => {
+        setEditModelOpen(false);
+    }
+    const onNewModelSaved = (model) => {
+        const state = store.getState();
+        dispatch(modelAdded({
+            ...model,
+            id: getNextModelId(state.models)
+        }));
+        setEditModelOpen(false);
     }
     return (
         <AppBar position="fixed" className={classes.appbar}>
@@ -102,7 +115,12 @@ export default function Header({
                     <AddIcon/>
                     New Model
                 </Button>
-                <EditModelDialog onClose={() => setEditModelOpen(false)} open={editModelOpen}/>
+                <EditModelDialog 
+                onCancelClicked={onNewModelCancelled}
+                onSaveClicked={onNewModelSaved}
+                open={editModelOpen}
+                model={null}
+                />
                 <IconButton
                 color="inherit"
                 aria-label="open drawer"

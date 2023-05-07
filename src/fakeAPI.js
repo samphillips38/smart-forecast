@@ -81,6 +81,7 @@ const rootData = {
     models: {
         status: "idle",
         selectedModel: model1.id,
+        ids: [model1.id, model2.id],
         entities: {
             [model1.id]: model1,
             [model2.id]: model2
