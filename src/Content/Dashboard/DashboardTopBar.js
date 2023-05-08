@@ -4,13 +4,16 @@ import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import SaveIcon from "@material-ui/icons/Save";
 import Button from '@mui/material/Button';
+import { Stack } from "@mui/material";
+
+import ModelStatus from "./Components/ModelStatus";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(1),
     width: "100%",
-    display: "flex",
-    justifyContent: "flex-end"
+    // display: "flex",
+    // alignItems: "stretch"
   }
 }));
 export default function DashboardTopBar({
@@ -21,18 +24,18 @@ export default function DashboardTopBar({
   const classes = useStyles();
   return (
     <Card className={classes.root}>
-        {/* <AddList
-            onRemoveItem={onRemoveItem}
-            onAddItem={onAddItem}
-        /> */}
-        <IconButton aria-label="save" onClick={onLayoutSave}>
+        <Stack direction="row" justifyContent="space-between">
+            <ModelStatus/>
+            <Button
+                aria-label="Review"
+                color="inherit"
+                variant="outlined"
+                onClick={()=>{}}
+            >Review</Button>
+        </Stack>
+        {/* <IconButton aria-label="save" onClick={onLayoutSave}>
             <SaveIcon />
-        </IconButton>
-        <Button
-            aria-label="Review"
-            color="inherit"
-            onClick={()=>{}}
-        >Review</Button>
+        </IconButton> */}
     </Card>
   );
 }

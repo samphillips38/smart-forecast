@@ -39,7 +39,7 @@ const modelSlice = createSlice({
     reducers: {
         modelAdded: modelsAdapter.addOne,
         modelDeleted: modelsAdapter.removeOne,
-        modelEdited: modelsAdapter.updateOne,
+        modelEdited: modelsAdapter.upsertOne,
         selectedModelChanged(state, action) {
             state.selectedModel = action.payload;
         },
