@@ -11,7 +11,6 @@ export default function ModelStatus() {
     const dispatch = useDispatch()
     const model = useSelector(selectSelectedModel);
     const onClick = () => {
-        console.log("changed")
         const newStatus = model.status == "idle" ? "Running" : (model.status == "Running" ? "Pending" : "idle");
         dispatch(modelEdited({
             ...model,
