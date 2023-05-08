@@ -10,7 +10,7 @@ export default function VariableCard({ variable }) {
     return (
         <Card>
             <CardActionArea onClick={() => setDialogIsOpen(true)}>
-                <Stack direction="row" justifyContent="space-between" width={400} padding={1}>
+                <Stack direction="row" justifyContent="space-between" width={350} padding={1}>
                     <Typography variant="h6">{variable.name}, {variable.symbol}</Typography>
                     <Stack direction="row" spacing={1}>
                         {variable.dependencies && variable.dependencies.length > 0 ? 
