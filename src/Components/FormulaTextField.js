@@ -4,21 +4,21 @@ import nerdamer from "nerdamer";
 
 export default function FormulaTextField({ editedVariable, setEditedVariable }) {
     const [error, setError] = useState(null);
-    const onExpressionChanged = (e) => {
-        let isValidExpression = true;
+    const onFormulaChanged = (e) => {
+        let isValidFormula = true;
         try {
             nerdamer(e.target.value)
         } catch (error) {
-            isValidExpression = false;
+            isValidFormula = false;
         }
         if (e.target.value == "") {
             setError("Cannot be blank");
-        } else if (!isValidExpression) {
-            setError("Invalid expression")
+        } else if (!isValidFormula) {
+            setError("Invalid formula")
         } else {
             setEditedVariable({
                 ...editedVariable,
-                expression: e.target.value
+                formula: e.target.value
             })
             setError(null);
         }
@@ -26,9 +26,9 @@ export default function FormulaTextField({ editedVariable, setEditedVariable }) 
     return (
         <TextField
             id={editedVariable.symbol}
-            label="Expression"
-            defaultValue={editedVariable.expression}
-            onChange={onExpressionChanged}
+            label="Formula"
+            defaultValue={editedVariable.formula}
+            onChange={onFormulaChanged}
             fullWidth
             error={error != null}
             helperText={error}
