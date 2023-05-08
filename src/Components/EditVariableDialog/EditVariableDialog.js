@@ -4,6 +4,7 @@ import Dialog from '@mui/material/Dialog';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useEffect, useState } from "react";
+import nerdamer from "nerdamer";
 
 import { getNewVariable } from "../../Utility";
 import { variableEdited, variableAdded } from "../../modelsReducer";
@@ -17,6 +18,14 @@ export default function EditVariableDialog({ onCancelClicked, onSaveClicked, ope
     useEffect(() => {
         setEditedVariable(variable ? variable : getNewVariable());
     }, [open])
+    const saveClicked = () => {
+        const expression = nerdamer(editedVariable.formula);
+        const variable = {
+            ...editedVariable,
+            dependencies: expression.variables()
+        }
+        onSaveClicked(variable);
+    }
 
     return (
         <Dialog onClose={onCancelClicked} open={open} onKeyUp={(e) => {e.key == "Enter" && onSaveClicked(editedVariable)}}>
@@ -45,7 +54,7 @@ export default function EditVariableDialog({ onCancelClicked, onSaveClicked, ope
                     </Stack>
                     <Stack direction="row" justifyContent="space-between">
                         <Button onClick={onCancelClicked}>Cancel</Button>
-                        <Button onClick={() => onSaveClicked(editedVariable)}>Save</Button>
+                        <Button onClick={saveClicked}>Save</Button>
                     </Stack>
                 </Stack>
             </DialogContent>
