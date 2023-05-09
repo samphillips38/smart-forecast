@@ -56,19 +56,19 @@ const var3 = {
     status: "loaded"
 }
 const layoutComponent1 = {
-    i: '0', x: 0, y: 0, w: 6, h: 1,
+    i: '0', x: 0, y: 0, w: 6, h: 2,
     type: "Variable Graph",
     varId: 0,
     otherInfo: "some other stuff"
 }
 const layoutComponent2 = {
-    i: '1', x: 7, y: 0, w: 6, h: 1,
+    i: '1', x: 7, y: 0, w: 6, h: 2,
     type: "Variable Graph",
     varId: 1,
     otherInfo: "some other stuff"
 }
 const layoutComponent3 = {
-    i: '2', x: 0, y: 1, w: 12, h: 1,
+    i: '2', x: 0, y: 1, w: 12, h: 2,
     type: "Variable Graph",
     varId: 2,
     otherInfo: "some other stuff"
