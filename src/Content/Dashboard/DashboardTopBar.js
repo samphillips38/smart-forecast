@@ -14,15 +14,11 @@ const useStyles = makeStyles((theme) => ({
     // alignItems: "stretch"
   }
 }));
-export default function DashboardTopBar({
-  onLayoutSave,
-  onRemoveItem,
-  onAddItem
-}) {
+export default function DashboardTopBar() {
   const classes = useStyles();
   return (
-    <Card className={classes.root}>
-        <Stack direction="row" justifyContent="space-between">
+    <Card aria-label="TopBarCard">
+        <Stack direction="row" justifyContent="space-between" padding={1}>
             <ModelStatus/>
             <Button
                 aria-label="Review"
@@ -31,9 +27,6 @@ export default function DashboardTopBar({
                 onClick={()=>{}}
             >Review</Button>
         </Stack>
-        {/* <IconButton aria-label="save" onClick={onLayoutSave}>
-            <SaveIcon />
-        </IconButton> */}
     </Card>
   );
 }

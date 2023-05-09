@@ -4,6 +4,7 @@ import { Box } from "@material-ui/core";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { MathJaxContext } from "better-react-mathjax";
 import { Provider } from 'react-redux';
+import { Stack } from "@mui/material";
 
 import store from "./store";
 import Content from "./Content/Content";
@@ -38,7 +39,24 @@ export default function App() {
         <Provider store={store}>
             <MathJaxContext>
                 <ThemeProvider theme={theme}>
-                    <Box sx={{ display: 'flex' }}>
+                    <Header
+                    isMobileSize={isMobileSize}
+                    handleDrawerToggle={handleDrawerToggle}
+                    toggleDarkMode={toggleDarkMode}
+                    darkMode={darkMode}
+                    />
+                    <Toolbar/>
+                    <Stack direction="row" alignItems="stretch">
+                        <Sidebar
+                        handleDrawerClose={handleDrawerClose}
+                        open={open}
+                        setContent={setContent}
+                        isMobileSize={isMobileSize}
+                        />
+                        <Content content={content} />
+                    </Stack>
+
+                    {/* <Box sx={{ display: 'flex', alignItems: 'stretch' }}>
                         <CssBaseline />
                         <Header
                         isMobileSize={isMobileSize}
@@ -46,23 +64,22 @@ export default function App() {
                         toggleDarkMode={toggleDarkMode}
                         darkMode={darkMode}
                         />
-                        <Sidebar
+                        <Stack direction="row">
+                            <Sidebar
+                            handleDrawerClose={handleDrawerClose}
+                            open={open}
+                            setContent={setContent}
+                            isMobileSize={isMobileSize}
+                            />
+                            <Content content={content} />
+                        </Stack> */}
+                        {/* <Sidebar
                         handleDrawerClose={handleDrawerClose}
                         open={open}
                         setContent={setContent}
                         isMobileSize={isMobileSize}
-                        />
-                        <Box
-                        component="main"
-                        sx={{ flexGrow: 1, p: 3, 
-                            width: isMobileSize ? '100%' : { 
-                                sm: `calc(100% - ${drawerWidth}px)` 
-                            } }}
-                        >
-                            <Toolbar/>
-                            <Content content={content} />
-                        </Box>
-                    </Box>
+                        /> */}
+                    {/* </Box> */}
                 </ThemeProvider>
             </MathJaxContext>
         </Provider>

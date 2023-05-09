@@ -1,3 +1,5 @@
+import { entities } from "mathjax-full/js/util/Entities"
+
 const var1 = {
     id: 0,
     modelId: 0,
@@ -53,7 +55,24 @@ const var3 = {
     },
     status: "loaded"
 }
-
+const layoutComponent1 = {
+    i: '0', x: 0, y: 0, w: 6, h: 1,
+    type: "Variable Graph",
+    varId: 0,
+    otherInfo: "some other stuff"
+}
+const layoutComponent2 = {
+    i: '1', x: 7, y: 0, w: 6, h: 1,
+    type: "Variable Graph",
+    varId: 1,
+    otherInfo: "some other stuff"
+}
+const layoutComponent3 = {
+    i: '2', x: 0, y: 1, w: 12, h: 1,
+    type: "Variable Graph",
+    varId: 2,
+    otherInfo: "some other stuff"
+}
 const model1 = {
     id: 0,
     name: "Test Model",
@@ -66,6 +85,10 @@ const model1 = {
             [var2.id]: var2,
             [var3.id]: var3
         }
+    },
+    dashboardLayout: {
+        status: "idle",
+        layout: [layoutComponent1, layoutComponent2, layoutComponent3],
     }
 }
 const model2 = {
