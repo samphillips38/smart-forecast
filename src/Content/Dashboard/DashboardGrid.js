@@ -20,7 +20,7 @@ function DashboardGrid({ size }) {
             draggableHandle={".drag-handle"}
             >
                 {model.dashboardLayout.layout.map((layout) => (
-                    <Box border={1} key={layout.i} data-grid={layout}>
+                    <Box key={layout.i} data-grid={layout}>
                         <LayoutComponent layout={layout}/>
                     </Box>
                 ))}
