@@ -44,7 +44,7 @@ export default function VariableTopBar({
     }
 
     return (
-        <Card>
+        <Card aria-label="VariableTopBarCard">
             <Stack direction="row" justifyContent="space-between" padding={1}>
                 <Stack direction="row" variant="outlined" alignItems="center">
                     <IconButton>

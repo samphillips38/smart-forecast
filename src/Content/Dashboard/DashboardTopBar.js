@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 export default function DashboardTopBar() {
   const classes = useStyles();
   return (
-    <Card aria-label="TopBarCard">
+    <Card aria-label="DashboardTopBarCard">
         <Stack direction="row" justifyContent="space-between" padding={1}>
             <ModelStatus/>
             <Button
