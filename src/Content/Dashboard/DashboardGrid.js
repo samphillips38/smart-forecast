@@ -11,19 +11,17 @@ function DashboardGrid({ size }) {
     if (!model || !model.dashboardLayout) {
         return null
     }
-    console.log(size.width)
     return (
         model && model.dashboardLayout && (
             <GridLayout
-            // layout={model.dashboardLayout.layouts}
+            layout={model.dashboardLayout.layouts}
             rowHeight={150}
             width={size.width}
-            // draggableHandle={".drag-handle"}
+            draggableHandle={".drag-handle"}
             >
                 {model.dashboardLayout.layout.map((layout) => (
                     <Box border={1} key={layout.i} data-grid={layout}>
-                        {/* <LayoutComponent layout={layout.i}/> */}
-                        <Typography>hello</Typography>
+                        <LayoutComponent layout={layout}/>
                     </Box>
                 ))}
             </GridLayout>
