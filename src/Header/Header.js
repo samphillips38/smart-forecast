@@ -68,89 +68,89 @@ export default function Header({
     }
     return (
         <AppBar position="fixed" className={classes.appbar}>
-        <Toolbar>
-            {isMobileSize && (
-                <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerToggle}
-                edge="start"
-                sx={{
-                    display: { xs: 'block', sm: 'none' }
-                    }}
-                >
-                        <MenuIcon />
-                </IconButton>
-            )}
-            <Typography variant="h6" noWrap>
-                {isMobileSize ? "MC" : "Model Creator"}
-            </Typography>
-            <div className={classes.spacer} />
-            <Stack spacing={2} direction="row" alignItems="center">
-                <Box sx={{ minWidth: 140}}>
-                    <FormControl fullWidth size="small">
-                        <InputLabel id="model-select-label">Model</InputLabel>
-                            <Select
-                            labelId="model-select-label"
-                            id="model-select"
-                            value={selectedModel ? selectedModel.id : -1}
-                            label="Age"
-                            onChange={onSelectedNewModel}
-                            >
-                                <MenuItem value={-1} key={-1}>None</MenuItem>
-                                {models && (
-                                    models.map((model) => (
-                                        <MenuItem value={model.id} key={model.id}>{model.name}</MenuItem>
-                                    ))
-                                )}
-                            </Select>
-                    </FormControl>
-                </Box>
+            <Toolbar>
+                {isMobileSize && (
+                    <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerToggle}
+                    edge="start"
+                    sx={{
+                        display: { xs: 'block', sm: 'none' }
+                        }}
+                    >
+                            <MenuIcon />
+                    </IconButton>
+                )}
+                <Typography variant="h6" noWrap>
+                    {isMobileSize ? "MC" : "Model Creator"}
+                </Typography>
+                <div className={classes.spacer} />
+                <Stack spacing={2} direction="row" alignItems="center">
+                    <Box sx={{ minWidth: 140}}>
+                        <FormControl fullWidth size="small">
+                            <InputLabel id="model-select-label">Model</InputLabel>
+                                <Select
+                                labelId="model-select-label"
+                                id="model-select"
+                                value={selectedModel ? selectedModel.id : -1}
+                                label="Age"
+                                onChange={onSelectedNewModel}
+                                >
+                                    <MenuItem value={-1} key={-1}>None</MenuItem>
+                                    {models && (
+                                        models.map((model) => (
+                                            <MenuItem value={model.id} key={model.id}>{model.name}</MenuItem>
+                                        ))
+                                    )}
+                                </Select>
+                        </FormControl>
+                    </Box>
 
-                <Button
-                color="inherit"
-                variant="outlined"
-                onClick={() => setEditModelOpen(true)}
-                >
-                    <AddIcon/>
-                    New Model
-                </Button>
-                <EditModelDialog 
-                onCancelClicked={onNewModelCancelled}
-                onSaveClicked={onNewModelSaved}
-                open={editModelOpen}
-                model={null}
-                />
-                <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={toggleDarkMode}
-                edge="start"
-                className={classes.rightIcons}
-                >
-                {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
-                </IconButton>
+                    <Button
+                    color="inherit"
+                    variant="outlined"
+                    onClick={() => setEditModelOpen(true)}
+                    >
+                        <AddIcon/>
+                        New Model
+                    </Button>
+                    <EditModelDialog 
+                    onCancelClicked={onNewModelCancelled}
+                    onSaveClicked={onNewModelSaved}
+                    open={editModelOpen}
+                    model={null}
+                    />
+                    <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={toggleDarkMode}
+                    edge="start"
+                    className={classes.rightIcons}
+                    >
+                    {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+                    </IconButton>
 
-                <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                className={classes.rightIcons}
-                >
-                <Badge badgeContent={4} color="secondary">
-                    <NotificationsIcon />
-                </Badge>
-                </IconButton>
-                <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                className={classes.rightIcons}
-                >
-                <AccountCircleIcon />
-                </IconButton>
-            </Stack>
-        </Toolbar>
+                    <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    className={classes.rightIcons}
+                    >
+                    <Badge badgeContent={4} color="secondary">
+                        <NotificationsIcon />
+                    </Badge>
+                    </IconButton>
+                    <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    className={classes.rightIcons}
+                    >
+                    <AccountCircleIcon />
+                    </IconButton>
+                </Stack>
+            </Toolbar>
         </AppBar>
     );
 }

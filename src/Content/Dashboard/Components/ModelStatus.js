@@ -23,8 +23,8 @@ export default function ModelStatus() {
             return (
                 <Button variant="outlined" color="inherit" onClick={onClick}>
                     <Stack direction="row" alignItems="center" spacing={2}>
-                        <CircularProgress color="success" size={25}/>
-                        <Typography>Running model</Typography>
+                        <CheckIcon color="success"/>
+                        <Typography>Up to date</Typography>
                     </Stack>
                 </Button>
             );
@@ -32,8 +32,8 @@ export default function ModelStatus() {
             return (
                 <Button variant="outlined" color="inherit" onClick={onClick}>
                     <Stack direction="row" alignItems="center" spacing={2}>
-                        <CheckIcon color="success"/>
-                        <Typography>Up to date</Typography>
+                        <CircularProgress color="success" size={25}/>
+                        <Typography>Running model</Typography>
                     </Stack>
                 </Button>
             );
@@ -44,6 +44,10 @@ export default function ModelStatus() {
                 </Button>
             );
         default:
-            return null;
+            return (
+                <Button variant="outlined" color="inherit" onClick={onClick}>
+                    <Typography>No Model Selected</Typography>
+                </Button>
+            );
     }
 }

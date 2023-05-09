@@ -44,8 +44,8 @@ export default function VariableTopBar({
     }
 
     return (
-        <Card className={classes.root}>
-            <Stack direction="row" justifyContent="space-between">
+        <Card>
+            <Stack direction="row" justifyContent="space-between" padding={1}>
                 <Stack direction="row" variant="outlined" alignItems="center">
                     <IconButton>
                         <InfoIcon fontSize="small"/>

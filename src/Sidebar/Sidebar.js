@@ -77,27 +77,22 @@ export default function ({ window, open, handleDrawerClose, setContent, isMobile
         </div>
     )
 
-    const container = window !== undefined ? () => window().document.body : undefined;
+    // const container = window !== undefined ? () => window().document.body : undefined;
     return (
         <Box
             component="nav"
-            sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-            aria-label="mailbox folders"
+            width={isMobileSize ? 0 : drawerWidth}
+            aria-label="Sidebar"
             onClick={handleDrawerClose}
+            flexShrink={0}
         >
-            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             {isMobileSize ? (
                 <Drawer
-                    container={container}
                     variant="temporary"
                     open={open}
                     onClose={handleDrawerClose}
                     ModalProps={{
                         keepMounted: true, // Better open performance on mobile.
-                    }}
-                    sx={{
-                        display: { xs: 'block', sm: 'none' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                     }}
                 >
                     {menuItemList}
@@ -105,11 +100,7 @@ export default function ({ window, open, handleDrawerClose, setContent, isMobile
             ) : (
                 <Drawer
                     variant="permanent"
-                    sx={{
-                        display: { xs: 'none', sm: 'block' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                    }}
-                    open
+                    width={drawerWidth}
                 >
                     {menuItemList}
                 </Drawer>

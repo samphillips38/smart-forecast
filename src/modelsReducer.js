@@ -125,6 +125,9 @@ export const selectVariableIds = createSelector(
     selectVariables,
     (variables) => variables.map((variable) => variable.id)
 )
+export const selectVariableById = (state, modelId, varId) => {
+    return state.models.entities[modelId].variables.entities[varId];
+}
 export const selectConstants = createSelector(
     selectVariables,
     (variables) => variables.filter((variable) => variable.type == "Constant")
