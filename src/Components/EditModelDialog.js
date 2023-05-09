@@ -41,7 +41,7 @@ export default function EditModelDialog({ onCancelClicked, onSaveClicked, open, 
     return (
         <Dialog onClose={onCancelClicked} open={open} onKeyUp={(e) => {e.key == "Enter" && onSaveClicked()}}>
             <DialogContent>
-                <Stack spacing={2} width="500px">
+                <Stack spacing={2}>
                     <Typography >{model ? "Edit Model" : "Add Model"}</Typography>
                     <Stack spacing={2} direction="row">
                         <TextField
@@ -65,7 +65,7 @@ export default function EditModelDialog({ onCancelClicked, onSaveClicked, open, 
                     ))}
                     <Card>
                         <CardActionArea onClick={addVariableClicked}>
-                            <Stack height={50} direction="row" alignItems="center">
+                            <Stack height={50} direction="row" alignItems="center" spacing={1} paddingLeft={1}>
                                 <AddIcon/>
                                 <Typography>New Variable</Typography>
                             </Stack>
