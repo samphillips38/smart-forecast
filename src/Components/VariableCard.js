@@ -10,12 +10,13 @@ export default function VariableCard({ variable }) {
     return (
         <Card>
             <CardActionArea onClick={() => setDialogIsOpen(true)}>
-                <Stack direction="row" justifyContent="space-between" width={350} padding={1}>
-                    <Typography variant="h6">{variable.name}, {variable.symbol}</Typography>
+                <Stack direction="row" justifyContent="space-between" padding={1} spacing={2} minHeight={50} alignItems="center">
+                    <Typography noWrap>{variable.name}, {variable.symbol}</Typography>
                     <Stack direction="row" spacing={1}>
                         {variable.dependencies && variable.dependencies.length > 0 ? 
                             variable.dependencies.map(element => (
                                 <Box 
+                                key={element}
                                 display="flex" 
                                 alignItems="center" 
                                 justifyContent="center" 
