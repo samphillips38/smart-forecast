@@ -62,7 +62,7 @@ const layoutComponent1 = {
     otherInfo: "some other stuff"
 }
 const layoutComponent2 = {
-    i: '1', x: 7, y: 0, w: 6, h: 2,
+    i: '1', x: 6, y: 0, w: 6, h: 2,
     type: "Variable Graph",
     varId: 1,
     otherInfo: "some other stuff"
