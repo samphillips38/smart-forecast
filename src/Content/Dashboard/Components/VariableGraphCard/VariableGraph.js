@@ -9,19 +9,13 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-export default function VariableGraph({ variable }) {
+export default function VariableGraph({ variable, height }) {
     const data = Object.values(variable.points.entities).map((point) => ({
         name: point.xCoordinate,
         mean: point.yCoordinate,
     }));
-//   const data = variableData["time"].map((t, i) => ({
-//     name: (new Date(t)).toDateString(),
-//     mean: variableData["mean"][i],
-//     "std+": variableData["mean"][i] + variableData["std"][i],
-//     "std-": variableData["mean"][i] - variableData["std"][i]
-//   }));
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer  width="100%" height={height}>
       <AreaChart
         data={data}
         margin={{

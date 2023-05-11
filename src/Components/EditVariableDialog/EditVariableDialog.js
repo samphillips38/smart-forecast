@@ -11,7 +11,7 @@ import { getNewVariable } from "../../Utility";
 import FormulaVariable from "./FormulaVariable";
 import DrawVariable from "./DrawVariable";
 
-export default function EditVariableDialog({ onCancelClicked, onSaveClicked, open, variable, otherVariables }) {
+export default function EditVariableDialog({ onCancelClicked, onSaveClicked, onDeleteClicked, open, variable, otherVariables }) {
     const [editedVariable, setEditedVariable] = useState(variable ? variable : getNewVariable());
     useEffect(() => {
         setEditedVariable(variable ? variable : getNewVariable());
@@ -60,6 +60,9 @@ export default function EditVariableDialog({ onCancelClicked, onSaveClicked, ope
                         setEditedVariable={setEditedVariable} 
                         otherVariables={otherVariables}
                         />
+                    )}
+                    {onDeleteClicked && (
+                        <Button variant="outlined" color="error" onClick={onDeleteClicked}>Delete Variable</Button>
                     )}
                     <Stack direction="row" justifyContent="space-between">
                         <Button onClick={onCancelClicked}>Cancel</Button>
