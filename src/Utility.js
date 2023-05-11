@@ -146,7 +146,7 @@ export function getNewVariable() {
     return {
         name: null,
         symbol: null,
-        isFormula: null,
+        isFormula: true,
         formula: null,
         points: {
             areProbabilistic: null,

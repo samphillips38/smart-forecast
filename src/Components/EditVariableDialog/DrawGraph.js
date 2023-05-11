@@ -14,19 +14,72 @@ import Dialog from '@mui/material/Dialog';
 import { DialogContent } from "@material-ui/core";
 import Stack from '@mui/material/Stack';
 import TextField from "@mui/material/TextField";
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Button from '@mui/material/Button';
 // import GaussianChart from "./ExampleCharts/Gaussian";
 import GaussianChart from "../../OLD/charts/ExampleCharts/Gaussian";
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+
+function EditExact({ point, setPoint }) {
+    return (
+        <Stack spacing={2}>
+            <TextField
+                id="x"
+                label="Select X Coordinate"
+                defaultValue={point ? point.yCoordinate : null}
+                onChange={(e) => setPoint({...point, xCoordinate: parseFloat(e.target.value)})}
+                fullWidth
+            />
+            <TextField
+                id="mean"
+                label="Select Y Coordinate"
+                defaultValue={point ? point.yCoordinate : null}
+                onChange={(e) => setPoint({...point, yCoordinate: parseFloat(e.target.value)})}
+                fullWidth
+            />
+        </Stack>
+    )
+}
+
+function EditApprox({ point, setPoint }) {
+    return (
+        <Stack spacing={2} direction="row" alignItems="stretch">
+            <Stack spacing={2} minWidth={200} justifyContent="space-between">
+                <TextField
+                    id="x"
+                    label="Select X Coordinate"
+                    defaultValue={point ? point.yCoordinate : null}
+                    onChange={(e) => setPoint({...point, xCoordinate: parseFloat(e.target.value)})}
+                    fullWidth
+                />
+                <TextField
+                    id="mean"
+                    label="Select Y Coordinate"
+                    defaultValue={point ? point.yCoordinate : null}
+                    onChange={(e) => setPoint({...point, yCoordinate: parseFloat(e.target.value)})}
+                    fullWidth
+                />
+                <TextField
+                    id="std"
+                    label="Select Y Deviation"
+                    defaultValue={point ? point.yDeviation : null}
+                    onChange={(e) => setPoint({...point, yDeviation: parseFloat(e.target.value)})}
+                    fullWidth
+                />
+            </Stack>
+            <GaussianChart width={300} height={250}/>
+        </Stack>
+    )
+}
+
 
 function EditValue({ onClose, open, editedVariable, setEditedVariable, i }) {
     const [point, setPoint] = useState(
         editedVariable.points.entities[i] || {}
         );
+    const [isExact, setIsExact] = useState(point.yDeviation == null || point.yDeviation == undefined);
     useEffect(() => {
-        setPoint(editedVariable.points.entities[i])
+        setPoint(editedVariable.points.entities[i] || {})
     }, [i])
     const onSaveClicked = () => {
         setEditedVariable({
@@ -39,52 +92,43 @@ function EditValue({ onClose, open, editedVariable, setEditedVariable, i }) {
                 }
             }
     })
-        // setEditedVariable({
-        //     ...editedVariable,
-        //     data: {
-        //         time: editedVariable.data.time.map((el, index) => (index == i) ? time : el),
-        //         mean: editedVariable.data.mean.map((el, index) => (index == i) ? parseFloat(mean) : el),
-        //         std: editedVariable.data.std.map((el, index) => (index == i) ? parseFloat(stDev) : el)
-        //     }
-        // })
         onClose();
     }
     const onCancelClicked = () => {
         onClose();
     }
+    const onExactApproxChanged = (e, newVal) => {
+        setPoint({
+            ...point,
+            yDeviation: newVal ? 0 : null
+        })
+        setIsExact(newVal)
+    }
     return (
         <Dialog onClose={onClose} open={open}>
             <DialogContent>
-                <Stack spacing={2} direction="row">
-                    <Stack spacing={2} width="200px">
+                <Stack alignItems="stretch" spacing={2}>
+                    <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3}>
                         <Typography >Edit Point</Typography>
-                        <TextField
-                            id="x"
-                            label="Select X Coordinate"
-                            defaultValue={point ? point.yCoordinate : null}
-                            onChange={(e) => setPoint({...point, xCoordinate: parseFloat(e.target.value)})}
-                            fullWidth
-                        />
-                        <TextField
-                            id="mean"
-                            label="Select Y Coordinate"
-                            defaultValue={point ? point.yCoordinate : null}
-                            onChange={(e) => setPoint({...point, yCoordinate: parseFloat(e.target.value)})}
-                            fullWidth
-                        />
-                        <TextField
-                            id="std"
-                            label="Select Y Deviation"
-                            defaultValue={point ? point.yDeviation : null}
-                            onChange={(e) => setPoint({...point, yDeviation: parseFloat(e.target.value)})}
-                            fullWidth
-                        />
+                        <ToggleButtonGroup
+                        value={isExact}
+                        exclusive
+                        onChange={onExactApproxChanged}
+                        size="small"
+                        >
+                            <ToggleButton value={true}>Exact</ToggleButton>
+                            <ToggleButton value={false}>Approximate</ToggleButton>
+                        </ToggleButtonGroup>
                     </Stack>
-                    <GaussianChart width="100%" height={250}/>
-                </Stack>
-                <Stack direction="row" justifyContent="space-between">
-                    <Button onClick={onCancelClicked}>Cancel</Button>
-                    <Button onClick={onSaveClicked}>Save</Button>
+                    {isExact ? (
+                        <EditExact point={point} setPoint={setPoint}/>
+                    ) : (
+                        <EditApprox point={point} setPoint={setPoint}/>
+                    )}
+                    <Stack direction="row" justifyContent="space-between">
+                        <Button onClick={onCancelClicked}>Cancel</Button>
+                        <Button onClick={onSaveClicked}>Save</Button>
+                    </Stack>
                 </Stack>
             </DialogContent>
         </Dialog>
