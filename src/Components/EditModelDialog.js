@@ -8,6 +8,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { getNewModel, getNextVariableId } from "../Utility";
 import EditVariableDialog from "./EditVariableDialog/EditVariableDialog";
+import VariableCard from "./VariableCard";
 
 export default function EditModelDialog({ onCancelClicked, onSaveClicked, open, model }) {
     const [newVariableOpen, setNewVariableOpen] = useState(false);
@@ -61,7 +62,7 @@ export default function EditModelDialog({ onCancelClicked, onSaveClicked, open, 
                     </Stack>
                     <Typography >Variables</Typography>
                     {Object.values(editedModel.variables.entities).map((variable) => (
-                        <Typography key={variable.id}>{variable.name}</Typography>
+                        <VariableCard variable={variable} />
                     ))}
                     <Card>
                         <CardActionArea onClick={addVariableClicked}>
