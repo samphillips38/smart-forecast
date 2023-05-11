@@ -109,7 +109,7 @@ function EditValue({ onClose, open, editedVariable, setEditedVariable, i }) {
             <DialogContent>
                 <Stack alignItems="stretch" spacing={2}>
                     <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3}>
-                        <Typography >Edit Point</Typography>
+                        <Typography>{editedVariable.points.entities[i] ? "Edit Point" : "Add Point"}</Typography>
                         <ToggleButtonGroup
                         value={isExact}
                         exclusive
@@ -148,6 +148,7 @@ export default function DrawGraph({ editedVariable, setEditedVariable }) {
         setOpen(false);
     };
     const addVariableClicked = () => {
+        console.log(Object.values(editedVariable.points.entities).length)
         setSelectedIndex(Object.values(editedVariable.points.entities).length)
         setOpen(true)
     }
@@ -176,12 +177,12 @@ export default function DrawGraph({ editedVariable, setEditedVariable }) {
         onClick={addVariableClicked}
         >Add Point</Button>
         <EditValue 
-            onClose={handleClose} 
-            open={open} 
-            editedVariable={editedVariable}
-            setEditedVariable={setEditedVariable}
-            i={selectedIndex}
-            />
+        onClose={handleClose} 
+        open={open} 
+        editedVariable={editedVariable}
+        setEditedVariable={setEditedVariable}
+        i={selectedIndex}
+        />
         </>
     );
 }
