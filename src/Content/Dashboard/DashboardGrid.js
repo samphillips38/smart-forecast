@@ -22,7 +22,6 @@ function DashboardGrid({ size }) {
         ]
     })
     const onLayoutChange = (layout) => {
-        console.log(layout)
         setLayouts(layout)
     }
     return (
