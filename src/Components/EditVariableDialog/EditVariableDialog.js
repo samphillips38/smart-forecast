@@ -9,6 +9,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 import { getNewVariable } from "../../Utility";
 import FormulaVariable from "./FormulaVariable";
+import DrawVariable from "./DrawVariable";
 
 export default function EditVariableDialog({ onCancelClicked, onSaveClicked, open, variable, otherVariables }) {
     const [editedVariable, setEditedVariable] = useState(variable ? variable : getNewVariable());
@@ -52,7 +53,11 @@ export default function EditVariableDialog({ onCancelClicked, onSaveClicked, ope
                         otherVariables={otherVariables}
                         />
                     ) : (
-                        <></>
+                        <DrawVariable 
+                        editedVariable={editedVariable} 
+                        setEditedVariable={setEditedVariable} 
+                        otherVariables={otherVariables}
+                        />
                     )}
                     <Stack direction="row" justifyContent="space-between">
                         <Button onClick={onCancelClicked}>Cancel</Button>
