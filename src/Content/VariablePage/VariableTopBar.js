@@ -58,7 +58,11 @@ export default function VariableTopBar({
                 onClick={addVariableClicked}
                 >Add Variable</Button>
             </Stack>
-            <EditVariableDialog onCancelClicked={onVariableCancelled} onSaveClicked={onVariableSaved} open={newVariableOpen}/>
+            <EditVariableDialog 
+            onCancelClicked={onVariableCancelled} 
+            onSaveClicked={onVariableSaved} 
+            open={newVariableOpen}
+            otherVariables={Object.values(model.variables.entities)}/>
         </Card>
     );
 }
