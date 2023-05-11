@@ -17,10 +17,12 @@ export default function EditVariableDialog({ onCancelClicked, onSaveClicked, ope
         setEditedVariable(variable ? variable : getNewVariable());
     }, [open])
     const saveClicked = () => {
-        const expression = nerdamer(editedVariable.formula);
-        const variable = {
-            ...editedVariable,
-            dependencies: expression.variables()
+        if (editedVariable.formula) {
+            const expression = nerdamer(editedVariable.formula);
+            const variable = {
+                ...editedVariable,
+                dependencies: expression.variables()
+            }
         }
         onSaveClicked(variable);
     }
