@@ -54,6 +54,12 @@ const modelSlice = createSlice({
         },
         variableDeleted(state, action) {
             const {model, variable} = action.payload;
+            if (model.dashboardLayout) {
+                const newList = model.dashboardLayout.layout.filter((layout) => {
+                    return !(layout.type == "Variable Graph" && layout.varId == variable.id)
+                });
+                state.entities[model.id].dashboardLayout.layout = newList;
+            }
             delete state.entities[model.id].variables.entities[variable.id];
         },
         variableEdited(state, action) {
