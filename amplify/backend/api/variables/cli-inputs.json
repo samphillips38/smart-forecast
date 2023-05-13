@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "paths": {
+    "/{modelId}/variables": {
+      "name": "/{modelId}/variables",
+      "lambdaFunction": "getVariables",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/models": {
+      "name": "/models",
+      "lambdaFunction": "getVariables",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

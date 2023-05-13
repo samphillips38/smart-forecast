@@ -1,0 +1,19 @@
+type Variables @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  symbol: String!
+  formula: String
+  name: String!
+  modelId: ID! @index(name: "byModel")
+  isFormula: Boolean!
+  point: [AWSJSON]
+  dependencies: [String]
+}
+
+type Model @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  Variables: [Variables] @hasMany(indexName: "byModel", fields: ["id"])
+  description: String
+  dashboardLayout: [AWSJSON]
+}
+ 

@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import { Stack } from "@mui/material";
 
 import ModelStatus from "./Components/ModelStatus";
-import { fetchVariables } from "../../api";
+import { fetchModels, fetchVariables } from "../../api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 export default function DashboardTopBar() {
     const classes = useStyles();
     const onReviewClicked = () => {
-        console.log(fetchVariables(0));
+        console.log(fetchModels());
     }
     return (
         <Card aria-label="DashboardTopBarCard">

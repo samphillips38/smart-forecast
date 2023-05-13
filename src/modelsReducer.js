@@ -7,7 +7,7 @@ import {
 
 import fakeGet from './fakeAPI'
 import { getNextVariableId } from './Utility';
-import { fetchVariables } from './api';
+import { fetchVariables, fetchModels } from './api';
 
 const modelsAdapter = createEntityAdapter();
 
@@ -18,10 +18,10 @@ const initialState = modelsAdapter.getInitialState({
 })
 
 // Thunk functions
-export const fetchModels = createAsyncThunk('models/fetchModels', async () => {
+export const fetchModelsThunk = createAsyncThunk('models/fetchModels', async () => {
     console.log("Loading data from API...");
     // const response = await fakeGet('api/models');
-    const response = await fetchVariables(0)
+    const response = await fetchModels()
     console.log(response)
     console.log("Data loaded.");
     return response
@@ -85,10 +85,10 @@ const modelSlice = createSlice({
     },
     extraReducers: builder => {
         builder
-          .addCase(fetchModels.pending, (state, action) => {
+          .addCase(fetchModelsThunk.pending, (state, action) => {
             state.status = 'loading'
           })
-          .addCase(fetchModels.fulfilled, (state, action) => {
+          .addCase(fetchModelsThunk.fulfilled, (state, action) => {
             modelsAdapter.setAll(state, action.payload)
             state.status = 'idle'
           })
