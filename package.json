@@ -13,6 +13,7 @@
     "@mui/material": "5.11.5",
     "@mui/x-date-pickers": "^6.0.1",
     "@reduxjs/toolkit": "^1.9.3",
+    "aws-amplify": "^5.2.1",
     "better-react-mathjax": "^2.0.2",
     "clsx": "^1.1.1",
     "dayjs": "^1.11.7",

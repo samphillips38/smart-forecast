@@ -7,6 +7,7 @@ import {
 
 import fakeGet from './fakeAPI'
 import { getNextVariableId } from './Utility';
+import { fetchVariables } from './api';
 
 const modelsAdapter = createEntityAdapter();
 
@@ -19,7 +20,9 @@ const initialState = modelsAdapter.getInitialState({
 // Thunk functions
 export const fetchModels = createAsyncThunk('models/fetchModels', async () => {
     console.log("Loading data from API...");
-    const response = await fakeGet('api/models');
+    // const response = await fakeGet('api/models');
+    const response = await fetchVariables(0)
+    console.log(response)
     console.log("Data loaded.");
     return response
 })

@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import { Stack } from "@mui/material";
 
 import ModelStatus from "./Components/ModelStatus";
+import { fetchVariables } from "../../api";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,18 +16,21 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 export default function DashboardTopBar() {
-  const classes = useStyles();
-  return (
-    <Card aria-label="DashboardTopBarCard">
-        <Stack direction="row" justifyContent="space-between" padding={1}>
-            <ModelStatus/>
-            <Button
-                aria-label="Review"
-                color="inherit"
-                variant="outlined"
-                onClick={()=>{}}
-            >Review</Button>
-        </Stack>
-    </Card>
-  );
+    const classes = useStyles();
+    const onReviewClicked = () => {
+        console.log(fetchVariables(0));
+    }
+    return (
+        <Card aria-label="DashboardTopBarCard">
+            <Stack direction="row" justifyContent="space-between" padding={1}>
+                <ModelStatus/>
+                <Button
+                    aria-label="Review"
+                    color="inherit"
+                    variant="outlined"
+                    onClick={onReviewClicked}
+                >Review</Button>
+            </Stack>
+        </Card>
+    );
 }
