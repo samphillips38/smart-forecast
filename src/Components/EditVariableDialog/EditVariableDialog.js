@@ -23,8 +23,10 @@ export default function EditVariableDialog({ onCancelClicked, onSaveClicked, onD
                 ...editedVariable,
                 dependencies: expression.variables()
             }
+            onSaveClicked(variable);
+        } else {
+            onSaveClicked(editedVariable);
         }
-        onSaveClicked(variable);
     }
     const onFormulaDrawChanged = (e, newVal) => {
         setEditedVariable({
