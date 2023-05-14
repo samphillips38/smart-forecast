@@ -7,7 +7,7 @@ import {
 
 import fakeGet from './fakeAPI'
 import { getNextVariableId } from './Utility';
-import { fetchVariables, fetchModels } from './api';
+import { fetchVariables, fetchModels, runModel } from './api';
 
 const modelsAdapter = createEntityAdapter();
 
@@ -26,6 +26,17 @@ export const fetchModelsThunk = createAsyncThunk('models/fetchModels', async () 
     console.log("Data loaded.");
     return response
 })
+
+export const runModelsThunk = createAsyncThunk(
+    'models/runModel', 
+    async (model) => {
+        console.log("Running model...");
+        const response = await runModel(model)
+        console.log(response)
+        console.log("Model Run Complete.");
+        return response
+    }
+)
 
 // export const saveNewModel = createAsyncThunk(
 //     'model/saveNewModel',
@@ -91,6 +102,16 @@ const modelSlice = createSlice({
           .addCase(fetchModelsThunk.fulfilled, (state, action) => {
             modelsAdapter.setAll(state, action.payload)
             state.status = 'idle'
+          })
+          .addCase(runModelsThunk.pending, (state, action) => {
+            const model = state.entities[state.selectedModel]
+            state.entities[model.id] = {
+                ...model,
+                status: 'Running'
+            }
+          })
+          .addCase(runModelsThunk.fulfilled, (state, action) => {
+            state.entities[action.payload.id] = action.payload
           })
         //   .addCase(saveNewTodo.fulfilled, (state, action) => {
         //     const todo = action.payload

@@ -15,7 +15,7 @@
       "function": {
         "getVariables": {
           "deploymentBucketName": "amplify-amplify679d4f62cc754-staging-183113-deployment",
-          "s3Key": "amplify-builds/getVariables-6a63662f75732b632f4c-build.zip"
+          "s3Key": "amplify-builds/getVariables-384259497a6c31347248-build.zip"
         }
       },
       "api": {

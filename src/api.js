@@ -21,3 +21,15 @@ export async function fetchModels(modelId) {
     console.log(promise);
     return Object.values(promise.models.entities);
 }
+
+
+export async function runModel(model) {
+    const apiName = 'variables';
+    const path = `/runmodel/${model.id}`;
+    const myInit = {
+        body: model, // replace this with attributes you need
+        headers: {} // OPTIONAL
+    };
+
+    return await API.post(apiName, path, myInit);
+}

@@ -1,5 +1,6 @@
 import json
 from getFakeData import getFakeData
+from runModel import runModel
 
 def handler(event, context):
     print('received event:')
@@ -8,10 +9,13 @@ def handler(event, context):
     body = None
 
     path = event['path']
-    if path == "/models":
+    if "/models" in path:
         body = getFakeData()
-    else:
-        body = {'var': 'some var'}
+    elif '/runmodel/' in path:
+        model = json.loads(event['body'])
+        print(f'Received model: {model}')
+        updatedModel = runModel(model)
+        body = updatedModel
     
     return {
         'statusCode': 200,

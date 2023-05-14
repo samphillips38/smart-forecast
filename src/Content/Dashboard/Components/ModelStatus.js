@@ -3,7 +3,7 @@ import { Button, Typography } from "@material-ui/core";
 import CircularProgress from '@mui/material/CircularProgress';
 import CheckIcon from '@mui/icons-material/Check';
 
-import { selectSelectedModel } from "../../../modelsReducer";
+import { runModelsThunk, selectSelectedModel } from "../../../modelsReducer";
 import { Stack } from "@mui/material";
 import { modelEdited } from "../../../modelsReducer";
 
@@ -11,11 +11,15 @@ export default function ModelStatus() {
     const dispatch = useDispatch()
     const model = useSelector(selectSelectedModel);
     const onClick = () => {
-        const newStatus = model.status == "idle" ? "Running" : (model.status == "Running" ? "Pending" : "idle");
-        dispatch(modelEdited({
-            ...model,
-            status: newStatus
-        }))
+        if (model.status == 'Pending') {
+            dispatch(runModelsThunk(model));
+        } else {
+            const newStatus = model.status == "idle" ? "Running" : (model.status == "Running" ? "Pending" : "idle");
+            dispatch(modelEdited({
+                ...model,
+                status: newStatus
+            }))
+        }
     }
 
     switch (model ? model.status : null) {
