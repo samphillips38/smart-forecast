@@ -7,8 +7,7 @@ export async function fetchVariables(modelId) {
       headers: {} // OPTIONAL
     };
     const promise = await API.get(apiName, path, myInit);
-    console.log(promise);
-    return Object.values(promise.models.entities);
+    return promise;
   }
 
 

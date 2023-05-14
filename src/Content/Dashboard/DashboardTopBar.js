@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 export default function DashboardTopBar() {
     const classes = useStyles();
     const onReviewClicked = () => {
-        console.log(fetchModels());
+        console.log(fetchVariables());
     }
     return (
         <Card aria-label="DashboardTopBarCard">
