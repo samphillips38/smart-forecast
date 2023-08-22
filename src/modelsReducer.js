@@ -7,7 +7,7 @@ import {
 
 import fakeGet from './fakeAPI'
 import { getNextVariableId } from './Utility';
-import { fetchVariables, fetchModels, runModel } from './api';
+import { fetchVariables, fetchModels, runModel, runModel2 } from './api';
 
 const modelsAdapter = createEntityAdapter();
 
@@ -20,10 +20,10 @@ const initialState = modelsAdapter.getInitialState({
 // Thunk functions
 export const fetchModelsThunk = createAsyncThunk('models/fetchModels', async () => {
     console.log("Loading data from API...");
-    // const response = await fakeGet('api/models');
     const response = await fetchModels()
-    console.log(response)
-    console.log("Data loaded.");
+        .then(response => response.json())
+        .then(data => Object.values(data.models.entities))
+    console.log("Data loaded.")
     return response
 })
 
@@ -31,7 +31,7 @@ export const runModelsThunk = createAsyncThunk(
     'models/runModel', 
     async (model) => {
         console.log("Running model...");
-        const response = await runModel(model)
+        const response = await runModel2(model)
         console.log(response)
         console.log("Model Run Complete.");
         return response
