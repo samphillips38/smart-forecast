@@ -8,5 +8,5 @@ Created with CodeSandbox
 * Go to http://localhost:3000/
 
 # In order to run functions in the backend locally:
-* Enter Virtual Environment: `run pipenv shell`
+* Enter Virtual Environment: run `pipenv shell`
 * or run commands with `pipenv run`

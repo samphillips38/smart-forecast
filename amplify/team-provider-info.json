@@ -16,11 +16,15 @@
         "getVariables": {
           "deploymentBucketName": "amplify-amplify679d4f62cc754-staging-183113-deployment",
           "s3Key": "amplify-builds/getVariables-384259497a6c31347248-build.zip"
+        },
+        "runModel": {
+          "deploymentBucketName": "amplify-amplify679d4f62cc754-staging-183113-deployment",
+          "s3Key": "amplify-builds/runModel-30446a4c487961685065-build.zip"
         }
       },
       "api": {
-        "smartforecast": {},
-        "variables": {}
+        "variables": {},
+        "runModelAPI": {}
       }
     }
   }

@@ -1,0 +1,135 @@
+{
+    "model": {
+      "id": 0,
+      "name": "Test Model",
+      "description": "This model is for something",
+      "status": "idle",
+      "variables": {
+        "status": "idle",
+        "entities": {
+          "0": {
+            "id": 0,
+            "modelId": 0,
+            "name": "Sales per Month",
+            "symbol": "S",
+            "isFormula": "False",
+            "formula": "None",
+            "points": {
+              "areProbabilistic": "False",
+              "entities": {
+                "0": {
+                  "id": 0,
+                  "xCoordinate": 1,
+                  "yCoordinate": 1,
+                  "yDeviation": 1
+                },
+                "1": {
+                  "id": 2,
+                  "xCoordinate": 2,
+                  "yCoordinate": 5,
+                  "yDeviation": 2
+                },
+                "2": {
+                  "id": 3,
+                  "xCoordinate": 3,
+                  "yCoordinate": 18,
+                  "yDeviation": 3
+                },
+                "3": {
+                  "id": 4,
+                  "xCoordinate": 4,
+                  "yCoordinate": 20,
+                  "yDeviation": 4
+                }
+              }
+            },
+            "status": "loaded"
+          },
+          "1": {
+            "id": 1,
+            "modelId": 0,
+            "name": "Price",
+            "symbol": "P",
+            "isFormula": "False",
+            "formula": "None",
+            "points": {
+              "areProbabilistic": "False",
+              "entities": {
+                "0": {
+                  "id": 0,
+                  "xCoordinate": 1,
+                  "yCoordinate": 5,
+                  "yDeviation": 1
+                },
+                "1": {
+                  "id": 2,
+                  "xCoordinate": 2,
+                  "yCoordinate": 6,
+                  "yDeviation": 2
+                },
+                "2": {
+                  "id": 3,
+                  "xCoordinate": 3,
+                  "yCoordinate": 8,
+                  "yDeviation": 3
+                },
+                "3": {
+                  "id": 4,
+                  "xCoordinate": 4,
+                  "yCoordinate": 6,
+                  "yDeviation": 4
+                }
+              }
+            },
+            "status": "loaded"
+          },
+          "2": {
+            "id": 2,
+            "modelId": 0,
+            "name": "Monthly Turnover",
+            "symbol": "T",
+            "isFormula": "True",
+            "formula": "2*S + 41",
+            "dependencies": [
+              "S",
+              "P"
+            ],
+            "points": {
+              "areProbabilistic": "True",
+              "entities": {
+                "0": {
+                  "id": 0,
+                  "xCoordinate": 1,
+                  "yCoordinate": 5,
+                  "yDeviation": 2
+                },
+                "1": {
+                  "id": 2,
+                  "xCoordinate": 2,
+                  "yCoordinate": 24,
+                  "yDeviation": 10
+                },
+                "2": {
+                  "id": 3,
+                  "xCoordinate": 3,
+                  "yCoordinate": 56,
+                  "yDeviation": 15
+                },
+                "3": {
+                  "id": 4,
+                  "xCoordinate": 4,
+                  "yCoordinate": 72,
+                  "yDeviation": 30
+                }
+              }
+            },
+            "status": "loaded"
+          }
+        }
+      },
+      "dashboardLayout": {
+        "status": "idle",
+        "layout": ""
+      }
+    }
+  }

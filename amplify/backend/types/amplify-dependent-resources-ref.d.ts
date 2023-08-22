@@ -1,9 +1,9 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
-    "smartforecast": {
-      "GraphQLAPIEndpointOutput": "string",
-      "GraphQLAPIIdOutput": "string",
-      "GraphQLAPIKeyOutput": "string"
+    "runModelAPI": {
+      "ApiId": "string",
+      "ApiName": "string",
+      "RootUrl": "string"
     },
     "variables": {
       "ApiId": "string",
@@ -13,6 +13,13 @@ export type AmplifyDependentResourcesAttributes = {
   },
   "function": {
     "getVariables": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "runModel": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

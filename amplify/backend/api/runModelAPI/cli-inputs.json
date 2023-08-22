@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/runModel": {
+      "name": "/runModel",
+      "lambdaFunction": "runModel",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
