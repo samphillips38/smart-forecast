@@ -34,6 +34,12 @@ export default function ({ window, open, handleDrawerClose, setContent, isMobile
                     </ListItemIcon>
                     <ListItemText primary="Add Variable" />
                 </ListItem>
+                <ListItem  onClick={() => setContent("Model Map")}>
+                    <ListItemIcon>
+                        <MailIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Model Map" />
+                </ListItem>
                 <ListItem button>
                     <ListItemIcon>
                         <MailIcon />
