@@ -46,7 +46,7 @@ export default function App() {
                     darkMode={darkMode}
                     />
                     <Toolbar/>
-                    <Stack direction="row" alignItems="stretch">
+                    {/* <Stack direction="row" alignItems="stretch"> */}
                         <Sidebar
                         handleDrawerClose={handleDrawerClose}
                         open={open}
@@ -54,7 +54,7 @@ export default function App() {
                         isMobileSize={isMobileSize}
                         />
                         <Content content={content} />
-                    </Stack>
+                    {/* </Stack> */}
 
                     {/* <Box sx={{ display: 'flex', alignItems: 'stretch' }}>
                         <CssBaseline />
