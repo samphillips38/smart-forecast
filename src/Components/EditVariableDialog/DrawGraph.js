@@ -15,8 +15,7 @@ import { DialogContent } from "@material-ui/core";
 import Stack from '@mui/material/Stack';
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
-// import GaussianChart from "./ExampleCharts/Gaussian";
-import GaussianChart from "../../OLD/charts/ExampleCharts/Gaussian";
+// import GaussianChart from "../../OLD/charts/ExampleCharts/Gaussian";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
@@ -67,7 +66,7 @@ function EditApprox({ point, setPoint }) {
                     fullWidth
                 />
             </Stack>
-            <GaussianChart width={300} height={250}/>
+            {/* <GaussianChart width={300} height={250}/> */}
         </Stack>
     )
 }

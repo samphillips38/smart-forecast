@@ -7,7 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import VariableGraph from "../Content/Dashboard/Components/VariableGraphCard/VariableGraph";
 import EditVariableDialog from "./EditVariableDialog/EditVariableDialog";
 import { useDispatch, useSelector } from "react-redux";
-import { selectSelectedModel, variableDeleted, variableEdited } from "../modelsReducer";
+import { selectSelectedModel } from "../Reducers/modelsReducer";
+import { editVariable } from "../Reducers/variablesReducer";
+import { deleteVariable } from "../Reducers/variablesReducer";
 
 export default function VariableDialog({ variable, open, setOpen }) {
     console.log(variable);
@@ -23,14 +25,14 @@ export default function VariableDialog({ variable, open, setOpen }) {
         setEditVariableOpen(true);
     }
     const onVariableSaved = (variable) => {
-        dispatch(variableEdited({model, variable}))
+        dispatch(editVariable(variable))
         setEditVariableOpen(false);
     }
     const onVariableCancelled = () => {
         setEditVariableOpen(false);
     }
     const onVariableDeleted = () => {
-        dispatch(variableDeleted({ model, variable }))
+        dispatch(deleteVariable(variable.id))
         setEditVariableOpen(false)
     }
     return (

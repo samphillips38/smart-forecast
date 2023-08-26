@@ -15,19 +15,19 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type ModelCreateFormInputValues = {
     name?: string;
     description?: string;
-    dashboardLayout?: string[];
+    dashboardLayouts?: string[];
 };
 export declare type ModelCreateFormValidationValues = {
     name?: ValidationFunction<string>;
     description?: ValidationFunction<string>;
-    dashboardLayout?: ValidationFunction<string>;
+    dashboardLayouts?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ModelCreateFormOverridesProps = {
     ModelCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
     description?: PrimitiveOverrideProps<TextFieldProps>;
-    dashboardLayout?: PrimitiveOverrideProps<TextAreaFieldProps>;
+    dashboardLayouts?: PrimitiveOverrideProps<TextAreaFieldProps>;
 } & EscapeHatchProps;
 export declare type ModelCreateFormProps = React.PropsWithChildren<{
     overrides?: ModelCreateFormOverridesProps | undefined | null;

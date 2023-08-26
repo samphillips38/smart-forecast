@@ -196,14 +196,14 @@ export default function ModelUpdateForm(props) {
   const initialValues = {
     name: "",
     description: "",
-    dashboardLayout: [],
+    dashboardLayouts: [],
   };
   const [name, setName] = React.useState(initialValues.name);
   const [description, setDescription] = React.useState(
     initialValues.description
   );
-  const [dashboardLayout, setDashboardLayout] = React.useState(
-    initialValues.dashboardLayout
+  const [dashboardLayouts, setDashboardLayout] = React.useState(
+    initialValues.dashboardLayouts
   );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
@@ -212,7 +212,7 @@ export default function ModelUpdateForm(props) {
       : initialValues;
     setName(cleanValues.name);
     setDescription(cleanValues.description);
-    setDashboardLayout(cleanValues.dashboardLayout ?? []);
+    setDashboardLayout(cleanValues.dashboardLayouts ?? []);
     setCurrentDashboardLayoutValue("");
     setErrors({});
   };
@@ -233,7 +233,7 @@ export default function ModelUpdateForm(props) {
   const validations = {
     name: [],
     description: [],
-    dashboardLayout: [{ type: "JSON" }],
+    dashboardLayouts: [{ type: "JSON" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -263,7 +263,7 @@ export default function ModelUpdateForm(props) {
         let modelFields = {
           name,
           description,
-          dashboardLayout,
+          dashboardLayouts,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -321,7 +321,7 @@ export default function ModelUpdateForm(props) {
             const modelFields = {
               name: value,
               description,
-              dashboardLayout,
+              dashboardLayouts,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -347,7 +347,7 @@ export default function ModelUpdateForm(props) {
             const modelFields = {
               name,
               description: value,
-              dashboardLayout,
+              dashboardLayouts,
             };
             const result = onChange(modelFields);
             value = result?.description ?? value;
@@ -369,19 +369,19 @@ export default function ModelUpdateForm(props) {
             const modelFields = {
               name,
               description,
-              dashboardLayout: values,
+              dashboardLayouts: values,
             };
             const result = onChange(modelFields);
-            values = result?.dashboardLayout ?? values;
+            values = result?.dashboardLayouts ?? values;
           }
           setDashboardLayout(values);
           setCurrentDashboardLayoutValue("");
         }}
         currentFieldValue={currentDashboardLayoutValue}
         label={"Dashboard layout"}
-        items={dashboardLayout}
-        hasError={errors?.dashboardLayout?.hasError}
-        errorMessage={errors?.dashboardLayout?.errorMessage}
+        items={dashboardLayouts}
+        hasError={errors?.dashboardLayouts?.hasError}
+        errorMessage={errors?.dashboardLayouts?.errorMessage}
         setFieldValue={setCurrentDashboardLayoutValue}
         inputFieldRef={dashboardLayoutRef}
         defaultFieldValue={""}
@@ -393,19 +393,19 @@ export default function ModelUpdateForm(props) {
           value={currentDashboardLayoutValue}
           onChange={(e) => {
             let { value } = e.target;
-            if (errors.dashboardLayout?.hasError) {
-              runValidationTasks("dashboardLayout", value);
+            if (errors.dashboardLayouts?.hasError) {
+              runValidationTasks("dashboardLayouts", value);
             }
             setCurrentDashboardLayoutValue(value);
           }}
           onBlur={() =>
-            runValidationTasks("dashboardLayout", currentDashboardLayoutValue)
+            runValidationTasks("dashboardLayouts", currentDashboardLayoutValue)
           }
-          errorMessage={errors.dashboardLayout?.errorMessage}
-          hasError={errors.dashboardLayout?.hasError}
+          errorMessage={errors.dashboardLayouts?.errorMessage}
+          hasError={errors.dashboardLayouts?.hasError}
           ref={dashboardLayoutRef}
           labelHidden={true}
-          {...getOverrideProps(overrides, "dashboardLayout")}
+          {...getOverrideProps(overrides, "dashboardLayouts")}
         ></TextAreaField>
       </ArrayField>
       <Flex

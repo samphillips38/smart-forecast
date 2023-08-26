@@ -1,20 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Typography, DialogContent, Grid } from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
-import Dialog from '@mui/material/Dialog';
+import { Typography, Grid } from "@material-ui/core";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { useEffect, useState } from "react";
-import nerdamer from "nerdamer";
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-
-import { getNewVariable } from "../../Utility";
-import { variableEdited, variableAdded, selectModelById } from "../../modelsReducer";
+import { useState } from "react";
 import NameTextField from "../NameTextField";
 import SymbolTextField from "../SymbolTextField";
 import FormulaTextField from "../FormulaTextField";
-import { getNextVariableId } from "../../Utility";
 
 export default function FormulaVariable({ editedVariable, setEditedVariable, otherVariables }) {
     const [isDetailView, setIsDetailView] = useState(false);

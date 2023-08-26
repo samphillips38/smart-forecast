@@ -152,8 +152,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "dashboardLayout": {
-                    "name": "dashboardLayout",
+                "dashboardLayouts": {
+                    "name": "dashboardLayouts",
                     "isArray": true,
                     "type": "AWSJSON",
                     "isRequired": false,

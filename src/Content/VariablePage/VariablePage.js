@@ -1,15 +1,14 @@
-import React, { useState } from "react";
-import Stack from '@mui/material/Stack';
+import React from "react";
 import { useSelector } from "react-redux";
-import { Box } from "@material-ui/core";
 import Grid from '@mui/material/Grid';
 
-import { selectVariables } from "../../modelsReducer";
+import { selectSelectedModel, selectVariables } from "../../Reducers/modelsReducer";
+import { selectVariablesForSelectedModel } from "../../Reducers/variablesReducer";
 import VariableTopBar from "./VariableTopBar";
 import VariableCard from "../../Components/VariableCard";
 
 export default function VariablePage() {
-    const variables = useSelector(selectVariables);
+    const variables = useSelector(selectVariablesForSelectedModel);
     return (
         <Grid container spacing={2} aria-label="Variable Grid">
             <Grid item key={-1} xs={12}>

@@ -8,7 +8,8 @@ import { Typography } from "@material-ui/core";
 import Stack from '@mui/material/Stack';
 import { useSelector, useDispatch } from "react-redux";
 
-import { variableAdded, selectSelectedModel } from "../../modelsReducer";
+import { selectSelectedModel } from "../../Reducers/modelsReducer";
+import { createVariable } from "../../Reducers/variablesReducer";
 import EditVariableDialog from "../../Components/EditVariableDialog/EditVariableDialog";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +37,7 @@ export default function VariableTopBar({
         //     id: id
         // }
         // console.log(newVar);
-        dispatch(variableAdded({ model, variable }));
+        dispatch(createVariable(variable));
         setNewVariableOpen(false);
     }
     const onVariableCancelled = () => {

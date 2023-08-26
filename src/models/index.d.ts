@@ -55,7 +55,7 @@ type EagerModel = {
   readonly name?: string | null;
   readonly Variables?: (Variables | null)[] | null;
   readonly description?: string | null;
-  readonly dashboardLayout?: (string | null)[] | null;
+  readonly dashboardLayouts?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -69,7 +69,7 @@ type LazyModel = {
   readonly name?: string | null;
   readonly Variables: AsyncCollection<Variables>;
   readonly description?: string | null;
-  readonly dashboardLayout?: (string | null)[] | null;
+  readonly dashboardLayouts?: (string | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

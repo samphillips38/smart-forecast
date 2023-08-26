@@ -10,7 +10,7 @@ class Model:
         self.description = d.get('description')
         self.status = d.get('status')
         self.variables = [Variables(varDic) for varDic in list(d.get('variables').get('entities').values())]
-        self.layouts = [Layout(layoutDic) for layoutDic in d.get('dashboardLayout').get('layout')]
+        self.layouts = [Layout(layoutDic) for layoutDic in d.get('dashboardLayouts').get('layout')]
 
         self.linkVars()
 
@@ -48,7 +48,7 @@ class Model:
             "status": "idle",
             "entities": {var.symbol: var.getDict() for var in self.variables}
         },
-        "dashboardLayout": {
+        "dashboardLayouts": {
             "status": "idle",
             "layout": [layout.getDict() for layout in self.layouts],
         }

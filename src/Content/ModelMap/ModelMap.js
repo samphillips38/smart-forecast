@@ -7,17 +7,20 @@ import ReactFlow, {
     addEdge
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import { selectVariables } from '../../modelsReducer';
 import { useSelector } from 'react-redux';
+
+import VariableNode from './VariableNode';
 
 const getNodes = (variables) => {
     return variables.map((el) => ({
         id: el.id.toString(),
-        data: { label: el.name },
+        data: { label: el.name, variableId: el.id, modelId: el.modelId },
         position: { x: 0, y: 100 * el.id },
-        type: 'input',
+        type: 'variableNode',
     }))
 }
+
+const nodeTypes = { variableNode: VariableNode };
 
 const initialNodes = [
     {
@@ -37,7 +40,7 @@ const initialEdges = [];
 
 
 export default function ModelMap() {
-    const variables = useSelector(selectVariables);
+    const variables = useSelector(selectVariablesForSelectedModel);
 
     const [nodes, setNodes] = useState(getNodes(variables));
     const [edges, setEdges] = useState(initialEdges);
@@ -45,8 +48,6 @@ export default function ModelMap() {
     const onNodesChange = useCallback( (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),[] );
     const onEdgesChange = useCallback( (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),[] );
     const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
-
-    
 
     return (
         <div style={{ width: '100%', height:600 }}>
@@ -56,10 +57,9 @@ export default function ModelMap() {
             edges={edges}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
-            >
-                <Background />
-                <Controls />
-            </ReactFlow>
+            nodeTypes={nodeTypes}
+            fitView
+            />
         </div>
     );
 }

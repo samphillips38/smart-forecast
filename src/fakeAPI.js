@@ -86,7 +86,7 @@ const model1 = {
             [var3.id]: var3
         }
     },
-    dashboardLayout: {
+    dashboardLayouts: {
         status: "idle",
         layout: [layoutComponent1, layoutComponent2, layoutComponent3],
     }

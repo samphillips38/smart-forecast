@@ -20,7 +20,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
 
-import { selectSelectedModel, selectedModelChanged, selectModels, modelAdded } from "../modelsReducer";
+import { selectSelectedModel, selectModelAndLoadVariables, selectAllModels, modelAdded } from "../Reducers/modelsReducer";
 import EditModelDialog from "../Components/EditModelDialog";
 import { getNextModelId } from "../Utility";
 import store from "../store";
@@ -186,11 +186,11 @@ export default function Header({
     }) {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const models = useSelector(selectModels);
+    const models = useSelector(selectAllModels);
     const selectedModel = useSelector(selectSelectedModel);
     const [editModelOpen, setEditModelOpen] = useState(false);
     const onSelectedNewModel = (e) => {
-        dispatch(selectedModelChanged(e.target.value));
+        dispatch(selectModelAndLoadVariables(e.target.value));
     }
     const onNewModelCancelled = () => {
         setEditModelOpen(false);

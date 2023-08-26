@@ -5,10 +5,10 @@ import awsmobile from "./aws-exports";
 
 import App from "./App";
 import store from "./store";
-import { fetchModelsThunk } from "./modelsReducer";
+import { fetchModelsThunk } from "./Reducers/modelsReducer";
 
 Amplify.configure(awsmobile);
-store.dispatch(fetchModelsThunk())
+store.dispatch(fetchModelsThunk(0)) // Give user ID
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
