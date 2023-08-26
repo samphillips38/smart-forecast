@@ -63,7 +63,7 @@ export default function VariableTopBar({
             onCancelClicked={onVariableCancelled} 
             onSaveClicked={onVariableSaved} 
             open={newVariableOpen}
-            otherVariables={Object.values(model.variables.entities)}/>
+            otherVariables={model.variables}/>
         </Card>
     );
 }

@@ -12,16 +12,12 @@ import { editVariable } from "../Reducers/variablesReducer";
 import { deleteVariable } from "../Reducers/variablesReducer";
 
 export default function VariableDialog({ variable, open, setOpen }) {
-    console.log(variable);
     const dispatch = useDispatch();
-    const model = useSelector(selectSelectedModel);
     const [editVariableOpen, setEditVariableOpen] = useState(false);
-    const [selectedVariable, setSelectedVariable] = useState(null);
     const onClose = () => {
         setOpen(false);
     }
     const addVariableClicked = () => {
-        setSelectedVariable(null);
         setEditVariableOpen(true);
     }
     const onVariableSaved = (variable) => {
