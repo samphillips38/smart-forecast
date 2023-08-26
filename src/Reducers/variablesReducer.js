@@ -135,8 +135,9 @@ export const selectVariablesByModelId = createSelector(
     (variables, modelId) => Object.values(variables).filter(variable => variable.modelId === modelId)
 );
 export const selectVariablesForSelectedModel = createSelector(
+    (state) => state,
     (state) => state.models.selectedModelId,
-    selectVariablesByModelId
+    (state, selectedModelId) => selectVariablesByModelId(state, selectedModelId)
 )
 
 export const selectVariableIds = createSelector(
