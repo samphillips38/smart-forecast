@@ -16,7 +16,7 @@ const getNodes = (variables) => {
     return variables.map((el) => ({
         id: el.symbol,
         data: { label: el.name, ...el },
-        position: { x: 0, y: 100 * el.id },
+        position: { x: 0 + Math.floor(el.id/2)*250, y: 150 * (el.id - Math.floor(el.id/2)*1.5) },
         type: 'variableNode',
     }))
 }
@@ -29,6 +29,7 @@ const getEdges = (variables) => {
                 id: `${depElement}-${element.id}`,
                 source:  depElement,
                 target: element.symbol,
+                label: element.formula,
                 targetHandle: depElement
             })
         })
