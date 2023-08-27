@@ -10,14 +10,30 @@ import 'reactflow/dist/style.css';
 import { useSelector } from 'react-redux';
 
 import VariableNode from './VariableNode';
+import { selectVariablesForSelectedModel } from '../../Reducers/variablesReducer';
 
 const getNodes = (variables) => {
     return variables.map((el) => ({
-        id: el.id.toString(),
-        data: { label: el.name, variableId: el.id, modelId: el.modelId },
+        id: el.symbol,
+        data: { label: el.name, ...el },
         position: { x: 0, y: 100 * el.id },
         type: 'variableNode',
     }))
+}
+const getEdges = (variables) => {
+    const edges = [];
+    variables.forEach(element => {
+        const deps = element.dependencies || [];
+        deps.forEach(depElement => {
+            edges.push({
+                id: `${depElement}-${element.id}`,
+                source:  depElement,
+                target: element.symbol,
+                targetHandle: depElement
+            })
+        })
+    });
+    return edges;
 }
 
 const nodeTypes = { variableNode: VariableNode };
@@ -43,7 +59,7 @@ export default function ModelMap() {
     const variables = useSelector(selectVariablesForSelectedModel);
 
     const [nodes, setNodes] = useState(getNodes(variables));
-    const [edges, setEdges] = useState(initialEdges);
+    const [edges, setEdges] = useState(getEdges(variables));
 
     const onNodesChange = useCallback( (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),[] );
     const onEdgesChange = useCallback( (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),[] );
