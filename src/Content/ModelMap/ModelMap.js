@@ -30,7 +30,8 @@ const getEdges = (variables) => {
                 source:  depElement,
                 target: element.symbol,
                 label: element.formula,
-                targetHandle: depElement
+                targetHandle: depElement,
+                animated: true
             })
         })
     });
